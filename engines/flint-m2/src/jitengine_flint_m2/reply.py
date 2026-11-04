@@ -51,6 +51,7 @@ from __future__ import annotations
 import json
 import math
 import re
+import shlex
 import uuid
 
 THINK, END_THINK = "<think>", "</think>"
@@ -405,9 +406,63 @@ class _Tags:
         return "text", len(text), n, (name, params)
 
 
-def _call(name: str, params: dict[str, str], schemas: dict[str, dict]) -> dict:
+def _required_args(tools: list[dict]) -> dict[str, frozenset[str]]:
+    """Each tool's required parameter names, by tool name."""
+    out: dict[str, frozenset[str]] = {}
+    for tool in tools:
+        fn = tool.get("function", tool) if isinstance(tool, dict) else None
+        if not isinstance(fn, dict) or not isinstance(fn.get("name"), str):
+            continue
+        params = fn.get("parameters")
+        req = params.get("required") if isinstance(params, dict) else None
+        out[fn["name"]] = (
+            frozenset(r for r in req if isinstance(r, str))
+            if isinstance(req, list)
+            else frozenset()
+        )
+    return out
+
+
+def _repaired(params: dict[str, str], declared: dict, required: frozenset[str]) -> dict[str, str]:
+    """The arguments with three mistakes undone that a model trained on another tool set makes, when the tool declares
+    its parameters: an undeclared argument that is the tail of exactly one missing required one (or the other way
+    round) takes its name, `path` for `file_path`; and an undeclared argument that only repeats a declared one's value
+    is dropped. A tool that declares a `command` but neither `workdir` nor `cwd` gets an undeclared `workdir` or `cwd`
+    that is not empty folded into the command as `cd <dir> && <command>`, so the command runs where the model asked
+    and the call is valid for the client; both given, or no command, change nothing. Any other undeclared argument
+    stays, for the client to accept or refuse."""
+    if not declared:
+        return params
+    out = dict(params)
+    for key in [k for k in params if k not in declared]:
+        missing = [d for d in sorted(required) if d in declared and d not in out]
+        fits = [d for d in missing if d.endswith("_" + key) or key.endswith("_" + d)]
+        if len(fits) == 1:
+            out = {(fits[0] if k == key else k): v for k, v in out.items()}
+        elif any(
+            k in declared and v.strip() == out[key].strip() for k, v in out.items() if k != key
+        ):
+            del out[key]
+    dirs = [k for k in ("workdir", "cwd") if k in out]
+    if (
+        "command" in declared
+        and "command" in out
+        and len(dirs) == 1
+        and not {"workdir", "cwd"} & declared.keys()
+    ):
+        where = out[dirs[0]].strip()
+        if where:
+            out["command"] = f"cd {shlex.quote(where)} && {out['command']}"
+            del out[dirs[0]]
+    return out
+
+
+def _call(
+    name: str, params: dict[str, str], schemas: dict[str, dict], required: dict[str, frozenset[str]]
+) -> dict:
     """One call as an OpenAI tool call."""
     declared = schemas.get(name, {})
+    params = _repaired(params, declared, required.get(name, frozenset()))
     args = {key: _value(raw, declared.get(key)) for key, raw in params.items()}
     return {
         "id": f"call_{uuid.uuid4().hex[:24]}",
@@ -422,7 +477,7 @@ def _calls(text: str, tools: list[dict]) -> tuple[str, list[dict]]:
     any text when no tools are offered."""
     if not tools or OPEN not in text:
         return text, []
-    schemas = _param_schemas(tools)
+    schemas, required = _param_schemas(tools), _required_args(tools)
     tags = _Tags(text, schemas)
     kept, calls, pos, i = [], [], 0, 0
     while i < tags.count:
@@ -435,7 +490,7 @@ def _calls(text: str, tools: list[dict]) -> tuple[str, list[dict]]:
             continue
         kept.append(text[pos : tags.starts[i]].rstrip())
         if what == "call":
-            calls.append(_call(name, params, schemas))
+            calls.append(_call(name, params, schemas, required))
         pos, i = end, resume
     kept.append(text[pos:])
     return "".join(kept).rstrip(), calls

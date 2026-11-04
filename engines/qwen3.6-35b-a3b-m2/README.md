@@ -112,4 +112,4 @@ pip install '.[dev]' && pytest     # the Metal and end-to-end tests skip without
 A pass is every test passing or skipping. On the M2 with the checkpoint, the end-to-end test also checks that greedy
 output hashes to `44e24c591fc59187`. [`tests/README.md`](tests/README.md) says what each suite checks.
 
-Built with [SkySynth](https://skydiscover-ai.github.io/blog-skysynth.html).
+Built with [SkyDiscover](https://skydiscover-ai.github.io/).

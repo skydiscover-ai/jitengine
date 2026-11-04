@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jitengine-flint-m2"
 version = "0.1.0a1"
-description = "Flint (int4) on a 24 GB Apple M2, experts streamed from the SSD: a single-stream decode engine synthesized by SkySynth"
+description = "Flint (int4) on a 24 GB Apple M2, experts streamed from the SSD: a single-stream decode engine synthesized by SkyDiscover"
 readme = "README.md"
 # The M2 measurements ran on CPython 3.14.7 with mlx 0.32.2.
 requires-python = ">=3.14"

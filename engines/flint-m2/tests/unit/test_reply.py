@@ -227,12 +227,15 @@ def test_malformed_replies_keep_every_call_and_every_value_s_text(name, text, wa
     assert (got.get("content", ""), [args(c) for c in calls]) == want
 
 
-def _best_of(n: int, fn) -> float:
-    best = float("inf")
+def _best_of_each(n: int, *fns) -> list[float]:
+    """The best of `n` timings of each function, taken in turn, so a busy stretch of the host slows
+    them alike."""
+    best = [float("inf")] * len(fns)
     for _ in range(n):
-        t = time.perf_counter()
-        fn()
-        best = min(best, time.perf_counter() - t)
+        for i, fn in enumerate(fns):
+            t = time.perf_counter()
+            fn()
+            best[i] = min(best[i], time.perf_counter() - t)
     return best
 
 
@@ -242,8 +245,9 @@ def _grows_linearly(build, n: int) -> None:
     reply must still parse well under a second."""
     small, large = build(n // 4), build(n)
     parse(small, TOOLS), parse(large, TOOLS)  # warm up
-    t_small = _best_of(3, lambda: parse(small, TOOLS))
-    t_large = _best_of(3, lambda: parse(large, TOOLS))
+    # seven runs each, in turn: on a Linux host at load 325, all three runs of the large reply that
+    # this once took were slowed
+    t_small, t_large = _best_of_each(7, lambda: parse(small, TOOLS), lambda: parse(large, TOOLS))
     assert t_large < 1.0 and t_large <= 8 * max(t_small, 0.002), (t_small, t_large)
 
 
@@ -482,9 +486,10 @@ BASH = [
 
 
 def test_claude_codes_bash_call_with_an_undeclared_workdir_keeps_its_command():
-    """Found live: the command came back with the next argument's tags glued to it."""
+    """Found live: the command came back with the next argument's tags glued to it. Claude Code refuses the `workdir`
+    Flint sends (21 of 21 named the project directory), so it is folded into the command."""
     wire = call("Bash", command="python3 test_calc.py", workdir="/Users/someone/calc-demo")
-    want = {"command": "python3 test_calc.py", "workdir": "/Users/someone/calc-demo"}
+    want = {"command": "cd /Users/someone/calc-demo && python3 test_calc.py"}
     assert _read(wire, BASH)[1] == [want]
     streamed = _stream([wire[i : i + 5] for i in range(0, len(wire), 5)], BASH)[2]
     assert streamed == [{"name": "Bash", "arguments": json.dumps(want)}]
@@ -530,6 +535,103 @@ def test_a_name_two_declared_tools_match_but_for_case_is_kept_as_written():
     for written, want in (("Read", "Read"), ("READ", "READ"), ("read", "read"), ("edit", "Edit")):
         (c,) = parse(call(written, x="7"), tools)[2]
         assert c["function"]["name"] == want, written
+
+
+def _fn(name: str, props: dict, required: list[str]) -> dict:
+    return {
+        "type": "function",
+        "function": {
+            "name": name,
+            "parameters": {"type": "object", "properties": props, "required": required},
+        },
+    }
+
+
+STR, INT = {"type": "string"}, {"type": "integer"}
+READ_EDIT = [  # Claude Code's Read and Edit, their properties trimmed
+    _fn("Read", {"file_path": STR, "offset": INT, "limit": INT}, ["file_path"]),
+    _fn(
+        "Edit",
+        {"file_path": STR, "old_string": STR, "new_string": STR},
+        ["file_path", "old_string", "new_string"],
+    ),
+]
+
+
+def test_an_undeclared_argument_named_for_a_missing_required_one_takes_its_name():
+    """Found live: Flint read files with `path` where Claude Code's Read requires `file_path`, 22 of the 52 calls
+    Claude Code refused for their arguments. The value keeps its type from the declared name; streamed the same."""
+    wire = call("Read", path="/p/calc.py", limit="40")
+    want = {"file_path": "/p/calc.py", "limit": 40}
+    assert _read(wire, READ_EDIT)[1] == [want]
+    assert _stream([wire[i : i + 5] for i in range(0, len(wire), 5)], READ_EDIT)[2] == [
+        {"name": "Read", "arguments": json.dumps(want)}
+    ]
+
+
+def test_an_undeclared_argument_that_repeats_a_declared_one_is_dropped():
+    """Found live: Flint's Edit calls carried a `path` beside the same `file_path` (10 refused calls)."""
+    wire = call("Edit", file_path="/p/calc.py", path="/p/calc.py", old_string="a", new_string="b")
+    assert _read(wire, READ_EDIT)[1] == [
+        {"file_path": "/p/calc.py", "old_string": "a", "new_string": "b"}
+    ]
+
+
+def test_other_undeclared_arguments_stay_for_the_client_to_judge():
+    """A `path` that names another file than `file_path`, and a `workdir`, could mean something: they are kept."""
+    wire = call("Edit", file_path="/p/a.py", path="/p/b.py", old_string="a", new_string="b")
+    assert _read(wire, READ_EDIT)[1][0]["path"] == "/p/b.py"
+    assert _read(call("Read", file_path="/p/a.py", workdir="/p"), READ_EDIT)[1] == [
+        {"file_path": "/p/a.py", "workdir": "/p"}
+    ]
+
+
+SHELL = [_fn("Bash", {"command": STR, "timeout": INT}, ["command"])]
+
+
+def test_an_undeclared_workdir_is_folded_into_the_command():
+    """The directory is quoted, so a space in it stays in one word; streamed the same."""
+    wire = call("Bash", command="python3 test_calc.py", workdir="/p/calc demo")
+    want = {"command": "cd '/p/calc demo' && python3 test_calc.py"}
+    assert _read(wire, SHELL)[1] == [want]
+    assert _stream([wire[i : i + 5] for i in range(0, len(wire), 5)], SHELL)[2] == [
+        {"name": "Bash", "arguments": json.dumps(want)}
+    ]
+
+
+def test_an_undeclared_cwd_is_folded_into_the_command_too():
+    wire = call("Bash", command="ls", cwd=" Users/someone/calc ")
+    assert _read(wire, SHELL)[1] == [{"command": "cd Users/someone/calc && ls"}]
+
+
+def test_a_declared_workdir_stays_an_argument():
+    tools = [_fn("Run", {"command": STR, "workdir": STR}, ["command"])]
+    wire = call("Run", command="ls", workdir="/p")
+    assert _read(wire, tools)[1] == [{"command": "ls", "workdir": "/p"}]
+
+
+def test_an_undeclared_workdir_stays_when_the_tool_has_no_command():
+    tools = [_fn("Run", {"script": STR}, ["script"])]
+    wire = call("Run", script="a.sh", workdir="/p")
+    assert _read(wire, tools)[1] == [{"script": "a.sh", "workdir": "/p"}]
+
+
+def test_an_empty_workdir_is_left_alone():
+    wire = call("Bash", command="ls", workdir="  ")
+    assert _read(wire, SHELL)[1] == [{"command": "ls", "workdir": "  "}]
+
+
+def test_a_workdir_and_a_cwd_together_are_left_alone():
+    wire = call("Bash", command="ls", workdir="/p", cwd="/q")
+    assert _read(wire, SHELL)[1] == [{"command": "ls", "workdir": "/p", "cwd": "/q"}]
+
+
+def test_a_rename_needs_exactly_one_missing_required_argument_it_fits():
+    tools = [_fn("Copy", {"src_path": STR, "dst_path": STR}, ["src_path", "dst_path"])]
+    assert _read(call("Copy", path="/p/a"), tools)[1] == [{"path": "/p/a"}]  # fits both
+    assert _read(call("Copy", src_path="/p/a", path="/p/b"), tools)[1] == [
+        {"src_path": "/p/a", "dst_path": "/p/b"}
+    ]
 
 
 @pytest.mark.parametrize(

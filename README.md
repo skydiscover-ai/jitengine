@@ -112,8 +112,8 @@ installed without the one-liner, and the serve flags agents need, such as Qwen3.
 
 ## How they were built
 
-In SkySynth, coding agents edit the engine, run tests, and benchmark each build against the current best in the
-same session. SkySynth keeps a build only when it passes every check and wins that head-to-head benchmark by a clear
+In SkyDiscover, coding agents edit the engine, run tests, and benchmark each build against the current best in the
+same session. SkyDiscover keeps a build only when it passes every check and wins that head-to-head benchmark by a clear
 margin. In the Flash-Next run on the M4 Pro, every kept build produced output bit-identical to the first. In some runs, a separate auditor agent hunted for benchmark cheats; it found none, and turned the coverage
 gaps it uncovered into new tests. [Flash-Next on the M4 Pro](engines/qwen3.8-flash-next-m4pro/DETAILS.md#why-its-fast-in-more-detail)
 shows one run build by build, and each engine's README explains what made it fast.

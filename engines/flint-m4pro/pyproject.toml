@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jitengine-flint-m4pro"
 version = "0.1.0a1"
-description = "Flint (int4) on a 48 GB Apple M4 Pro: a single-stream decode engine synthesized by SkySynth"
+description = "Flint (int4) on a 48 GB Apple M4 Pro: a single-stream decode engine synthesized by SkyDiscover"
 readme = "README.md"
 # The M4 Pro measurements ran on CPython 3.14.7 with mlx 0.32.2.
 requires-python = ">=3.14"

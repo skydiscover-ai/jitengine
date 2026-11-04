@@ -113,4 +113,4 @@ A pass is every test passing or skipping. On the M2 with the checkpoint, the end
 output hashes to `46cc7a346d0ee2fb`. [`tests/README.md`](tests/README.md) says what each suite checks and what it
 needs.
 
-Built with [SkySynth](https://skydiscover-ai.github.io/blog-skysynth.html).
+Built with [SkyDiscover](https://skydiscover-ai.github.io/).
