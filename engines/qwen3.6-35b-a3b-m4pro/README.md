@@ -116,4 +116,4 @@ A pass is every test passing or skipping. On the M4 Pro with the checkpoint, the
 greedy output hashes to `44d9aee27f3f890e`. [`tests/README.md`](tests/README.md) says what each suite checks, what it
 needs, and the variables that point it at a checkpoint.
 
-Built with [SkySynth](https://skydiscover-ai.github.io/blog-skysynth.html).
+Built with [SkyDiscover](https://skydiscover-ai.github.io/).

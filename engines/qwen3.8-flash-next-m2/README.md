@@ -108,4 +108,4 @@ pip install '.[dev]' && pytest     # unit tests (on Linux, see tests/README.md f
 
 A pass is every test passing or skipping. On the 24 GB M2 with the checkpoint, the end-to-end test checks that greedy output hashes to `af6575a8e19ef6d5`. [`tests/README.md`](tests/README.md) says what each suite checks.
 
-Built with [SkySynth](https://skydiscover-ai.github.io/blog-skysynth.html).
+Built with [SkyDiscover](https://skydiscover-ai.github.io/).

@@ -115,4 +115,4 @@ pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip wi
 
 A pass is every test passing or skipping. On the 48 GB M4 Pro with the checkpoint, the end-to-end test checks that greedy output hashes to `07a676778e3a6720`. [`tests/README.md`](tests/README.md) says what each suite checks.
 
-Built with [SkySynth](https://skydiscover-ai.github.io/blog-skysynth.html).
+Built with [SkyDiscover](https://skydiscover-ai.github.io/).

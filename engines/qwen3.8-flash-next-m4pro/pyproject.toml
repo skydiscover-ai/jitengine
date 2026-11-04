@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "jitengine-qwen3.8-flash-next-m4pro"
 version = "0.1.0a1"
-description = "Qwen3.8-Flash-Next, tuned on a 48 GB Apple M4 Pro: a serving engine synthesized by SkySynth"
+description = "Qwen3.8-Flash-Next, tuned on a 48 GB Apple M4 Pro: a serving engine synthesized by SkyDiscover"
 readme = "README.md"
 # The M4 Pro measurements ran on CPython 3.14 with mlx 0.32.2 and transformers 5.17.
 requires-python = ">=3.14"
