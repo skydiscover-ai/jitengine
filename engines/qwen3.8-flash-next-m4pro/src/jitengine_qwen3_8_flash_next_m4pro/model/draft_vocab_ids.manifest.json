@@ -1,0 +1,2839 @@
+{
+ "K": 65536,
+ "rule": "top-K token ids by count, ties by lower id, over the RANK half: the even-indexed files (sorted by path) of *.py / *.md under the repository's skydiscover/, capped at 3M tokens",
+ "tokenizer_json_sha256": "06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523",
+ "ids_sha256": "341b7cb2e7b806c72fb09d90e36a48db5ae0b026c0efb8dc4c41472049fc7fd5",
+ "rank_files": [
+  {
+   "path": "skydiscover/README.md",
+   "sha256": "85d6bc0aecb4ff4a0dc1ce2ffd154b5332640d2ec7883be15ea42226dc03d74b"
+  },
+  {
+   "path": "skydiscover/__main__.py",
+   "sha256": "00b54e379d5463becc7d8dec3fb475b4e595e7a8472ca1b2b03d39873a6d5914"
+  },
+  {
+   "path": "skydiscover/_version.py",
+   "sha256": "1a356db653d8725c48b58d296158c11c5a0267a9a3c3ef29b14c57f4c1ebe5fa"
+  },
+  {
+   "path": "skydiscover/optimize/README.md",
+   "sha256": "8756aea81fef58e7900bcb78df35aa1a2f656f87b7e8fd0187fe8b99f0992828"
+  },
+  {
+   "path": "skydiscover/optimize/api.py",
+   "sha256": "a5d429ba78a97892b3026c438609fb7701f7b69ac741b85f6c2c60e1d177fdbc"
+  },
+  {
+   "path": "skydiscover/optimize/benchmarks/base.py",
+   "sha256": "c8c3c441fd9ba80baa8e6b9c5e1ce87c9f688891659b1a166d13c85a53b8228d"
+  },
+  {
+   "path": "skydiscover/optimize/cli.py",
+   "sha256": "d35724413ea3cbc02cf97300967a4a403763892b997b0433e89e10defcce8f97"
+  },
+  {
+   "path": "skydiscover/optimize/configs/README.md",
+   "sha256": "26972ae3eefc8f16c96472a1a28a794fa00154ef0a2fcaee26410b46533da04b"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/__init__.py",
+   "sha256": "932ef4b4361fc91abe78d680641a74c94bd3bee99265505e546018c2f82af63a"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/adaevolve/builder.py",
+   "sha256": "6a97d252548b0f60ab0166af43863f29e8e96b771ba1123dbca4b8fbb9ad2198"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/default/__init__.py",
+   "sha256": "416e7e16f5234d3dadcff9041608e4ebe106824082b964c136d5bbfe3e11d5e3"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/evox/README.md",
+   "sha256": "99aa98b7eaec0ef67840117d98c8265d6552b0f396661702aaf2518e151e8647"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/evox/builder.py",
+   "sha256": "e06fb748aa4022c7efc65acd35b8ed92adffef7c8ca5e7f6c5971d61d9973a61"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/gepa_native/__init__.py",
+   "sha256": "d724c3319420022b8f81a07e4389275b15cdab5d04cb79f0292d189cce6b1a59"
+  },
+  {
+   "path": "skydiscover/optimize/context_builder/human_feedback.py",
+   "sha256": "f075809d1e09eba40680f137ebf63d5bb5af0fa1a6de5cb1ab46add0f855e173"
+  },
+  {
+   "path": "skydiscover/optimize/evaluation/__init__.py",
+   "sha256": "c842a2448b5f7f82ddb111e64b35a1ffd5e111c09f0ae864260f0cde2e7ae384"
+  },
+  {
+   "path": "skydiscover/optimize/evaluation/evaluation_result.py",
+   "sha256": "025a19f54729a7b7a2fd5932881563acaf70e9e5b19967953462fa0f8b759837"
+  },
+  {
+   "path": "skydiscover/optimize/evaluation/harbor_evaluator.py",
+   "sha256": "fbe16733d7a0fa5e06cfb2109ed498882a7a7dde11fdd3a18bcc5811e9d911d6"
+  },
+  {
+   "path": "skydiscover/optimize/evaluation/wrapper.py",
+   "sha256": "1724b7d309a0a2e5d628a323e60892edcc57c7a1a5a8ef02b4bfab0ed08bc565"
+  },
+  {
+   "path": "skydiscover/optimize/examples/text_similarity/initial_program.py",
+   "sha256": "944781f54359b7491a10cd3b252663b8b71920c6014d559ea83b8f408a10146a"
+  },
+  {
+   "path": "skydiscover/optimize/extras/external/README.md",
+   "sha256": "c9b2d489f612164b58e104de5f457296aa27db3edc3fc11bbe526650bbec02a9"
+  },
+  {
+   "path": "skydiscover/optimize/extras/external/alphaevolve_backend.py",
+   "sha256": "1586a3338a899d921dae66b939236b7c9dca57ac5d3f9991dbf94b36f974fce5"
+  },
+  {
+   "path": "skydiscover/optimize/extras/external/gepa_backend.py",
+   "sha256": "028ea720ebf06342fb664260abde59696902fd3c7f2e93a8959e78466bbdc8ce"
+  },
+  {
+   "path": "skydiscover/optimize/extras/external/shinkaevolve_backend.py",
+   "sha256": "dfb76dd4e88f70f655fbc8d269a90533b860c53c39051856225f820c817453f1"
+  },
+  {
+   "path": "skydiscover/optimize/extras/monitor/callback.py",
+   "sha256": "37fe77d559aee2c33ca570ecf4386187ab2692c7ba99861ac4867c3ee30a22e0"
+  },
+  {
+   "path": "skydiscover/optimize/extras/monitor/viewer.py",
+   "sha256": "a118a57cde4d13854ae051522dc4d11fe71293c7d2ccdfbc9de63d3e1b90bb42"
+  },
+  {
+   "path": "skydiscover/optimize/llm/agentic_generator.py",
+   "sha256": "3941580729f51a17348c714b2804954f3718b951d2ae9144f8d3fd7efce98129"
+  },
+  {
+   "path": "skydiscover/optimize/llm/llm_pool.py",
+   "sha256": "d259b111a926af715762b0ac354db080261851b3aac3d70651dcc45823c7d490"
+  },
+  {
+   "path": "skydiscover/optimize/llm/responses_utils.py",
+   "sha256": "59cbfd8399cc0a77aa8786cc737c037ae11e1444d49ff7d236a589352d974dc3"
+  },
+  {
+   "path": "skydiscover/optimize/search/README.md",
+   "sha256": "1d5ec5652dd5fd0d8424059770f20ad21b439e303c2ca3342a36609a3f43dbb4"
+  },
+  {
+   "path": "skydiscover/optimize/search/adaevolve/__init__.py",
+   "sha256": "2e2ce6f3602550d49d40b7a34428725f255c4d82f731637fe3d088bc3e1325a2"
+  },
+  {
+   "path": "skydiscover/optimize/search/adaevolve/archive/__init__.py",
+   "sha256": "fb9eb64013a4d297b1bfd0888681fc7be59ffaf0163fa6f40a67b6e6fbd24db9"
+  },
+  {
+   "path": "skydiscover/optimize/search/adaevolve/archive/unified_archive.py",
+   "sha256": "ed754eb6212587c40eeef3845088f1633edc749929e29781324e161a82403fee"
+  },
+  {
+   "path": "skydiscover/optimize/search/adaevolve/database.py",
+   "sha256": "a27f3ccbf5814c97890797d6bcf1aa07184cc86297a38dff4d042b3871898262"
+  },
+  {
+   "path": "skydiscover/optimize/search/adaevolve/paradigm/generator.py",
+   "sha256": "74273aaa4a0188185b1654c1963e6469e5014e185a5b2ed1f0cdfdc1caf1edca"
+  },
+  {
+   "path": "skydiscover/optimize/search/base_database.py",
+   "sha256": "f82c351f1b9f2bc8dcfe67363ded244b712a6ebe014fc9cca566256b405f72f6"
+  },
+  {
+   "path": "skydiscover/optimize/search/beam_search/__init__.py",
+   "sha256": "0f81dedc38953d8527ce64b969a61fcb03b7fadb5b6960d9e79c79e58d3c43f0"
+  },
+  {
+   "path": "skydiscover/optimize/search/best_of_n/README.md",
+   "sha256": "48b3dc9f387d9ae8524936a829094e579d4ec1b711fbd13dbb14f955554f2fe3"
+  },
+  {
+   "path": "skydiscover/optimize/search/best_of_n/database.py",
+   "sha256": "fe11d26a6faa0401c1adfde3b0064785dba7c212eff406bff90a649d87ef5b37"
+  },
+  {
+   "path": "skydiscover/optimize/search/claude_code/controller.py",
+   "sha256": "7511fecbc72307fdfdf27a00abe5513e2b54a05a72ecdd29307e561caeb7c6a4"
+  },
+  {
+   "path": "skydiscover/optimize/search/default_discovery_controller.py",
+   "sha256": "cfa7f421e050ed67c3f87bd2543f0f56e31fafdade09c5d229ad5e2da05c8b9d"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/__init__.py",
+   "sha256": "fb8f9b1b3c89868275bcb1fa77c02643e3fc8445107cc8a094964e14367a2244"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/database/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/database/search_strategy_db.py",
+   "sha256": "114098d52efcab9a34f4865644fa6648f039bbe6ce13d8b2a76835ed72053921"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/utils/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/utils/search_scorer.py",
+   "sha256": "8ec548e36fb79591b93b108cb19c5502fe31e324989ca23e42fe4561e3e931ec"
+  },
+  {
+   "path": "skydiscover/optimize/search/evox/utils/variation_operator_generator.py",
+   "sha256": "54612b756249b33b256817e272689a68a06eeb04e5b067bd038c5726cd9a43dc"
+  },
+  {
+   "path": "skydiscover/optimize/search/gepa_native/controller.py",
+   "sha256": "7c530b303112391ef3db01a1007f3e72b5dc9b97a5224cf8e25561fd51437336"
+  },
+  {
+   "path": "skydiscover/optimize/search/gepa_native/pareto_utils.py",
+   "sha256": "373629a553c5543144a44dea62f8c5d251ae38f55acfeaa18e818031acd98770"
+  },
+  {
+   "path": "skydiscover/optimize/search/openevolve_native/__init__.py",
+   "sha256": "44ebdf1c5f20f7361c270d8e8998dc96e569ffcbe889318f75a13c01cfe43bc3"
+  },
+  {
+   "path": "skydiscover/optimize/search/registry.py",
+   "sha256": "7d35250894cf2fd54bfd6d78751ba1ef0b9905da4df9fac9914bded53c3b6137"
+  },
+  {
+   "path": "skydiscover/optimize/search/topk/README.md",
+   "sha256": "2ab7b2d503bed0df7f54bd58db18b95742ea39fcd8de338f2c24b3eb9fcbac9e"
+  },
+  {
+   "path": "skydiscover/optimize/search/topk/database.py",
+   "sha256": "3089d57109749fcdf574b1ef4d6e5a5361248684de8f59e395c065ec08185870"
+  },
+  {
+   "path": "skydiscover/optimize/search/utils/checkpoint_manager.py",
+   "sha256": "7cf51f4081e24fcbde4dd730f8b63985aba656ac332f4907f14b1d754881f8ea"
+  },
+  {
+   "path": "skydiscover/optimize/search/utils/logging_utils.py",
+   "sha256": "e1f8449399a8797f1cab746cdbd87a6408ac07211bddce108187e6121d8063a9"
+  },
+  {
+   "path": "skydiscover/optimize/utils/async_utils.py",
+   "sha256": "e6c628b16271118f9516a790a2cc0b341f5d74def4d18e67bbfe832d45e4a4f4"
+  },
+  {
+   "path": "skydiscover/optimize/utils/metrics.py",
+   "sha256": "fe89ced4ce5525170c70fb5a598fbbfd8ae056e83c6f88ade1fb2090d5effb23"
+  },
+  {
+   "path": "skydiscover/optimize/utils/prepare.py",
+   "sha256": "ec7a6135e80d8c4f6fe19a5451cb221a2dcaa919ac0f29a57757ddaa0d7e982a"
+  },
+  {
+   "path": "skydiscover/synthesize/__init__.py",
+   "sha256": "46f17457b01ea3ae56ccaebb91374b9123aa931d000f1c5811a97ff7377e5014"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/inference-engine/README.md",
+   "sha256": "e53d3eb650ebcf113babd326b57ede4e7162ea60b6bb1a87a90b329b267b6c2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/inference-engine/task.md",
+   "sha256": "3680bf03d1a38266b835f87bd1b94336e2952e5a2119dd13fbf348b0002dda8f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/evaluator/benchmark/baseline/train_generic.py",
+   "sha256": "ca0bac13b06027f450ad747b1c95cafb25287b7d0bd5c54f9af0a77786cdd565"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/evaluator/benchmark/data/make_env_card.py",
+   "sha256": "d744b77ec069671f1310d15e29667b229215bf55409f53e54fdd2b518be25a18"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/evaluator/benchmark/replay.py",
+   "sha256": "52690a720958e47cc9ab68ba1b9af10193670991cf35fa801e23407cec3ece87"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/evaluator/generic_policy.py",
+   "sha256": "2228ce4992095d04f64e8f24002add5bebd622ba469c0f83d446e1dc7fa71831"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/evaluator/reference_router.py",
+   "sha256": "648aae1d970fdd6b23ddb41d21fd3eb36107ec852582d581b710bf98b4e296f5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/llm-router/task.md",
+   "sha256": "57933a6fdbbfaaaa1bf5d5f20071c3bd8e3d2b737569fb80e986b0a6c67be6df"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/POSTMORTEM.md",
+   "sha256": "825edf27b21904b3ed06cb5ec125352626fef6450a767f0d5562fadfb0abcd1e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/RUNBOOK.md",
+   "sha256": "7f290f367634e8db8804c7aff82e47481084c2b28300b2fb899c008f52d91e54"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/m4pro-48gb-recalibration.md",
+   "sha256": "0d0c8360463828009d270a21b82e0f1fd9a09d6b59683872e8d78b518c07e277"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/mlx-toolbox.md",
+   "sha256": "751198b9c432b7b5828f2328eb00cc69ee25d666d2c02e5116035d5e03f74658"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/qwen38-flash-next-spec.md",
+   "sha256": "5619470141ce4a507644c8cc8146c1b24488fd3803f2c7ffa4d91baf22665fc6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/results-80b.md",
+   "sha256": "2fd8038da545af8111f724ff8417f743c30c37261c10eb4bf0e20ee951e79553"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/run3-handoff.md",
+   "sha256": "8daee675cc17e722aa036d6ee245af2cc3d706bd3ab3c4001acdbc1ee09c1329"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/run5-final-climb.md",
+   "sha256": "2d41cabc855457dce97a312b7b2df96c8b4ae2630444b24bf8357049172f2973"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/run5-prompt.md",
+   "sha256": "377bd9a2a91b23e174375de5c4aea2849ac24e70f5a098b51d67a1cf698a87d9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/docs/sep17_numbers_analysis.md",
+   "sha256": "0c0514434f8cdb6b2f9bdd0f31f58098165bb059f9157cbce56cd6d37217254b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/evaluator/benchmark/accuracy.py",
+   "sha256": "b10b4b4f12b43600b1ed069f70e373b0e7b9f52edca0a57a659c4d485324f376"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/evaluator/benchmark/baseline-80b/measured.md",
+   "sha256": "067daf34d8890a4847ce3d8cd15d5a8358b021ab942285c26fb263c8d13e5e5c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/evaluator/benchmark/mlx_server.py",
+   "sha256": "772842624c73cf01d73940d03901979a3bf4ebbde8028a582092ed857012e548"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/evaluator/engine_interface.py",
+   "sha256": "1fa233f66bf09cf8e51970a18c5d2e46491c28c712a530a99e0708078ba56b93"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/check_moe_fp32.py",
+   "sha256": "d8b4ec37123cfa03a9ac44d2af0fe82ea0cec30f9a2d12c986bc764668e3f87d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_dense_flashnext.py",
+   "sha256": "cdca7b43a7451528b73aaa70999185ee88d94a91bcb88d2b9c656f005e04476a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_expert_exact.py",
+   "sha256": "2e9d1e0a1a697abdc7aad018e57e006ab91fc23ddfa7f3ab6f56d13bedec472c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_qmv_mrow.py",
+   "sha256": "f8670c53262411e840f07d4d7e5f5db1df7c6de8262b264efcc065f611f4789a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_qmv_rps_c6.py",
+   "sha256": "cb61c6af505dc5f2d89bf9ccfaacb1d3daf53ee7642312cf5433884b959a2df0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_rb_interleaved.py",
+   "sha256": "3154e09392d53657196d101f2388c6452b373543dd0b1678b3af85f5555319bd"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/falsify_sampler_sort_c4.py",
+   "sha256": "19c9ea16b774285adb9f608ab484b4f4cfe5cec2cc29760e595e2df8030c98b9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/__init__.py",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/qmv_fast_mrow.py",
+   "sha256": "e23802729e7f897b72e660722f932a7b4c7cbf64b8619b80e82200cea3a499fd"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/qmv_mrow_v3.py",
+   "sha256": "da06dcdfe89a3f14afe1e42d1292e10a92105d8b6247b2263d432f9e50bfa84b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/qmv_mrow_v5.py",
+   "sha256": "7fd30ba80270b14013190aa62ba7a7a334af960b021abff0a1ca1d6a17b65d65"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/qmv_mrow_v7.py",
+   "sha256": "65492e747aa1040b8f25ad140715165c84610147ab52f1002cf94704d3b05448"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/kernels/qmv_wide_rb.py",
+   "sha256": "b768418a631bfda04d1262ee86bbcc199f7f8942df0d5d65bd05901039d78ab7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/mlx_src/README.md",
+   "sha256": "f98700bf5774e1e46f55c116b2adf9d244b3030d17d3d7099c04de66f7810c1b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_block_inject.py",
+   "sha256": "76009e8b3472b0829331ce1e444a218ef60f78be8440b443c39ae256ff1c9de8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_dense80b.py",
+   "sha256": "4576cca7d4dee4071195682c3387709c37e6a3cf8201331a91ea948b0faf58a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_dense_flashnext.py",
+   "sha256": "9b2036a3532e674f80abf1240c97033d9b4419aba9be50afc0c258b04b1cd6c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_disk.py",
+   "sha256": "835e86f133293b272f1046a59989e1d790292e523b0ce2ab4f3757ce9c0b9b13"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_disk_burst.py",
+   "sha256": "c4de8c4641ce0fea845d10b7a969ddbe64bddf67195b928089e8078de033b65f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_expert_gather.py",
+   "sha256": "64d492d684c007bcae232a47d0d4bd0366dcfafb69ad2de0b27e581fd520deee"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_expert_split_c5.py",
+   "sha256": "98160d6c4481b5ee19d7de46cd8b809fdf5b04f90e033109c278830385628d3a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_membw.py",
+   "sha256": "4a88d1a3dba62e26647948ec2972ef4805fe68410ca9c49d4959954ab0f0b7fa"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_overlap80b.py",
+   "sha256": "1aa496844a542a208ea9f2a1bcfefc99755a82f52f297df770566f4b2ceafb6f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_qmv_cold_vs_cached.py",
+   "sha256": "7718ae9849d53b780bacf589129dbbcfdb493215724153c364dace3e1fb417b4"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_readmany_concurrency.py",
+   "sha256": "2e22c9a3734f899f34fee496ca47a5410f673e290c55fb599d2ce94ab842a07b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_sort_scaling_c4.py",
+   "sha256": "bb78e47d9540a9980b22c4e81bfb7220f5b76d4e26852975ebee697f2600337b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/probe_state_flashnext.py",
+   "sha256": "568d3f13c677d8e5c3f3e59a61018cc4231f71845b2e52fbb4a1aaf6252c1750"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/kernel_lab/render_dense_fp32.py",
+   "sha256": "45cf4ff36cee214b815bc141331227f522d542afa456fbf5520586f57c0c069d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/PROVENANCE.md",
+   "sha256": "bfbed96de94a79c50872b68857ca3eea507e516c947020a8b83f10208cf47430"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/baseline-candidates/ext-pool-validation/DESIGN.md",
+   "sha256": "abdd35029070beb27e5707a97904925929ad18b2a6897422498876a064f928a4"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/baseline-candidates/mlx-moe/sweep_mlxmoe.py",
+   "sha256": "c96b7352d7361ab61e1519760e2f99a1e06e32203d0834c206b49e95f16a6136"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/comparison-freetoken/02-expert-cache.md",
+   "sha256": "46e9fd4b0ba7e3537532edf9b0330d0e77e2ae0f4ccab9c877cec798aaf0406c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/comparison-freetoken/04-what-freetoken-has-that-we-do-not.md",
+   "sha256": "2e9a1ecd8a7ee000b8564bdf41931baeaf9e93f8654443bcec616a107d467dea"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/comparison-freetoken/06-per-checkpoint.md",
+   "sha256": "8f05ac066881dce02a85d3b44c50bc42987716695a3529a0cad0a43efe3b73c2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/engine.py",
+   "sha256": "73ccec988f1e25832fc0f33f008ce4c05c1704f4d08da5f0de69ca7f619a3598"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/__init__.py",
+   "sha256": "0a3606093439bbf7da2b7301d627b682a6d9e4ab363caa8e9d972412e636dce8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/budget.py",
+   "sha256": "5e52810bd082091c1cd63f2e92cdc522bc8c76be069eec3adadf1f0152c08549"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/engine.py",
+   "sha256": "764a86784386012c8e5aa727a50bb7c7ca43688aeb808b2780297b2c436178a1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/expert_pool.py",
+   "sha256": "69c9f0e747d1b90e62203783f68e579b04c811e4372058fd258c1fd27eb339e3"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/layers.py",
+   "sha256": "4052ad0d7c45d41d29848f21d8a9a76d339b19fa5722d05f2ac7ca37a5f2f7d2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/prefill.py",
+   "sha256": "61095a15623f88614f364f7d68647df15816fd8dd67b9897250095907aa14c90"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/quant.py",
+   "sha256": "b91aa577c7292657e629bda05b5a16a87ad884bba565e896d070b252abbd0b2e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/server.py",
+   "sha256": "83539f579dd527eb18002184f578f6e2c0ed5448df092e8889d633e91378d569"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/moe_engine/stats.py",
+   "sha256": "951b31e26fdaad5bda271aeb9f957ba321efd77d234cbf3551909581830d8da2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/tools/build_pack.py",
+   "sha256": "c80ef15ff6d066b943aa3d7c231b7b28e81b7b267e0e160f07cebfbc63d67a17"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a0-run2-seed-e4e5569/tools/probe_wave_memory.py",
+   "sha256": "11cccd282aab4bc2670bbea538c8ac8e773b7ba4b8975fda75b810d5d706718c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/engine.py",
+   "sha256": "73ccec988f1e25832fc0f33f008ce4c05c1704f4d08da5f0de69ca7f619a3598"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/__init__.py",
+   "sha256": "0a3606093439bbf7da2b7301d627b682a6d9e4ab363caa8e9d972412e636dce8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/budget.py",
+   "sha256": "5e52810bd082091c1cd63f2e92cdc522bc8c76be069eec3adadf1f0152c08549"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/engine.py",
+   "sha256": "17174e3e015ad55c69cff1c7df506a6d81de3804866616387530c328d44d5da0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/expert_pool.py",
+   "sha256": "cf84dd84823066f1b77d46858b00b4112b79dedd5c090b45e0bc14f1d6032648"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/layers.py",
+   "sha256": "f30fb6b74a0f331f7f35654a2eefe922b74bf7cd9d345dc5cb6bc595d91f14a8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/ple.py",
+   "sha256": "cf4a1c6613c2ea8fc975100fff45cdeba168f9a3e89b722365cadca7e0f6ab94"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/prefill.py",
+   "sha256": "61095a15623f88614f364f7d68647df15816fd8dd67b9897250095907aa14c90"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/quant.py",
+   "sha256": "b9e977cf56c1747dad82248d279678cf4ceec94222349184c0b173995c75934e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/server.py",
+   "sha256": "83539f579dd527eb18002184f578f6e2c0ed5448df092e8889d633e91378d569"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/moe_engine/stats.py",
+   "sha256": "951b31e26fdaad5bda271aeb9f957ba321efd77d234cbf3551909581830d8da2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/tools/build_pack.py",
+   "sha256": "c80ef15ff6d066b943aa3d7c231b7b28e81b7b267e0e160f07cebfbc63d67a17"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/ancestry/a1-run3-port-qwen4exp-d62f586/tools/probe_wave_memory.py",
+   "sha256": "11cccd282aab4bc2670bbea538c8ac8e773b7ba4b8975fda75b810d5d706718c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/engine.py",
+   "sha256": "fc3e4bbb4108946f9d3b265851804c41e504353fb0d3d1a6cfa6b25f26d3bc50"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/budget.py",
+   "sha256": "4a1439709ec56e6677a3ea9ad51dc51f03467e162f33afda322facd99582f7af"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/layers.py",
+   "sha256": "fcddc8c9f7f120b5a263c29c9d241666b42703f9de8596edf67f712a25cffcfc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/prefix_store.py",
+   "sha256": "82b55daf967cea7a1363228c406db5bbf0569eb7a198fb3aa46868f6df7b0385"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_pool_index.py",
+   "sha256": "137d4d5d2f7453a71bb39b5c97c1ae375d343c0f29bd8eeb2eb82ab83ae27176"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c6_b8/export/tools/test_offload_nomodel.py",
+   "sha256": "feb8ab3674c2d508e73c0cdbde2a7a4c333c3c924d1d66286dbaca1a88142bb5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/engine.py",
+   "sha256": "fc3e4bbb4108946f9d3b265851804c41e504353fb0d3d1a6cfa6b25f26d3bc50"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/layers.py",
+   "sha256": "0d0fa8137823d72e864bb6369ad3730cbe63b2f76961d3c9d3c21dcc2e33b252"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/prefix_store.py",
+   "sha256": "82b55daf967cea7a1363228c406db5bbf0569eb7a198fb3aa46868f6df7b0385"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c8_scored/export/tools/test_offload_nomodel.py",
+   "sha256": "4a8e462977dd114b2b4f89a03bfa99d5660adbb5387f92ba766e8b9e4fc0c36e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/layers.py",
+   "sha256": "0d0fa8137823d72e864bb6369ad3730cbe63b2f76961d3c9d3c21dcc2e33b252"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/prefix_store.py",
+   "sha256": "b1473e110bec0972f44a7ab098eb8e3cfd701e656309523a5366724a20689959"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/c9_trackA/export/tools/test_offload_nomodel.py",
+   "sha256": "8c7855851bdc07eaa6be70215a5eebfd9abef2d93e2b5db2cab2c1f582e102d1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/floor/derive_bar.pre-B45.md",
+   "sha256": "130bc4cbb678c1fc56143f11cabfd2a6bc0b9a3c7e5d8d6008225a427700a377"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/bench/floor/partial_L24_three_way.md",
+   "sha256": "92f545ef7d4a97def452b22ba88c4e3b17fd489669da342c44ffc2293c79bfa3"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/README.md",
+   "sha256": "b3a4293a8c14a9abba3118878bda6c78476fb3200c987af36b3d41daf1d1dd56"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/README.md",
+   "sha256": "f3c214d495122f68844478e7db27ff90f4b9719fdc82fea0825ea8dbc8353d6e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/engine.py",
+   "sha256": "6fb06b87ee92d8efdadfc6aeecf50e70d21a13a83d7de02cd23453c6a9a2e0b6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/expert_pool.py",
+   "sha256": "d328852850453a8cc28425416882db4853f92eaf54df40cc66187ae751dc0297"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/ple.py",
+   "sha256": "1c6c6c21844ea901b891b58f31d7ba07f492be8e2ac3dfb3c3b6131766f79c1a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/prefill.py",
+   "sha256": "11bd57c4f8eb56039cad92f011c02d2d6619462b03380f6f51603d559158b6be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/state.py",
+   "sha256": "04d2055b73f4fe0ccc88146154969a742be745d853c2aa7c4839d982a6487767"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c00-base-run3-delivered-2819641/tools/probe_wave_memory.py",
+   "sha256": "f8de5ff144b6b0adaf0303a4c1c815e6486ef8adf544f54a582e6e94a24a4928"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/engine.py",
+   "sha256": "1f84957aa7a073c70b9d9276354766d0e8f0b7ed6e19c81828f8a41dce37ce71"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/budget.py",
+   "sha256": "4a1439709ec56e6677a3ea9ad51dc51f03467e162f33afda322facd99582f7af"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/expert_store.py",
+   "sha256": "33c727a101c8946bbb8920b4d90ef063eb62a33f3d659ea747351d3770fe87cf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/layers.py",
+   "sha256": "182a172aa4e2faa827b49c50486b570cd31b02e616a5f6b2d979b0c15bf41793"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/prefix_store.py",
+   "sha256": "82b55daf967cea7a1363228c406db5bbf0569eb7a198fb3aa46868f6df7b0385"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_pool_index.py",
+   "sha256": "137d4d5d2f7453a71bb39b5c97c1ae375d343c0f29bd8eeb2eb82ab83ae27176"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c02-moe-kernel-config-a9f1b64/tools/test_offload_nomodel.py",
+   "sha256": "feb8ab3674c2d508e73c0cdbde2a7a4c333c3c924d1d66286dbaca1a88142bb5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/README.md",
+   "sha256": "f3c214d495122f68844478e7db27ff90f4b9719fdc82fea0825ea8dbc8353d6e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/engine.py",
+   "sha256": "72b3ef4f21968980d166b6b00b0a3b29ab5607344512dd5a6945e2e5f221bad7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/expert_pool.py",
+   "sha256": "eb86e4671d22b7556a7527d849fe6ae1222eb9d305e6c0749b5eeb7a4e28189c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/ple.py",
+   "sha256": "1c6c6c21844ea901b891b58f31d7ba07f492be8e2ac3dfb3c3b6131766f79c1a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/prefill.py",
+   "sha256": "11bd57c4f8eb56039cad92f011c02d2d6619462b03380f6f51603d559158b6be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/state.py",
+   "sha256": "04d2055b73f4fe0ccc88146154969a742be745d853c2aa7c4839d982a6487767"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c03-router-lookahead-prefetch-59de206/tools/probe_wave_memory.py",
+   "sha256": "f8de5ff144b6b0adaf0303a4c1c815e6486ef8adf544f54a582e6e94a24a4928"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/engine.py",
+   "sha256": "fc3e4bbb4108946f9d3b265851804c41e504353fb0d3d1a6cfa6b25f26d3bc50"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/budget.py",
+   "sha256": "4a1439709ec56e6677a3ea9ad51dc51f03467e162f33afda322facd99582f7af"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/layers.py",
+   "sha256": "4ffd62ba1214882e26839bc4f51e9cbfbd3b6ae0c174f4fcf4fbd30c37b8191b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/prefix_store.py",
+   "sha256": "82b55daf967cea7a1363228c406db5bbf0569eb7a198fb3aa46868f6df7b0385"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_pool_index.py",
+   "sha256": "137d4d5d2f7453a71bb39b5c97c1ae375d343c0f29bd8eeb2eb82ab83ae27176"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c04-grouped-prediction-refuted-12fe93a/tools/test_offload_nomodel.py",
+   "sha256": "feb8ab3674c2d508e73c0cdbde2a7a4c333c3c924d1d66286dbaca1a88142bb5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/README.md",
+   "sha256": "f3c214d495122f68844478e7db27ff90f4b9719fdc82fea0825ea8dbc8353d6e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/engine.py",
+   "sha256": "b6c6de654838a528c08db06d9698e7f52ad092ba77fcb360c8a8f3efe535b290"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/expert_pool.py",
+   "sha256": "eb86e4671d22b7556a7527d849fe6ae1222eb9d305e6c0749b5eeb7a4e28189c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/ple.py",
+   "sha256": "1c6c6c21844ea901b891b58f31d7ba07f492be8e2ac3dfb3c3b6131766f79c1a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/prefill.py",
+   "sha256": "11bd57c4f8eb56039cad92f011c02d2d6619462b03380f6f51603d559158b6be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/state.py",
+   "sha256": "04d2055b73f4fe0ccc88146154969a742be745d853c2aa7c4839d982a6487767"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c05-router-on-grouped-norm-19a6fe1/tools/probe_wave_memory.py",
+   "sha256": "f8de5ff144b6b0adaf0303a4c1c815e6486ef8adf544f54a582e6e94a24a4928"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/engine.py",
+   "sha256": "fc3e4bbb4108946f9d3b265851804c41e504353fb0d3d1a6cfa6b25f26d3bc50"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/layers.py",
+   "sha256": "0d0fa8137823d72e864bb6369ad3730cbe63b2f76961d3c9d3c21dcc2e33b252"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/prefix_store.py",
+   "sha256": "82b55daf967cea7a1363228c406db5bbf0569eb7a198fb3aa46868f6df7b0385"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c07-wave-scratch-decay16-724e11b/tools/test_offload_nomodel.py",
+   "sha256": "feb8ab3674c2d508e73c0cdbde2a7a4c333c3c924d1d66286dbaca1a88142bb5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/README.md",
+   "sha256": "f3c214d495122f68844478e7db27ff90f4b9719fdc82fea0825ea8dbc8353d6e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/engine.py",
+   "sha256": "9f66d4395e75cba9423e17b35c78d6e4f0790d68ffcb210c1e407e73442b6951"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/expert_pool.py",
+   "sha256": "86b2ff9270c9aa33819da55fb25b0098097df9acd7fcbd7304984447748ebc1a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/ple.py",
+   "sha256": "1c6c6c21844ea901b891b58f31d7ba07f492be8e2ac3dfb3c3b6131766f79c1a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/prefill.py",
+   "sha256": "11bd57c4f8eb56039cad92f011c02d2d6619462b03380f6f51603d559158b6be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/state.py",
+   "sha256": "04d2055b73f4fe0ccc88146154969a742be745d853c2aa7c4839d982a6487767"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c08-warm-admission-window-4b40641/tools/probe_wave_memory.py",
+   "sha256": "ece8b9c44199d3a69c6abb692385eb842a0858d66c2c0f1708eece2810279412"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/layers.py",
+   "sha256": "0d0fa8137823d72e864bb6369ad3730cbe63b2f76961d3c9d3c21dcc2e33b252"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/prefix_store.py",
+   "sha256": "b1473e110bec0972f44a7ab098eb8e3cfd701e656309523a5366724a20689959"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/cycles/c09-pin-shared-prefix-90dd470/tools/test_offload_nomodel.py",
+   "sha256": "8c7855851bdc07eaa6be70215a5eebfd9abef2d93e2b5db2cab2c1f582e102d1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/dense_kernel.py",
+   "sha256": "d338631e918539ad4a6630f0518d3c92c9ebcbdea44d32bdb892f278da2faf83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/expert_store.py",
+   "sha256": "debbab784024fcfabe8353905644ffb9b7b7a7c399814739509392204adc874e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/layers.py",
+   "sha256": "0d0fa8137823d72e864bb6369ad3730cbe63b2f76961d3c9d3c21dcc2e33b252"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/moe_kernel.py",
+   "sha256": "77f1a4802b178e43fa689ee39e2a342707e1dd16ec25c8e80c575a26547d7c6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/ple_store.py",
+   "sha256": "4b2593411102fa55760f7c97a2e600778090efe8d70e6ae3e49eae83d2c9165a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/prefix_store.py",
+   "sha256": "b1473e110bec0972f44a7ab098eb8e3cfd701e656309523a5366724a20689959"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/engine/tools/test_offload_nomodel.py",
+   "sha256": "8c7855851bdc07eaa6be70215a5eebfd9abef2d93e2b5db2cab2c1f582e102d1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/benchmark/benchmark.py",
+   "sha256": "4400a12f368458336f5073ec120cff448cbb13908847dda8a99104b2c8c492aa"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/interface/gate_support.py",
+   "sha256": "0717c1011ab393ca1e01a753989ffef2879563d2eeede14cd8a5ea7c611853b6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_hits_relabelled_as_dedup.py",
+   "sha256": "04a2ef1a8d06795d5b850ae35b6fda3ee0a8853d4c041b97206b1735f8c3470f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_lookups_per_row.py",
+   "sha256": "ea1b23387d67912e0ec687da5370c8bad3e308df5152a2d7b9bf82278f00cb04"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_miss_elided.py",
+   "sha256": "fb6eea8b0745e7253c06d9c1dc821ed10b159d783bc261641a056b876ab60578"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_misses_relabelled_as_dedup.py",
+   "sha256": "6d85a71130f6dad1413337082edc14b52e44324b55775028e8157ff599c67845"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_ple_cross_step_cache.py",
+   "sha256": "34106aeb03409a8f0aff47e7da56394862e2adb7b5fdf6a02de53b750b0338df"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_ple_row_zero_filled.py",
+   "sha256": "d81dd12dba174c27627a95f1d6885c3f08d6597207279ddf186b50e8834f8fdb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_prefetch_folded_into_hits.py",
+   "sha256": "af505aa7a6e52d1c809f2527375f2ab234639db4626d18d7cb0965b5d0f5b306"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_snapshot_no_indexer_cache.py",
+   "sha256": "f5626722d2b751ac6312dfd9a50096c1c225e11e6e9e20c2647ad51f69ecaf03"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_snapshot_off_grid.py",
+   "sha256": "d411aaaf0e0b973357a537b23e2497329295f92227476d9f9924b2eb84d8c44f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_stall_fixed_fraction.py",
+   "sha256": "aaf30a0c892d1a08867f0a31026c9b3d2b70da16de4cdec84960c7f66b13f289"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_stall_whole_block.py",
+   "sha256": "602b01f2cb60d53f8f1ac3ec96d6e5e4b30f66efb8e7c67617c7111a78f18893"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_acc_store_never_used.py",
+   "sha256": "ef97222935720b50a3ec55772ebcfda25c811b3591fa089980024cda63e203b7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_batch_indexer_slot_cache.py",
+   "sha256": "25aed184a040b16bb2fccf8a4222903f5cbeb7ee8453374b352911cafd247dcf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_batch_state_leak.py",
+   "sha256": "0d3b0fc241629c8fc55855030b4b4792a2f084c1fc1248306eaf6585434c6fca"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_ec2_generate_separate_forward.py",
+   "sha256": "0399df05b7aba6baf835ac1878757e69cfad0f5f1b4378a0ce26f1ac6da3ffd0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_ec2_store_served_stale.py",
+   "sha256": "416257228273294638ba588097c05bacd1a033ceb359b4df2e524bd9a21ba4a9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_echo_second_forward.py",
+   "sha256": "dd07eecf5a6d01f9a0e3e8ba369873387cbdd02467cda7887a0f849cbf3d1fa5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_echo_truncated_budget.py",
+   "sha256": "292b1c5c2076abecf1ead68bfc06fc09cb5d20ba9a4ca2ebb4329237d1956459"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_eos_emitted.py",
+   "sha256": "657be37e917058efbb4a212ff96cbd58f0e8abe4e866f94a5ac0bfc783b3a749"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_greedy_skips_reduction.py",
+   "sha256": "7ec70e47394a91bb3a4ad3ac8665d321c83940068fe5bf0f51616ee123663d6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_seed_solo_rescoring_path.py",
+   "sha256": "d79c7daf7fb5e14042935d6caf18fbc49af982a21caae2eac3014e6570f323b9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_st1_steps_without_work.py",
+   "sha256": "99387310d09602f69c8d981214268e622a8a436fc13b98cc36018355f3aad861"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_st1_work_only_when_batched.py",
+   "sha256": "bcd1db00b3577b3f934578306be923fd69738220cfcaa07e00952c68cd5c2a52"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_stats_idle_drift.py",
+   "sha256": "fe947388605015a5bd7850126bcb69dee789d63f565001603de14737eb32000d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_stats_pool_bytes_overflow.py",
+   "sha256": "697842758cdc0ee63aad1b6abaaaf2076cf3fb0b8d969b4eb62ce79ee1dc373f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_stream_buffered_flush.py",
+   "sha256": "5208f20e0410ccd19edcff996d3924e5b62db673e2d7c6b2cd7332da8832420a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_stream_coalesced_pairs.py",
+   "sha256": "abe58590011ec02ed0786f58406bbb36cf6a12c26224e3e2e2db0548cd235e63"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ctr_stream_usage_counts_prompt.py",
+   "sha256": "4e7a9a8cc0949d70e9c3fac7ddff48b200e27d77cc3d17404dfdd1f7c6f679b9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_full_ac3_hits_perfect.py",
+   "sha256": "510c09997acd749551c6fa077aeee4366aaba3e5124f0703d62ada43c2e66c42"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_full_bi2_concurrent_truncates.py",
+   "sha256": "0cd4f612e37ef44a2087006d22ce92cc82041a582a29d014e24dc18cf0527194"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_full_me1_load_balloon.py",
+   "sha256": "57fbc7508013868c4e1c44519f9f5deb7565aa6e6617554d7f396d7e74e637fe"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_full_tf2_cold_differs.py",
+   "sha256": "c4da212f4a082e5a3cc9535138539beea3f8b9d278130962d02d20dbb4fa3563"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_full_tf2_echo_truncated_at_budget.py",
+   "sha256": "f70c5bbff4014fbd4b3f94a69e32713e9a6a8883eb579880cad9644f613abf21"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hack_chunk_after_first_cheaper.py",
+   "sha256": "ff7a3b973a92a308b83ce1f725b30cecda33ff268781a957788bb906ce5a0647"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hack_kernel_drops_small_experts.py",
+   "sha256": "3cb81f8ce1ae10a0fdb304aa260f7ae5b1a284dc0b7283f241e650298f8e086c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hack_oracle_memoized.py",
+   "sha256": "69f4de927e0daf071474942670ee9d7b89437f494172612188294f748a7cc620"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hack_partial_qsa_late.py",
+   "sha256": "fdb93d42e4c4d6509f938655aed0b1df1ba959ff11958996322ae6023a72fcd2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hack_store_second_request_cheaper.py",
+   "sha256": "402ebe1d38264512161f8e84be4753b9a1c7991f13f6f8fdaac3670bf62493be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hc_no_final_mixer.py",
+   "sha256": "cbbbceee97e25ed741f491ddeef6822a5dc0187f7e1b0e1ece05f01f124b7605"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_hg1_vacuous_guard_self_test.py",
+   "sha256": "cc6cfd0e4d1ced99fcc116d8982c689c4fbaa0f9f436ffeae532e885b2d32e6b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_mh1_stall_hidden_by_speculation.py",
+   "sha256": "8d76cc2e2fdf8ccc10e663b354addd482bae1302903f829ad515f95767e4b8e6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_ap1_drop_on_release.py",
+   "sha256": "1cf1e0ad1286f2344bfc9dc9cb7728da5b982279ee95ef4c3d89c4ccaa2935e2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_ap1_reject_9th.py",
+   "sha256": "fe86a3202e6de42a83b321f294809da69df654aef2ab60a243a33001534941c0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_bo2_state_leak.py",
+   "sha256": "971f2f38e672e4042b526f1077b3a87d61c602c4776b37b1719af5935263b1a1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_cn1_lazy_mlx_lm.py",
+   "sha256": "6fda750df6a21704daded50b8f42eec5fa01a69555d7520b87c144a33064c209"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_cn1_phase0_by_path.py",
+   "sha256": "e0a11b3b44701d0ad8f675fb23be87f084eb1c96e0320db5651a0a226471678f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_fi1_abort_batch.py",
+   "sha256": "9378a12880c29cd7997df635f4e94791d28547a3bbf22b34c6cf33588125e7c7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_fi1_unchecked_ids.py",
+   "sha256": "533516a0ba324ebb2a4680879f4d94716abca794ca9491c8acdb1f7103e566d7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_fx1_hardcoded_rows_per_shard.py",
+   "sha256": "d98f207895ea741ed21fc3298dbe0f1d0d42a64041ceb4ad1b6118d1a67291cf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_me2_any_budget_accepted.py",
+   "sha256": "9d6d7d32fa427e34a519b0e0d891ae38604ffac2e9a1e6004256bb25d78510e6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_me2_defaults_bf16.py",
+   "sha256": "53d80b9b8c1246b139c8e97f0c9b0a6ad2295b0ae8e01c84cccd5dde2ca82463"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_me2_defaults_unpublished.py",
+   "sha256": "aacd68fc40e41908240e9bd7aa68eada9bb7066170bb589813e20958565e5e39"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_ops_me2_none_rejected.py",
+   "sha256": "1d8a574f9f6b81f18793f01cac11fb62452849a51f7d3cc63d380126f36a535a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_qsa_over_prune.py",
+   "sha256": "6d240b30b920e619e699651a1718f85db94bbe34abc824205161ccb3759c6ecf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_rmsnorm_no_plus_one.py",
+   "sha256": "78a6bf022e08b657553377bc76eca25613f87a67fc29d8f113a9e2f573849550"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/mutants/mutant_wv1_covered_first_admitted_alone.py",
+   "sha256": "5e3ec15347e4e9926a67afad0cd0075403462bdd07082d7841ca974de9acfa41"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/oracle_exact/compare_oracles.py",
+   "sha256": "e76e08e1f111c881ad413d0ce7ae6fc8caf8ad34b5c6ceb77ea104e5aaf01f34"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/oracle_exact/floor.py",
+   "sha256": "c3c1222ee67f7c278d6b0ce158f468ce2fad53b3e5ae0d87411bec1709455b85"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/oracle_exact/generate.py",
+   "sha256": "4bcc70ae5c0cbaa4d99e3378d06d5aaf9b886c6c796e4b1a3c4bd5785b44db6d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/oracle_exact/repin_decoder_layer.py",
+   "sha256": "a047fa8f2ef4dc59aeacf42cbdc8b370bf51ae2d9a5d649f7dd470e696034bfb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/reference_offload_engine.py",
+   "sha256": "2f1e98d902b49d77100e6e68b44495690b7993150e8fa1c377d64cadd2e2d071"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/evaluator/reference/reference_sampling_engine.py",
+   "sha256": "0a142524d6e4895f8ad2696f95d9d3c937e820ed60d5f053331f7a78d24f1d7c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_AC-1_expert_counter_identities.py",
+   "sha256": "09a9027563386cbeaefe8af51f628ec34d0a3a8857e72d4788d7ee5e495a6b0e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_AC-3_cold_first_token_misses.py",
+   "sha256": "0f4e6019ed74347faa1fa09633bb36db2a8e42730152a28cfded8d2b844a6ec6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_BI-1_batch_invariance_fixture.py",
+   "sha256": "e9101ac798ab1de3908628ba3af7408a70174326005973261bec289c5dbfdf43"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_BO-1_work_bounded_operation.py",
+   "sha256": "878d0a429c17952a8699c99bd26701b29d4c49b1c5f48122e06eae9154588602"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_CF-1_chunked_prefill_matches_reference.py",
+   "sha256": "e50d4680912ce75d8f0920da881792e1447ab526b8ad697090a1ea793bd64a6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_CS-1_heldout_draw.py",
+   "sha256": "70304e8b4b87eb620d17816307a72e888dce866e4f7ae90c9ea6cea84c219785"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_DP-1_decode_steps_are_scored_path.py",
+   "sha256": "72d6c6b7c8aae8bd771c283eea73304fa7bf6459807a1e8bcc5750814cc7c5b6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_EC-1_echo_logprobs_http.py",
+   "sha256": "a9c11605f9ec1c4f5db6e712e1e0de5168a41ca6a142b2a19154af60ef1e9490"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_EO-1_eos_both_ids.py",
+   "sha256": "551a8825b302097c61165bfb28ff0774561ec739a36a5884af62afa85f90b608"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_FE-1_fetch_elision.py",
+   "sha256": "abc72c4315e739ca1b32a557d013c2ecfad70ed802e350a84a990cf66711760e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_FX-1_header_geometry.py",
+   "sha256": "2b248b718415208760432dca23528e9f014a4a685d738b973089c1ee6442975f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_KS-1_kernel_option_is_not_semantic.py",
+   "sha256": "5943632b9c0675b3fed6c12a0fbc9fd55046cbb035909b59d3a9d4c969c7a655"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_ME-2_budget_refusal.py",
+   "sha256": "1b8eccc2aaf2196d5884ad0c9b0e3730390c780c3d403f263655e7a8055477a7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_OB-1_oracle_blindness.py",
+   "sha256": "2d29c35c3e4d2d823209f61146b391bd647c16fdf2d2adb3cc6ce72125c0f0f6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_PL-1_ple_counter_identities.py",
+   "sha256": "f6f50dea7fc8f0c8b64da1231a733976bb989344c6de338480357bf8f3d4fadc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_SC-1_stream_contract.py",
+   "sha256": "51776f499168d07fa7777427fbec8a6506db3c511dbac8b0a6b8ab632b4cce83"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_SP-2_seeded_burst_throughput.py",
+   "sha256": "aae32bc9f5ec786af70e9e074a7267fc6b900736b445b4c350dae46ddc388726"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_ST-1_stats_contract.py",
+   "sha256": "de27dd0f5666bddb94e1c545bd80eaf6eb522a622be3741c68013b484206ac22"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/check_TF-2_real_oracle_fidelity.py",
+   "sha256": "d60d4cc8fee2137a7a15356fe8abef48b26e9d9e0b86edbff330c26cfa9d4e4c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/op_check_OP-1_operating_point.py",
+   "sha256": "16a86a4c183061ac4983a7769ebc7d59f3914c6556a8c4eaaf56118644d124bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/calibrate_tf1.py",
+   "sha256": "74617d6a9d3744e8ce424c6b40eadf299c6db791b2a4d6a4c9e3bf9823838d8a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/full_support.py",
+   "sha256": "38ba1ad7898041c34bcb9f4cf6cbe52742a9bdac3e5e31d36a815c4d2bfdcb18"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/hygiene_support.py",
+   "sha256": "e520edeef4dc0ad8e82929e343d5dfd91586588e37aa2937f893530a5ba0114e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/prove_fixture.py",
+   "sha256": "9e9014c6b5735d0fce62e6e311aefee00d229ae8f4ceee6f48d396de65cbf946"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/reference_qwen4exp/loader.py",
+   "sha256": "0a4c8e7b4f82f5c5271ef69c0b897200f2fb4bfc63aba561d08071f94fb80732"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/reference_qwen4exp/modules.py",
+   "sha256": "256556836f6bfb8c99249510fa5ad5c4f32bb6f430bacc41bd7ee8011f09a8b7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/reference_qwen4exp/ple_store.py",
+   "sha256": "cb8ae73672eab2dd31031002af5b41c5781237a76d9bce51f954d29eea272744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates/support/tiny_packs.py",
+   "sha256": "a2858492143f61c51fdd35c6dd94f2b2799b7d08e0a36ad428c09226e0bfcbfc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/check_AC-3_cold_first_token_misses.py",
+   "sha256": "0f4e6019ed74347faa1fa09633bb36db2a8e42730152a28cfded8d2b844a6ec6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/check_BO-1_work_bounded_operation.py",
+   "sha256": "878d0a429c17952a8699c99bd26701b29d4c49b1c5f48122e06eae9154588602"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/check_CS-2_unseen_prefix_burst.py",
+   "sha256": "e2606b30a1050590ec28782566133f0c266276758d243ff2c4213f8bb8a80b8a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/check_ME-1_external_memory_ceiling.py",
+   "sha256": "7dc9b930d741033df53d9760d2cf487335861c8ff28dda236b369f827d650acb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/check_TF-2_real_oracle_fidelity.py",
+   "sha256": "d60d4cc8fee2137a7a15356fe8abef48b26e9d9e0b86edbff330c26cfa9d4e4c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/gates_full/support/box_busy.py",
+   "sha256": "084a88aa734798f6842c09ecab11b6c788e0e0e63d2de0c91bf4eb6f407a3ef7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/README.md",
+   "sha256": "dbf689fd3027579501bc824da3b84af4310e8c24b31a8b698ba81ec7f2fa030c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-bar/derive_bar.md",
+   "sha256": "130bc4cbb678c1fc56143f11cabfd2a6bc0b9a3c7e5d8d6008225a427700a377"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-bar/oracle_floor.md",
+   "sha256": "9176faa9d5218dd36d2ba036ca9f2acd364e5bff791465a56837810dd4a17d27"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-full/check_DP-2_decode_steps_real.py",
+   "sha256": "7b5ac195913f23ddb90cd97efd2ba62dd3dae07b90e4048fa33b8c23a1a379ae"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-full/lifetime_peak_bound.py",
+   "sha256": "54749cd064fd35d705bfff799dfd4768d9c32ff9fefd4db7f7039db512db391b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-gates/check_CF-1_chunked_prefill_matches_reference.py",
+   "sha256": "e50d4680912ce75d8f0920da881792e1447ab526b8ad697090a1ea793bd64a6c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-gates/check_PS-1_store_entry_stable_under_reuse.py",
+   "sha256": "2f3fd0356f032e71d21851e5f5c085d3de46e9478a5762c8397d2b15867c6f6f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-gates/mutant_hack_chunk_after_first_cheaper.py",
+   "sha256": "ff7a3b973a92a308b83ce1f725b30cecda33ff268781a957788bb906ce5a0647"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-gates/mutant_hack_store_entry_decays.py",
+   "sha256": "00afc94ddb0a95b0be855da063b8236788be37dfcbd38a7d6aa482429705f726"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-ops/ops_support.py",
+   "sha256": "31718d94fa596271f3e832e5a043695fc988c798a8d734b62c3adc130b7908fa"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/hacks/pending-single-floor/check_single_floor.py",
+   "sha256": "be49b1042b2b2f6042feecf0c282e4af1dfcc9c3ae671069080d6b0724061cce"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/engine/test_cache_budget.py",
+   "sha256": "fd3b46c0d657eccf1db94663233ba83a4c161335c774a42f39cc3beee9484ce8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/kvcache/test_linear_state_pool_alloc.py",
+   "sha256": "6864a61fd1d9b0fc8f9dcf6fb3f1bc9b52c0e2ae0512d09b0b9d9e65949f6d27"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/moe/test_gpt_oss.py",
+   "sha256": "c984a87907e6fa50ed8ad4a31971b4d75e616dfcb6e815e1c081442037e69d33"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/moe/test_nvfp4_backends.py",
+   "sha256": "43639147ba0f5662919c47b204732a2534ed9a92c858246abb6efef288c7d3c6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/moe/test_prefill_hit_d2d.py",
+   "sha256": "2fcc28c8873a1f1abe1902550abadd461b0c5157d006d87c3b9bcb70bf96b52e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/freetoken/tests/scheduler/test_hybrid_cache_manager.py",
+   "sha256": "07aa2f256ae98be04b626daaa7029a2929a0e59d8704541d4de69660cf615a2e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/llama.cpp/tools/server/tests/unit/test_completion.py",
+   "sha256": "b6101b47c4edca22005780b3b54754b3fcfff5deeb572c2ed0566cc2f80daadf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/mlx-lm/tests/test_generate.py",
+   "sha256": "6dec9d42600a44ef67a0d8068054663a00ffce7d6fb17eb8d6e111cd43c20310"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/mlx-lm/tests/test_prompt_cache.py",
+   "sha256": "2b5146d6f7f6c9194ff3d6f0082c8679a66b37bd62e5da58d7108241d0e348a9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/mlx-lm/tests/test_server.py",
+   "sha256": "97237632d45c8486336c55cc3e48d14ac66bde2354840c764401601eba9cbf0b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/mlx/python/tests/test_random.py",
+   "sha256": "855478cd9ca0a8ebd2b9aceda6a828171d40d90b4761f32352d3b4d117cacb38"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/sglang/test/manual/chunked_prefill/test_scripted_invariants.py",
+   "sha256": "e2ff237a2dfbe141f46e3ae8b55d6a201a2f1fda04031dd2bdc4825d6402c9e5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/sglang/test/registered/radix_cache/test_mamba2_extra_buffer_kl.py",
+   "sha256": "9494cdba0bdbc054b4bf6a920d26067945575da561c6ce99cf26bb72d33b527b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/vllm/tests/v1/core/test_mamba_align_chunk_split.py",
+   "sha256": "543def4f293e554e0eba2dab992f7f5c8e5d4abf659cafeebc9e24d28c54a763"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/vllm/tests/v1/core/test_scheduler.py",
+   "sha256": "071ce80c72cbfa819ca2a8259cf14c777862488dc2c0951282b24ee81f772888"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/harvest/vllm/tests/v1/sample/test_topk_topp_sampler.py",
+   "sha256": "9ca62871d62376837edd230029532d394109d44fccfd0475afe3ce776b52b3b6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/operations.md",
+   "sha256": "58c3772c64b59ef87c1180632fd761fccc534f6cfe80029a4fcc3cd8997db556"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/profiles/c6_b8_profile.md",
+   "sha256": "f9e282f78a051962ab3bd7b818e42c086b972837e2168be04e62b67525b280dd"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/profiles/c7_d_profile.md",
+   "sha256": "026ff234adee2249c092cce6cb787a03cfe1bd095a495862f72d7b2f79eaaac1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/profiles/cache_policy_replay.md",
+   "sha256": "fa4bad6b84da4d74a75817783f083d546c01ab2dcbf9bb7a7c8a5363bba1e4b0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/profiles/hardware.md",
+   "sha256": "d1e4aa1b90d1f025b9df67ea9394bc0a5b3ff067a593a48099088877e9658d0b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/profiles/moe_kernel_lab.md",
+   "sha256": "87cdb8a64dcb40c64ea557cce2a0d49e3d856c3bb8983123e6c1f2d41ee0a40d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/progress.md",
+   "sha256": "2f698b14108107d481e5170c7fbaae0642b6eb0e97c3a862b20598c3a4d20a06"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/freetoken/notes.md",
+   "sha256": "9cb0f5c7d999bff273f93932b020b1dbf4511f0c3036347bc9429f32b5629983"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/freetoken/workflow.md",
+   "sha256": "9cf1843a9bd678e25eda5440dbbf3807e9a3c9e3f5c21e8d98a38ad9935ad73d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/llama.cpp/verification.md",
+   "sha256": "401fa0369cc8da3c2f2af49b8180756efe8bcdb851d114a4d2a8ff9582033349"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/mlx-lm/notes.md",
+   "sha256": "3c1b531046450406475c230895c0f6bdcd51bde3aaec5a471da0835dcdf7eb49"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/mlx-lm/workflow.md",
+   "sha256": "d5541173a675309a6c01dd0de0ba3e7e8c35db4b39dd4346b86e81857edbd958"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/mlx/verification.md",
+   "sha256": "d46ab9ebdf57d4f75b42d976c1357e999453d2f1d71d7c2ae88bfcf2fe3fb23b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/sglang/notes.md",
+   "sha256": "d4d8f0f5bb4f6b1a0642f8151eec4a21851885e6b15714a742abf9ca733133fc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/sglang/workflow.md",
+   "sha256": "81c3c688422e4362d2de9de5b566b3ae101f6fa16cd1e191e357be147b9358f3"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/specs/vllm/verification.md",
+   "sha256": "415f17f9bbfca207f87d1c4f53b947efc14b455bbdcb5430cfdeab2ffffb83d4"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/apply_prefetch_reserve.py",
+   "sha256": "2038049d41a1839b1e3a1e3daa5266bd88d8a288d3dcf5a3d0e096a6a8b5d922"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c3_replay_lru.py",
+   "sha256": "521e7579ccebd9286db582d811d8054e648d43a7d7c08e8f813d5df52a5dbb97"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c4_cache_study.py",
+   "sha256": "1c59f3fe774ce8ed2fd60c360a4807a9e06b38461abc136f2d0e2e70dfa49892"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c4_profile_analysis.py",
+   "sha256": "707cbeee7d16eef08854f990041f7f5aedf1bd4f4f1113da7b9545ed7643cbc7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c5_positions.py",
+   "sha256": "3fe7c7936f48b515b47f7aaefe1f621412d21de34be93117c07c9d886e083eb0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c6_chain_compare.py",
+   "sha256": "53764941fd2761e2508b9c8f6e16357002333333388894d0ad1805c9d891d49d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c6_leaderboard_entry.py",
+   "sha256": "92671607f02c06c9819c6b36ebc58cd771e0ca84955329424e53a5fb7f85b664"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c6_poll_analysis.py",
+   "sha256": "b7a2520f9d36a303b8c0159ca35574b3a5545278740399939732549b127e04d9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c7_sweep_bitident.py",
+   "sha256": "b0fd1956263c36b130d721f15ed6ca7e5dd0a2498a5a856ff3660d083a56602b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/c8_interleave_probe.py",
+   "sha256": "f9834f428c429e80a2a9d506c1b75553f5d8a2235fef18adfd4f467e0eb621a6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/check_protected_artifacts.py",
+   "sha256": "ea021b68179a54f233a92295ebaf42bfa53cd586ea72363c43926910923783ad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/d3_pool_race.py",
+   "sha256": "2cb99812f0a0e760f39d08bb4aef898f220ed30417cfdc5c5fc717303cf519fd"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/d5_prefix_consistency.py",
+   "sha256": "e7aa882456c27e0618630824377af2ff8daea306f9fa8815b9942204c78c9c33"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/d7_pos262.py",
+   "sha256": "04d788af5210efc172ee9658f71f4ed670c23cb9503f3ac2c0e43c8812e1748d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/d9_load_peak.py",
+   "sha256": "9b7dd688253c2c8bdfd3c2eabd5706b3d337f6715c82c6a1e539567dac5b7c86"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/diag_warmup_isolation.py",
+   "sha256": "d43b085ef825a318f2c6f2e2dc234091da3476a5180f35edbd14ac3cde500376"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/dump_mask_reference.py",
+   "sha256": "3981899ed3f586e60ce080e852fb1713aefff7b65ee107bbbc1af6c423e896d2"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/iostat_window.py",
+   "sha256": "566a39c1a1fa67f9accfa294fcd25461eb87d5786f92292aa95c0cdbb903f3a7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/mtp_convert_ours.py",
+   "sha256": "43af02a3823db738811f0c0b888600c6f49fa868e96222402cab27d5b45a515d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/probe_predict_cost.py",
+   "sha256": "d55376090abffc047fff4242cc8a78b94b5dc1973ac8b7a272a6e91baa174468"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/probe_router_lookahead.py",
+   "sha256": "7d7fe8b9330175bcb0355bb17395dcc0bfd1a39194b82ffc109752995077bd50"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/provenance.py",
+   "sha256": "8e97910d80d40027e4fca8a8b5168aeef8e0487c90c08947190c578527f43869"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/simulate_cache.py",
+   "sha256": "bd3e600a50307c726f82b3cd7d8c2fc32d96b4f663e94038d221972d1db08db4"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/smoke_prefetch.py",
+   "sha256": "68af6a96e420d666191fc32c57173f89225867bf7a8ba3ed95fa3f0b4e0fbf2d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/tools/trace_routing.py",
+   "sha256": "1026bb3cb6ee62b55bf84ed7237b69bada2d727d04ebd478fabe07063ed68dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-beat/whiteboard.md",
+   "sha256": "f7063bae20c63d2b3c95f210a2bc746d730dbe9b7aebde1cdc519f2e2c07b975"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/README.md",
+   "sha256": "a6c986830f97b19da69126bf60ca0da3fb3bd8c24ec21a868beabc73791cf9e0"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/engine.py",
+   "sha256": "b2216d202880a1706bd8dff08d4d374a5fcb16851506496b67ffc4b1dd576f33"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/expert_pool.py",
+   "sha256": "f33914d4a10311be4a0d2f1ad34b5ee970a4bc2b13c3db7a76d2e9a1ca97603b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/moe_kernel.py",
+   "sha256": "2be2af8b796656099c55aba6b71cd5c8b929fb8e4dbc83a55bbd5e9630063b8d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/ple_store.py",
+   "sha256": "b84c5c714b65250675cbef8a7267ed415f064f9f6d0c48d0c4c02aded9f13e26"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/prefix_store.py",
+   "sha256": "b1473e110bec0972f44a7ab098eb8e3cfd701e656309523a5366724a20689959"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/progress.md",
+   "sha256": "b8c580526bf204ae7721981cac7000b1c7977eedcf6939adc6ceb189d3c2678b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_landing_region.py",
+   "sha256": "de54c28de3f17e816f3403d0267bb8c49a6aa51204d326b19a94d567de277102"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/probe_c1_identity.py",
+   "sha256": "b411401fc1e93dc92cec9af979d92563e8e9c0fdd7a46f8cd587bf4020ba3d8f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/0b62cbe6d2747b3b/tools/test_offload_nomodel.py",
+   "sha256": "8c7855851bdc07eaa6be70215a5eebfd9abef2d93e2b5db2cab2c1f582e102d1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/README.md",
+   "sha256": "15f30aa3ef738f7211678532809d065159db3e08c98279d6a3a4325eb7ab13aa"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/attn_fused.py",
+   "sha256": "cc32e920a57b128bf3404646313531c22ebe2f098841cbefab1cbb2fc90892b6"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/budget.py",
+   "sha256": "75397101981c3844a79e1a12a01db6a9633988e00a3d77b37ed9b8bf7b36ff9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/dense_kernel.py",
+   "sha256": "c3fd6c0f4896167c010e7002cf48b7e48733371ec6ddc9ce3e2319e4c97a6755"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/expert_store.py",
+   "sha256": "df23e97b604babd00e0e576ebee61bc7cf8b9bc5f7e58146c5490c02f67c12ae"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/gdn_fused.py",
+   "sha256": "6ed180e298e895598e4b8c2b99527199ce2539ec360d7319e10df90728c03f6a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/hc_kernel.py",
+   "sha256": "3d8a05700a43c3ffc4e853d37cbd6f120bbef5a65bd410fca389f2ff4c4b08c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/layers.py",
+   "sha256": "648f2769011d38de5788a6c99f1a56774fa24aa135b772ba21b3c56a5283f909"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/moe_fused.py",
+   "sha256": "097b8716649d92ce0176aaef72e8c8ecfe2b311ca1134ff39e9ab9b4a4e46161"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/ple.py",
+   "sha256": "64f1babc7baeaf01b591b156dc695deb1b0f29b326d18f7bd4b65e45dd2f43bb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/prefill.py",
+   "sha256": "f285cf4b9b82d0956a76256ae44b26bc888f5f1d52c540eb77c3eb260328fca7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/state.py",
+   "sha256": "c8b5155c96d9bf3f6ae816b628542e655e160f97912fbc2820221990e1419828"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/probe_c1_async.py",
+   "sha256": "5d4495e3fa0dcfa92292c98dcf1073e231b072e919717a6af0ab85bc4b88591e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/53c251ee563356a2/tools/probe_wave_memory.py",
+   "sha256": "2a569bb745f91b8468b13e9fd4e6fe6fee91dd092f176f81aac0b74f9297fcdf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/engine.py",
+   "sha256": "9707c7240e0f50659cf267fb98e8b0e4d6e17b37001ddc190acf4b65638bfb9a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/expert_pool.py",
+   "sha256": "4e0420067af7158842ec73d76f49dd265f12b90bccfe1a0dc88b33af03cbbc6f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/gdn_kernel.py",
+   "sha256": "b3f7d48fd2904f870fcae5985de1243376c66ac6cf1b63538edc427bd413dba3"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/indexer_fused.py",
+   "sha256": "20dbad7fe86b314da1b039697516ab09a682c9b169d14b29ed187d307ea75182"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/interface.py",
+   "sha256": "97c760ba23d4f313dbc5203910cf9481a14e3d9dffb9e3ebff5f6703fd5e30b5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/loader.py",
+   "sha256": "d472eb520ea35248acb167ac76f2526c2bd85e6e769cc236baeaed900c5c00c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/moe_kernel.py",
+   "sha256": "2be2af8b796656099c55aba6b71cd5c8b929fb8e4dbc83a55bbd5e9630063b8d"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/ple_store.py",
+   "sha256": "b84c5c714b65250675cbef8a7267ed415f064f9f6d0c48d0c4c02aded9f13e26"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/prefix_store.py",
+   "sha256": "b1473e110bec0972f44a7ab098eb8e3cfd701e656309523a5366724a20689959"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/sampler.py",
+   "sha256": "c04996e4163182eecb8d47e77ae7b2e206a74070d7bb5902a67eb7e8fc2ce130"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/sdpa_decode.py",
+   "sha256": "d48f5d07dada1d44ae78e3eef13d05ec0141674e7ace912fa572672e9098d21b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/state.py",
+   "sha256": "c8b5155c96d9bf3f6ae816b628542e655e160f97912fbc2820221990e1419828"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/moe_engine/tokenizer.py",
+   "sha256": "d1b9b4ad3a6d97f808ed37e86305960f2fe60f2efb54d2723ab68f6f0b40d15b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_attention_port.py",
+   "sha256": "017b1584cd546214aec7045acb39bf1f1a1a49b38d422985ed74b8823daee716"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_dense_kernel_port.py",
+   "sha256": "0d1ed0c3756872258e8f80c8aa350e65b3e1872224dedc86a97dfaa4d3f49d66"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_hc_identity.py",
+   "sha256": "6841b35950ffed62b7ac50a6ac6757ab5cbb5f11ec9ca5c6f1086e888e9862f1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_moe_kernel_port.py",
+   "sha256": "e55efec93965c3febd2ca30453c452dbfb975ab89a6782407edf87bb3dd2fb61"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_pack_readers.py",
+   "sha256": "37805439f8554a791e1f431fa055f4dbde87a31919e86c215a2eaac88daf6f2b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_port_layer.py",
+   "sha256": "b60e39164c55f11e32061263da02c090b37142d42e508f7db2416e33d5a223a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/check_score_partition.py",
+   "sha256": "276de48674c5b4350f428de1f6faf2a0a9e165264a0067f6e4d2077b21fbee45"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/mem_peak.py",
+   "sha256": "c800f0132539f93111b8a221a635df15330c0ef4102e7c2fb4faaaa251cfcbcb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/probe_c1_async.py",
+   "sha256": "5d4495e3fa0dcfa92292c98dcf1073e231b072e919717a6af0ab85bc4b88591e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/567ebf295271d69f/tools/probe_wave_memory.py",
+   "sha256": "2a569bb745f91b8468b13e9fd4e6fe6fee91dd092f176f81aac0b74f9297fcdf"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/engine.py",
+   "sha256": "4df343af7341e59a66544fcfaf8eb0a1d035870bfe9efe886696c0309a06c83c"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/__init__.py",
+   "sha256": "25b0b0db1a88ce1f2a5ccbfbe317643dcf6bd73ab35eb334ae0720a0750408e8"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/batch.py",
+   "sha256": "9bbbb0e9bf39cee5ea57dd9d9b16eefd3249e2fc591a1a5cccaea4f5c0046dad"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/config.py",
+   "sha256": "e78a7a2b4a6949fe984ce81634dd2d4e19f69a805d0010a7fb5d0b4f92b3d529"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/engine.py",
+   "sha256": "7b84cfa1a0cdd733fe38ac9b54fe0ac8b969fc343e5af47a07b58b115c13af15"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/expert_pool.py",
+   "sha256": "4e0420067af7158842ec73d76f49dd265f12b90bccfe1a0dc88b33af03cbbc6f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/faults.py",
+   "sha256": "8b6c5fd26251c685e25db9aa63599c9416f7728ab17c21752ac1f615373302ef"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/gdn_kernel.py",
+   "sha256": "72a4f14565bc36482193af40acf491759117ac5d9e8c6ddbb5376b2bffc259bc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/indexer_fused.py",
+   "sha256": "1bed5eb24536a2ebee840f4b3d7efab67dd067f37bd04a10a544436c439742dc"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/layers.py",
+   "sha256": "6a681ca7bcb0a2131409eec24b08fea789bce840854f26ad61abc1c97fcdb5a9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/moe_fused.py",
+   "sha256": "097b8716649d92ce0176aaef72e8c8ecfe2b311ca1134ff39e9ab9b4a4e46161"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/ple.py",
+   "sha256": "64f1babc7baeaf01b591b156dc695deb1b0f29b326d18f7bd4b65e45dd2f43bb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/prefill.py",
+   "sha256": "f285cf4b9b82d0956a76256ae44b26bc888f5f1d52c540eb77c3eb260328fca7"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/quant.py",
+   "sha256": "3e22dcf5b5a1f8654a258574fe84741148f0e74fac536c4322e38e2be5e1665e"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/scoring.py",
+   "sha256": "0202d88630d625c2a456fbc7cbe3874b76f6b9759274138602adba1c3a5cdd74"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/server.py",
+   "sha256": "0fd7a28d82f3613ac98911e296d9d190ca891feccabdab31426539299f711723"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/moe_engine/stats.py",
+   "sha256": "79e9c03074b282f8ab4d3b257b06671d639c2c1eb25c480219cfa3c69dbd31e9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/progress.md",
+   "sha256": "b8c580526bf204ae7721981cac7000b1c7977eedcf6939adc6ceb189d3c2678b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_attn_blocking.py",
+   "sha256": "9addc6d5bee04868f737e0c8d1af7190aba4ffd16f8a8ca1ed0d73f2056d3b0f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_gdn_port.py",
+   "sha256": "1327186d05993be9fec4d1585908c3029cf952e5aa1ce5fed5ed0ddfdbdcd4be"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_landing_region.py",
+   "sha256": "de54c28de3f17e816f3403d0267bb8c49a6aa51204d326b19a94d567de277102"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_ngram_port.py",
+   "sha256": "3cd6a218ebf9e26aa50961462dc24f50f81c8adbc6f33c981bc7e5e3854165fb"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_pool_index.py",
+   "sha256": "6f2ad280bcba32a731c1cbb8542b826ce8f306d2764d7855a873f3078141cf36"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_port_stack.py",
+   "sha256": "f3e5caa0a7b0c48bd2d3aeb18e1d14cfd32037759891d2f2b4ebb14d4d5d81a5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/check_wave_identity.py",
+   "sha256": "5d8f6457067df572b6da67ff2462fcf63846cf629e009aa4e2f877b934b7e840"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/portcheck.py",
+   "sha256": "739f8a1c0241c1f1be2075a7e6a8439104e8465520da26ce5d614f97aab15744"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/probe_c1_identity.py",
+   "sha256": "b411401fc1e93dc92cec9af979d92563e8e9c0fdd7a46f8cd587bf4020ba3d8f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/d6115957925d33b7/tools/test_offload_nomodel.py",
+   "sha256": "8c7855851bdc07eaa6be70215a5eebfd9abef2d93e2b5db2cab2c1f582e102d1"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/README.md",
+   "sha256": "15f30aa3ef738f7211678532809d065159db3e08c98279d6a3a4325eb7ab13aa"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/attn_fused.py",
+   "sha256": "3a91b4183b5f962b68037196f833c1dc5595af2787201bd363606cf4cf8fd5a9"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/budget.py",
+   "sha256": "916606364af3624d424f40cdd3a13fdec6231eb8b7344d6004b8aad8741a6f8b"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/dense_kernel.py",
+   "sha256": "c3fd6c0f4896167c010e7002cf48b7e48733371ec6ddc9ce3e2319e4c97a6755"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/expert_pack.py",
+   "sha256": "4eb95cc523c299e932110398d587ca8511026837d3d3f1c487eaf05160e70502"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/expert_store.py",
+   "sha256": "df23e97b604babd00e0e576ebee61bc7cf8b9bc5f7e58146c5490c02f67c12ae"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/gdn_fused.py",
+   "sha256": "6ed180e298e895598e4b8c2b99527199ce2539ec360d7319e10df90728c03f6a"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/hc_kernel.py",
+   "sha256": "3d8a05700a43c3ffc4e853d37cbd6f120bbef5a65bd410fca389f2ff4c4b08c5"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/indexer_prefill.py",
+   "sha256": "90da518616a41d45deab4232463ee846fa32b7763767067a8d618b1f9ea7c08f"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/layers.py",
+   "sha256": "344e2b0135c2b51d117ef1579db7be31dad06865779d476cfa9b3333c6b4ed87"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/moe_fused.py",
+   "sha256": "097b8716649d92ce0176aaef72e8c8ecfe2b311ca1134ff39e9ab9b4a4e46161"
+  },
+  {
+   "path": "skydiscover/synthesize/examples/moe-engine-macos/runs/flashnext-fusion/frozen/e182c796ab83b4f5/moe_engine/ple.py",
+   "sha256": "64f1babc7baeaf01b591b156dc695deb1b0f29b326d18f7bd4b65e45dd2f43bb"
+  }
+ ],
+ "row": "ad9950dfbdd0",
+ "registration": [
+  "17b1e26dd7d4",
+  "3e89760dc02c",
+  "8adb724db458",
+  "92d77429bfe2"
+ ]
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "verify_relaxed": true,
+  "spec_sampling": "leviathan",
+  "spec_k": 2
+}

@@ -1,0 +1,43 @@
+{
+  "long_prefix_tasks": 4,
+  "single_prompts": [
+    "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(",
+    "def binary_search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = (lo + hi) //",
+    "import json\n\nwith open(\"config.json\") as f:\n    config = json.",
+    "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y =",
+    "def fibonacci(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return",
+    "from collections import Counter\n\ndef most_common_word(text):\n    words = text.lower().split()\n    counts = Counter(words)\n    return counts."
+  ],
+  "shared_prefix_sets": [
+    {
+      "name": "utils_small",
+      "prefix": "# utils.py -- small file I/O helpers\n\ndef read_lines(path):\n    with open(path) as f:\n        return f.read().splitlines()\n\ndef write_lines(path, lines):\n    with open(path, \"w\") as f:\n        f.write(\"\\n\".join(lines))\n\ndef word_count(text):\n    return len(text.split())\n\n",
+      "branches": [
+        "# Count the number of lines in a file, reusing read_lines\ndef count_lines(path):\n    return len(read_lines(",
+        "# Read a file, uppercase every line, and write it back, reusing the helpers above\ndef shout_file(path):\n    lines = read_lines(path)\n    write_lines(path, [line.upper() for line in",
+        "# Return the total number of words across all lines of a file\ndef total_words(path):\n    return sum(word_count(line) for line in read_lines(",
+        "# Return the first non-empty line of a file, or None\ndef first_nonempty(path):\n    for line in read_lines(path):\n        if line.strip():\n            return"
+      ]
+    },
+    {
+      "name": "stack_class",
+      "prefix": "class Stack:\n    \"\"\"A minimal LIFO stack backed by a Python list.\"\"\"\n\n    def __init__(self):\n        self._items = []\n\n    def push(self, item):\n        self._items.append(item)\n\n    def pop(self):\n        if not self._items:\n            raise IndexError(\"pop from empty stack\")\n        return self._items.pop()\n\n",
+      "branches": [
+        "    def peek(self):\n        if not self._items:\n            raise IndexError(\"peek from empty stack\")\n        return self._items[",
+        "    def __len__(self):\n        return len(self.",
+        "    def is_empty(self):\n        return len(self._items) ==",
+        "    def clear(self):\n        self._items."
+      ]
+    },
+    {
+      "name": "http_client",
+      "prefix": "import urllib.request\nimport json\n\nBASE_URL = \"https://api.example.com\"\n\ndef get_json(path):\n    with urllib.request.urlopen(BASE_URL + path) as resp:\n        return json.loads(resp.read().decode(\"utf-8\"))\n\n",
+      "branches": [
+        "def get_user(user_id):\n    return get_json(f\"/users/{",
+        "def list_repos(user_id):\n    data = get_json(f\"/users/{user_id}/repos\")\n    return [repo[\"name\"] for repo in",
+        "def get_user_email(user_id):\n    user = get_json(f\"/users/{user_id}\")\n    return user.get(",
+        "def count_repos(user_id):\n    return len(get_json(f\"/users/{user_id}/"
+      ]
+    }
+  ]
+}

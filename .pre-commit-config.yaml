@@ -1,0 +1,15 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: engine-copies
+        name: files the engine builds share are the same in each (engines/copies.txt)
+        entry: python engines/check_copies.py
+        language: python
+        pass_filenames: false
+        files: ^engines/

@@ -1,0 +1,38 @@
+# Lint and format settings for every engine in the repository, and for launch/.
+line-length = 100
+target-version = "py314"
+# The benchmark clients are kept byte-identical to the ones that measured the
+# published numbers; force-exclude makes pre-commit, which passes file names, skip them too.
+extend-exclude = [
+    "engines/qwen3.6-35b-a3b-m2/benchmarks/benchmark.py",
+    "engines/qwen3.8-flash-next-m4pro/benchmarks/benchmark.py",
+    "engines/qwen3.6-35b-a3b-m4pro/benchmarks/benchmark.py",
+    "engines/qwen3.8-flash-next-m2/benchmarks/benchmark.py",
+    "engines/flint-m4pro/benchmarks",
+    "engines/flint-m2/benchmarks",
+]
+force-exclude = true
+
+[lint]
+select = ["E", "W", "F", "I", "B", "BLE", "UP", "RUF", "C901", "PLR0915"]
+ignore = [
+    "E501",    # the formatter wraps code; a long string or comment may stay long
+    "B905",    # zip(strict=True) would raise where the code relies on the shorter input
+    "RUF005",  # [a] + b and [a, *b] are equally clear
+    "RUF023",  # __slots__ stay in declaration order
+]
+
+[lint.isort]
+known-first-party = ["jitengine_qwen3_6_35b_a3b_m2", "jitengine_qwen3_8_flash_next_m4pro", "jitengine_qwen3_6_35b_a3b_m4pro", "jitengine_qwen3_8_flash_next_m2", "jitengine_flint_m4pro", "jitengine_flint_m2", "jit_launch"]
+
+# caps so functions do not grow back; a function marked `noqa: C901` or `noqa: PLR0915` was over
+# them when they came in, and is split when it next changes
+[lint.mccabe]
+max-complexity = 15
+
+[lint.pylint]
+max-statements = 50
+
+[lint.per-file-ignores]
+# the benchmark clients are kept as the runs that produced the numbers used them
+"engines/*/benchmarks/*.py" = ["C901", "PLR0915"]

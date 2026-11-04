@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jitengine-flint-m2"
+version = "0.1.0a1"
+description = "Flint (int4) on a 24 GB Apple M2, experts streamed from the SSD: a single-stream decode engine synthesized by SkySynth"
+readme = "README.md"
+# The M2 measurements ran on CPython 3.14.7 with mlx 0.32.2.
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# The model runtime needs an Apple silicon Mac (tuned on the 24 GB M2, where the experts stream from
+# the SSD; a Mac that holds the whole model runs the M4 Pro build's megakernel, checked at load);
+# elsewhere only help and the model-free tests run.
+# mlx is pinned: the megakernel was certified against this version.
+dependencies = [
+    "mlx==0.32.2; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "numpy>=2.0",
+    "transformers>=5.16,<6",
+    "jinja2>=3.1",
+]
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+download = ["huggingface_hub>=1.0"]
+dev = ["pytest>=8", "openai>=3.37", "anthropic>=0.40"]  # the SDK tests in tests/unit/test_chat_replies.py
+
+[project.scripts]
+"jitengine-flint-m2" = "jitengine_flint_m2.cli:main"
+
+[tool.setuptools.package-data]
+jitengine_flint_m2 = ["kernels/*.metal"]
+
+[tool.pytest.ini_options]
+# Tests import the package from this checkout's src/, whatever is installed; test files mirror the
+# source tree, so a basename can repeat across directories.
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

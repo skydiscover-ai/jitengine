@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jit-launch"
+version = "0.1.0a1"
+description = "Start a coding agent (Pi, Claude Code, OpenCode or Codex) against a running JITEngine engine"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# The standard library only: it talks to an engine over HTTP and imports none of them.
+dependencies = []
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+"jit-launch" = "jit_launch.cli:main"
+
+[tool.pytest.ini_options]
+# Tests import the package from this checkout's src/, whatever is installed.
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

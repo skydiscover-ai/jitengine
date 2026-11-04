@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "memory_budget_bytes": 19327352832,
+  "system_reserve_bytes": 6442450944,
+  "mode": "offload",
+  "memory_policy": "adaptive",
+  "max_slots": 8,
+  "max_queued_requests": 16,
+  "max_context_tokens": 8192,
+  "prefill_chunk_tokens": 256,
+  "prefix_cache_bytes": 134217728,
+  "allocator_cache_bytes": 134217728,
+  "host": "127.0.0.1",
+  "port": 8080
+}

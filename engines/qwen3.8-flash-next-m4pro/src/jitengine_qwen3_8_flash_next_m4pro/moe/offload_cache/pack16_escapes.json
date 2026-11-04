@@ -1,0 +1,15 @@
+{
+ "codec": "pack16",
+ "exp_base": 116,
+ "escape_code": 31,
+ "note": "Global escape tables, keyed by the checkpoint's model.safetensors.index.json sha256 (the pack header's checkpoint identity, validated with every shard's size and mtime at open). Each value is scale_bits | bias_bits << 16 of a (scale, bias) pair no pack16 code represents.",
+ "tables": {
+  "3581f8d40a330d40009d0417359f5f75b7cf79e9f8fc48ba0b1461eabd43dd5f": {
+   "checkpoint": "Qwen3.8-Flash-Next-4bit",
+   "escapes": [
+    1000258045
+   ],
+   "basis": "the one (scale, bias) group no code represents, L25 e36 up_proj (scale exponent 115): a census over all 3,774,873,600 groups and the GPU encoder over all 24,576 records"
+  }
+ }
+}

@@ -1,0 +1,288 @@
+; The layering contracts of the engines (`lint-imports` from the repository root, with the engines
+; and the launcher installed). Each engine is its own package, and none imports another; the
+; launcher talks to an engine over HTTP only.
+[importlinter]
+root_packages =
+    jitengine_qwen3_6_35b_a3b_m2
+    jitengine_qwen3_6_35b_a3b_m4pro
+    jitengine_qwen3_8_flash_next_m4pro
+    jitengine_qwen3_8_flash_next_m2
+    jitengine_flint_m4pro
+    jitengine_flint_m2
+    jit_launch
+
+[importlinter:contract:engines-independent]
+name = The engines and the launcher import nothing from each other
+type = independence
+modules =
+    jitengine_qwen3_6_35b_a3b_m2
+    jitengine_qwen3_6_35b_a3b_m4pro
+    jitengine_qwen3_8_flash_next_m4pro
+    jitengine_qwen3_8_flash_next_m2
+    jitengine_flint_m4pro
+    jitengine_flint_m2
+    jit_launch
+
+[importlinter:contract:qwen36-kernels]
+name = Qwen3.6: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m2.kernels
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m2.model
+    jitengine_qwen3_6_35b_a3b_m2.linear
+    jitengine_qwen3_6_35b_a3b_m2.engine
+    jitengine_qwen3_6_35b_a3b_m2.scheduler
+    jitengine_qwen3_6_35b_a3b_m2.kvcache
+    jitengine_qwen3_6_35b_a3b_m2.sampler
+    jitengine_qwen3_6_35b_a3b_m2.server
+    jitengine_qwen3_6_35b_a3b_m2.tokenizer
+    jitengine_qwen3_6_35b_a3b_m2.memory
+    jitengine_qwen3_6_35b_a3b_m2.checkpoint
+    jitengine_qwen3_6_35b_a3b_m2.moe
+    jitengine_qwen3_6_35b_a3b_m2.cli
+
+[importlinter:contract:qwen36-model]
+name = Qwen3.6: models/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m2.model
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m2.server
+    jitengine_qwen3_6_35b_a3b_m2.cli
+
+[importlinter:contract:qwen36-server]
+name = Qwen3.6: server/ knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m2.server
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m2.engine.engine
+    jitengine_qwen3_6_35b_a3b_m2.engine.args
+    jitengine_qwen3_6_35b_a3b_m2.engine.errors
+    jitengine_qwen3_6_35b_a3b_m2.scheduler
+    jitengine_qwen3_6_35b_a3b_m2.kvcache
+    jitengine_qwen3_6_35b_a3b_m2.sampler
+    jitengine_qwen3_6_35b_a3b_m2.model
+    jitengine_qwen3_6_35b_a3b_m2.linear
+    jitengine_qwen3_6_35b_a3b_m2.kernels
+    jitengine_qwen3_6_35b_a3b_m2.memory
+    jitengine_qwen3_6_35b_a3b_m2.checkpoint
+    jitengine_qwen3_6_35b_a3b_m2.moe
+    jitengine_qwen3_6_35b_a3b_m2.cli
+
+[importlinter:contract:qwen36m4-kernels]
+name = Qwen3.6 M4 Pro: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m4pro.kernels
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m4pro.model
+    jitengine_qwen3_6_35b_a3b_m4pro.linear
+    jitengine_qwen3_6_35b_a3b_m4pro.engine
+    jitengine_qwen3_6_35b_a3b_m4pro.scheduler
+    jitengine_qwen3_6_35b_a3b_m4pro.kvcache
+    jitengine_qwen3_6_35b_a3b_m4pro.sampler
+    jitengine_qwen3_6_35b_a3b_m4pro.speculative
+    jitengine_qwen3_6_35b_a3b_m4pro.server
+    jitengine_qwen3_6_35b_a3b_m4pro.tokenizer
+    jitengine_qwen3_6_35b_a3b_m4pro.memory
+    jitengine_qwen3_6_35b_a3b_m4pro.checkpoint
+    jitengine_qwen3_6_35b_a3b_m4pro.moe
+    jitengine_qwen3_6_35b_a3b_m4pro.cli
+
+[importlinter:contract:qwen36m4-model]
+name = Qwen3.6 M4 Pro: models/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m4pro.model
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m4pro.server
+    jitengine_qwen3_6_35b_a3b_m4pro.cli
+
+[importlinter:contract:qwen36m4-server]
+name = Qwen3.6 M4 Pro: server/ knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_qwen3_6_35b_a3b_m4pro.server
+forbidden_modules =
+    jitengine_qwen3_6_35b_a3b_m4pro.engine.engine
+    jitengine_qwen3_6_35b_a3b_m4pro.engine.args
+    jitengine_qwen3_6_35b_a3b_m4pro.engine.errors
+    jitengine_qwen3_6_35b_a3b_m4pro.scheduler
+    jitengine_qwen3_6_35b_a3b_m4pro.kvcache
+    jitengine_qwen3_6_35b_a3b_m4pro.sampler
+    jitengine_qwen3_6_35b_a3b_m4pro.speculative
+    jitengine_qwen3_6_35b_a3b_m4pro.model
+    jitengine_qwen3_6_35b_a3b_m4pro.linear
+    jitengine_qwen3_6_35b_a3b_m4pro.kernels
+    jitengine_qwen3_6_35b_a3b_m4pro.memory
+    jitengine_qwen3_6_35b_a3b_m4pro.checkpoint
+    jitengine_qwen3_6_35b_a3b_m4pro.moe
+    jitengine_qwen3_6_35b_a3b_m4pro.cli
+
+[importlinter:contract:flashnext-kernels]
+name = Flash-Next: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m4pro.kernels
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m4pro.model
+    jitengine_qwen3_8_flash_next_m4pro.linear
+    jitengine_qwen3_8_flash_next_m4pro.engine
+    jitengine_qwen3_8_flash_next_m4pro.scheduler
+    jitengine_qwen3_8_flash_next_m4pro.kvcache
+    jitengine_qwen3_8_flash_next_m4pro.sampler
+    jitengine_qwen3_8_flash_next_m4pro.server
+    jitengine_qwen3_8_flash_next_m4pro.tokenizer
+    jitengine_qwen3_8_flash_next_m4pro.budget
+    jitengine_qwen3_8_flash_next_m4pro.checkpoint
+    jitengine_qwen3_8_flash_next_m4pro.moe
+    jitengine_qwen3_8_flash_next_m4pro.cli
+
+[importlinter:contract:flashnext-model]
+name = Flash-Next: models/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m4pro.model
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m4pro.server
+    jitengine_qwen3_8_flash_next_m4pro.cli
+
+[importlinter:contract:flashnext-server]
+name = Flash-Next: server/ knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m4pro.server
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m4pro.engine.engine
+    jitengine_qwen3_8_flash_next_m4pro.engine.errors
+    jitengine_qwen3_8_flash_next_m4pro.scheduler
+    jitengine_qwen3_8_flash_next_m4pro.kvcache
+    jitengine_qwen3_8_flash_next_m4pro.sampler
+    jitengine_qwen3_8_flash_next_m4pro.model
+    jitengine_qwen3_8_flash_next_m4pro.linear
+    jitengine_qwen3_8_flash_next_m4pro.kernels
+    jitengine_qwen3_8_flash_next_m4pro.budget
+    jitengine_qwen3_8_flash_next_m4pro.checkpoint
+    jitengine_qwen3_8_flash_next_m4pro.moe
+    jitengine_qwen3_8_flash_next_m4pro.cli
+
+[importlinter:contract:flashnext-m2-kernels]
+name = Flash-Next M2: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m2.kernels
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m2.model
+    jitengine_qwen3_8_flash_next_m2.linear
+    jitengine_qwen3_8_flash_next_m2.engine
+    jitengine_qwen3_8_flash_next_m2.scheduler
+    jitengine_qwen3_8_flash_next_m2.kvcache
+    jitengine_qwen3_8_flash_next_m2.sampler
+    jitengine_qwen3_8_flash_next_m2.server
+    jitengine_qwen3_8_flash_next_m2.tokenizer
+    jitengine_qwen3_8_flash_next_m2.budget
+    jitengine_qwen3_8_flash_next_m2.checkpoint
+    jitengine_qwen3_8_flash_next_m2.moe
+    jitengine_qwen3_8_flash_next_m2.cli
+
+[importlinter:contract:flashnext-m2-model]
+name = Flash-Next M2: models/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m2.model
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m2.server
+    jitengine_qwen3_8_flash_next_m2.cli
+
+[importlinter:contract:flashnext-m2-server]
+name = Flash-Next M2: server/ knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_qwen3_8_flash_next_m2.server
+forbidden_modules =
+    jitengine_qwen3_8_flash_next_m2.engine.engine
+    jitengine_qwen3_8_flash_next_m2.engine.errors
+    jitengine_qwen3_8_flash_next_m2.scheduler
+    jitengine_qwen3_8_flash_next_m2.kvcache
+    jitengine_qwen3_8_flash_next_m2.sampler
+    jitengine_qwen3_8_flash_next_m2.model
+    jitengine_qwen3_8_flash_next_m2.linear
+    jitengine_qwen3_8_flash_next_m2.kernels
+    jitengine_qwen3_8_flash_next_m2.budget
+    jitengine_qwen3_8_flash_next_m2.checkpoint
+    jitengine_qwen3_8_flash_next_m2.moe
+    jitengine_qwen3_8_flash_next_m2.cli
+
+[importlinter:contract:flint-kernels]
+name = Flint: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_flint_m4pro.kernels
+forbidden_modules =
+    jitengine_flint_m4pro.engine
+    jitengine_flint_m4pro.model
+    jitengine_flint_m4pro.decode
+    jitengine_flint_m4pro.copy_draft
+    jitengine_flint_m4pro.kv_cache
+    jitengine_flint_m4pro.weight_banks
+    jitengine_flint_m4pro.loader
+    jitengine_flint_m4pro.sampler
+    jitengine_flint_m4pro.server
+    jitengine_flint_m4pro.tokenizer
+    jitengine_flint_m4pro.cli
+
+[importlinter:contract:flint-model]
+name = Flint: model/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_flint_m4pro.model
+forbidden_modules =
+    jitengine_flint_m4pro.server
+    jitengine_flint_m4pro.cli
+
+[importlinter:contract:flint-server]
+name = Flint: server.py knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_flint_m4pro.server
+forbidden_modules =
+    jitengine_flint_m4pro.engine.engine
+    jitengine_flint_m4pro.engine.faults
+    jitengine_flint_m4pro.model
+    jitengine_flint_m4pro.kernels
+    jitengine_flint_m4pro.decode
+    jitengine_flint_m4pro.copy_draft
+    jitengine_flint_m4pro.kv_cache
+    jitengine_flint_m4pro.weight_banks
+    jitengine_flint_m4pro.loader
+    jitengine_flint_m4pro.sampler
+    jitengine_flint_m4pro.cli
+
+[importlinter:contract:flint-m2-kernels]
+name = Flint M2: kernels/ imports nothing else of the engine
+type = forbidden
+source_modules = jitengine_flint_m2.kernels
+forbidden_modules =
+    jitengine_flint_m2.engine
+    jitengine_flint_m2.model
+    jitengine_flint_m2.decode
+    jitengine_flint_m2.copy_draft
+    jitengine_flint_m2.kv_cache
+    jitengine_flint_m2.weight_banks
+    jitengine_flint_m2.loader
+    jitengine_flint_m2.sampler
+    jitengine_flint_m2.server
+    jitengine_flint_m2.tokenizer
+    jitengine_flint_m2.cli
+
+[importlinter:contract:flint-m2-model]
+name = Flint M2: model/ imports nothing from the HTTP layer or the CLI
+type = forbidden
+source_modules = jitengine_flint_m2.model
+forbidden_modules =
+    jitengine_flint_m2.server
+    jitengine_flint_m2.cli
+
+[importlinter:contract:flint-m2-server]
+name = Flint M2: server.py knows the engine only as serve()'s argument and engine/io_struct.py's types
+type = forbidden
+source_modules = jitengine_flint_m2.server
+forbidden_modules =
+    jitengine_flint_m2.engine.engine
+    jitengine_flint_m2.engine.faults
+    jitengine_flint_m2.model
+    jitengine_flint_m2.kernels
+    jitengine_flint_m2.decode
+    jitengine_flint_m2.copy_draft
+    jitengine_flint_m2.kv_cache
+    jitengine_flint_m2.weight_banks
+    jitengine_flint_m2.loader
+    jitengine_flint_m2.sampler
+    jitengine_flint_m2.cli

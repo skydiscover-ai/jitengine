@@ -1,0 +1,62 @@
+# Lint (ruff and engines/check_copies.py through pre-commit, and the layering contracts in
+# .importlinter), and each engine's tests and the launcher's on Linux, from its own directory (its
+# src/) and then all from the repository root (the installed packages): MLX's CPU build stands in,
+# so tests/unit runs and tests/metal and tests/e2e skip (-rs lists them with the reason).
+name: tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: python -m pip install pre-commit import-linter==2.15
+      - run: pre-commit run --all-files --show-diff-on-failure
+      - name: Layering contracts
+        # import-linter reads the engines' source, so they install without their dependencies
+        run: |
+          python -m pip install --no-deps ./engines/qwen3.6-35b-a3b-m2 ./engines/qwen3.6-35b-a3b-m4pro ./engines/qwen3.8-flash-next-m4pro ./engines/qwen3.8-flash-next-m2 ./engines/flint-m4pro ./engines/flint-m2 ./launch
+          lint-imports
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install
+        run: |
+          python -m pip install "mlx[cpu]==0.32.2" "setuptools>=77"
+          python -m pip install "./engines/qwen3.6-35b-a3b-m2[dev]" "./engines/qwen3.8-flash-next-m4pro[dev]"
+          python -m pip install "./engines/qwen3.6-35b-a3b-m4pro[dev]" "./engines/qwen3.8-flash-next-m2[dev]"
+          python -m pip install "./engines/flint-m4pro[dev]" "./engines/flint-m2[dev]" "./launch[dev]"
+      - name: Qwen3.6-35B-A3B on the M2
+        working-directory: engines/qwen3.6-35b-a3b-m2
+        run: python -m pytest -rs
+      - name: Qwen3.6-35B-A3B on the M4 Pro
+        working-directory: engines/qwen3.6-35b-a3b-m4pro
+        run: python -m pytest -rs
+      - name: Qwen3.8-Flash-Next on the M4 Pro
+        working-directory: engines/qwen3.8-flash-next-m4pro
+        run: python -m pytest -rs
+      - name: Qwen3.8-Flash-Next on the M2
+        working-directory: engines/qwen3.8-flash-next-m2
+        run: python -m pytest -rs
+      - name: Flint on the M4 Pro
+        working-directory: engines/flint-m4pro
+        run: python -m pytest -rs
+      - name: Flint on the M2
+        working-directory: engines/flint-m2
+        run: python -m pytest -rs
+      - name: The launcher
+        working-directory: launch
+        run: python -m pytest -rs
+      - name: All engines and the launcher from the repository root, as installed
+        run: python -m pytest
