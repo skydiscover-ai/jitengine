@@ -227,12 +227,15 @@ def test_malformed_replies_keep_every_call_and_every_value_s_text(name, text, wa
     assert (got.get("content", ""), [args(c) for c in calls]) == want
 
 
-def _best_of(n: int, fn) -> float:
-    best = float("inf")
+def _best_of_each(n: int, *fns) -> list[float]:
+    """The best of `n` timings of each function, taken in turn, so a busy stretch of the host slows
+    them alike."""
+    best = [float("inf")] * len(fns)
     for _ in range(n):
-        t = time.perf_counter()
-        fn()
-        best = min(best, time.perf_counter() - t)
+        for i, fn in enumerate(fns):
+            t = time.perf_counter()
+            fn()
+            best[i] = min(best[i], time.perf_counter() - t)
     return best
 
 
@@ -242,8 +245,9 @@ def _grows_linearly(build, n: int) -> None:
     reply must still parse well under a second."""
     small, large = build(n // 4), build(n)
     parse(small, TOOLS), parse(large, TOOLS)  # warm up
-    t_small = _best_of(3, lambda: parse(small, TOOLS))
-    t_large = _best_of(3, lambda: parse(large, TOOLS))
+    # seven runs each, in turn: on a Linux host at load 325, all three runs of the large reply that
+    # this once took were slowed
+    t_small, t_large = _best_of_each(7, lambda: parse(small, TOOLS), lambda: parse(large, TOOLS))
     assert t_large < 1.0 and t_large <= 8 * max(t_small, 0.002), (t_small, t_large)
 
 
