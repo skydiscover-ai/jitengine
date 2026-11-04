@@ -5,13 +5,15 @@
 #
 # It picks a build for this Mac's chip and memory (see the choice below), installs it and
 # jit-launch into ~/.jitengine, downloads the model at its pinned revision into ~/models (for Flash-Next, also packs
-# its experts for streaming, once), and adds a `jitengine` command. Then `jitengine claude` (or codex, opencode, pi)
-# starts the engine if it is not running, waits until it is ready, and starts the agent on it.
+# its experts for streaming, once), and adds a `jitengine` command: on the PATH of new terminals through the shell
+# profile, and of this one through a link in the first of ~/.local/bin, ~/bin, /opt/homebrew/bin and /usr/local/bin
+# that is on it and writable. Then `jitengine claude` (or codex, opencode, pi) starts the engine if it is not running,
+# waits until it is ready, and starts the agent on it.
 #
 # Environment: JITENGINE_HOME (default ~/.jitengine), JITENGINE_MODELS (default ~/models), JITENGINE_REPO and
 # JITENGINE_REF (the repository and branch to fetch the engines from when this script does not run from a checkout;
 # by default the public repository's default branch), and
-# JITENGINE_NO_MODIFY_PATH=1 to leave the shell profile alone.
+# JITENGINE_NO_MODIFY_PATH=1 to leave the shell profile and the PATH folders alone.
 set -euo pipefail
 
 say() { printf '\033[1m==> %s\033[0m\n' "$*"; }
@@ -27,7 +29,7 @@ into ~/models, and adds a `jitengine` command: `jitengine start` serves the mode
 `jitengine claude` (or codex, opencode, pi) starts the engine if it is not running and the agent on it.
 
 Environment: JITENGINE_HOME, JITENGINE_MODELS, JITENGINE_REPO, JITENGINE_REF, and JITENGINE_NO_MODIFY_PATH=1 to
-leave the shell profile alone.
+leave the shell profile and the PATH folders alone.
 EOF
     exit 0 ;;
 esac
@@ -260,12 +262,29 @@ esac
 EOF
 chmod +x "$HOME_DIR/bin/jitengine"
 
+CMD="$HOME_DIR/bin/jitengine"
 LINE="export PATH=\"$HOME_DIR/bin:\$PATH\""
 PROFILE="$HOME/.zprofile"; [ "${SHELL##*/}" != bash ] || PROFILE="$HOME/.bash_profile"   # zsh is macOS's default
-if [ "${JITENGINE_NO_MODIFY_PATH:-}" != 1 ] && ! grep -qsF "$LINE" "$PROFILE"; then
-  printf '\n# JITEngine\n%s\n' "$LINE" >> "$PROFILE"
+ours() { [ "$1" = "$CMD" ] || [ "$(readlink "$1" 2>/dev/null)" = "$CMD" ]; }
+if [ "${JITENGINE_NO_MODIFY_PATH:-}" != 1 ]; then
+  grep -qsF "$LINE" "$PROFILE" || printf '\n# JITEngine\n%s\n' "$LINE" >> "$PROFILE"
+  # The profile reaches new terminals only; the one that ran this keeps its PATH (this script has the same one). A link
+  # in a folder already on it, the user's own or Homebrew's, makes the next command, `jitengine claude`, work there too.
+  if ! ours "$(command -v jitengine || true)"; then
+    for d in "$HOME/.local/bin" "$HOME/bin" /opt/homebrew/bin /usr/local/bin; do
+      case ":$PATH:" in *":$d:"*) ;; *) continue ;; esac
+      [ -d "$d" ] && [ -w "$d" ] || continue
+      [ ! -e "$d/jitengine" ] && [ ! -L "$d/jitengine" ] || ours "$d/jitengine" || continue   # another jitengine: keep it
+      ln -sf "$CMD" "$d/jitengine" && break
+    done
+  fi
 fi
+RUN=jitengine; ours "$(command -v jitengine || true)" || RUN=$CMD
 say "Done. Serve the local model, or start a coding agent on it:"
-printf '\n    %s/bin/jitengine start       # the OpenAI and Anthropic APIs on http://127.0.0.1:8080\n' "$HOME_DIR"
-printf '    %s/bin/jitengine claude      # or codex, opencode, pi\n\n' "$HOME_DIR"
-echo "New terminals know it as just 'jitengine'. 'jitengine stop' stops the engine."
+printf '\n    %s start       # the OpenAI and Anthropic APIs on http://127.0.0.1:8080\n' "$RUN"
+printf '    %s claude      # or codex, opencode, pi\n\n' "$RUN"
+if [ "$RUN" = jitengine ]; then :
+elif [ "${JITENGINE_NO_MODIFY_PATH:-}" != 1 ]; then echo "New terminals know it as just 'jitengine'; for this one, run: $LINE"
+else echo "To call it just 'jitengine', add $HOME_DIR/bin to your PATH."
+fi
+echo "'jitengine stop' stops the engine."
