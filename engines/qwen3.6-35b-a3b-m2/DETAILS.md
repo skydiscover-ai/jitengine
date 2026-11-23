@@ -185,10 +185,18 @@ any that differs.
 | M2 Mac | 24 GB | offload, 18 GiB and 12 GiB | `44e24c591fc59187`, all kernel checks passed | 15.8 and 7.7 tok/s |
 | M1 Pro (`applegpu_g13s`) | 32 GB | `24gb-static`, resident | `44e24c591fc59187`, 3 of 3 repeats | 47.6 tok/s |
 | M1 Pro | 32 GB | offload, 8 GiB, an earlier build | `c2f1bffd3e568617`, differs from resident (offload then used other kernels) | 5.99 tok/s |
+| M5 Mac (`applegpu_g17g`) | 16 GB | offload, 8 GiB and 6 GiB | `44e24c591fc59187`, 3 of 3 repeats (the prefill kernels differ from stock here, so stock ran) | 11.9 and 9.5 tok/s |
 
 On 2026-11-03 we reran it from the release tree on the 24 GB M2: its unit and Metal tests passed (543 passed, 7
 skipped), and the end-to-end test gave `44e24c591fc59187` on 3 of 3 repeats at 45.7 tok/s.
 
+On 2026-11-23 it ran from the release tree on a 16 GB M5: its unit and Metal tests gave 538 passed, 5 failed and 7
+skipped, and the end-to-end test's client, run against offload since `24gb-static` needs 24 GB, gave
+`44e24c591fc59187` on 3 of 3 repeats. The five failures are the prefill kernels' checks against stock and offload
+against resident. On the M5, mlx 0.32.2 runs stock's prefill multiplies on the GPU's neural accelerators
+(`qmm_t_nax`, `gather_qmm_rhs_nax`), which sum in another order; with `MLX_METAL_GPU_ARCH=applegpu_g16s`, which turns
+them off, all five pass.
+
 Offload reads experts from disk, so disk speed sets the rate: the M2's offload rows used a cloud
-Mac's network volume. The M1 Pro rows come from a reviewer's runs of an earlier build, not re-run on this one. If you run it on another Mac,
+Mac's network volume, and the M5's its internal SSD. The M1 Pro rows come from a reviewer's runs of an earlier build, not re-run on this one. If you run it on another Mac,
 send `doctor --json` and the end-to-end test's output, and we will add a row.
