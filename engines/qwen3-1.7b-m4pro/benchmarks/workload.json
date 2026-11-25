@@ -1,0 +1,25 @@
+{
+ "client": "benchmark.py",
+ "scored_prompts": "prompts_scored.txt",
+ "heldout_prompts": "prompts_heldout.txt",
+ "settings": {
+  "concurrency": 16,
+  "total_requests": 64,
+  "max_tokens": 128,
+  "temperature": "server default (greedy)"
+ },
+ "per_request_token_bounds": [
+  122,
+  128
+ ],
+ "sha256": {
+  "benchmark.py": "5b6b3f679e54a4483f2adea0171330ffd0f2003dc5b680d7cb62f73b2175784c",
+  "prompts_scored.txt": "942f120e41845cd2f52d09864123147fb656780722a9dd4d2ebf5c1052e15508",
+  "prompts_heldout.txt": "d835255342e2320fb10197b5bc026d55b792df92e14b8fa00ef470a55430bc87"
+ },
+ "notes": [
+  "benchmark.py is mlx-lm's server benchmark, unchanged from the one that measured the SkyDiscover run.",
+  "prompts_scored.txt is that client's built-in prompt list, one per line; the client cycles it over the 64 requests.",
+  "prompts_heldout.txt are 15 prompts absent from the scored list, used to check the speedup is not specific to them."
+ ]
+}

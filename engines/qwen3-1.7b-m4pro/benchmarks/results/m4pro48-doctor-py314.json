@@ -1,0 +1,48 @@
+{
+ "platform": "darwin",
+ "machine": "arm64",
+ "python": "3.14.10",
+ "macos": "26.6.2",
+ "engine": {
+  "version": "0.1.0a1",
+  "model": "mlx-community/Qwen3-1.7B-4bit",
+  "model_revision": "3b1b1768f8f8cf8351c712464f906e86c2b8269e"
+ },
+ "packages": {
+  "mlx": {
+   "installed": "0.32.4",
+   "measured": "0.32.4"
+  },
+  "transformers": {
+   "installed": "5.20.2",
+   "measured": "5.20.2"
+  },
+  "mlx-lm": {
+   "installed": "0.32.3.dev2+gc39139d70",
+   "measured": "commit c39139d70",
+   "matches": true
+  }
+ },
+ "power": {
+  "source": "AC Power",
+  "battery_percent": null,
+  "power_mode": 0
+ },
+ "metal": {
+  "device": "Apple M4 Pro",
+  "memory_gib": 48.0
+ },
+ "mac": "untested",
+ "patch_sources": {
+  "GenerationBatch._step": true,
+  "ResponseGenerator._generate": true,
+  "qwen3.Attention/MLP.__call__": true
+ },
+ "supported": true,
+ "kernel_selfcheck": {
+  "exact_shapes_ok": true,
+  "fusion_ok": true,
+  "disabled": [],
+  "seconds": 0.47
+ }
+}

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 def _run(e, prompts, n=24):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     return [e.generate(GenRequest(prompt_ids=p, max_tokens=n)).token_ids for p in prompts]
 

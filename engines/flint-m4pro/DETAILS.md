@@ -18,7 +18,7 @@ From this directory, with Python 3.14 or newer:
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
+pip install ../../runtime ../flint '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
 hf download RecursiveSI/flint-int4 --revision 3b93f9053b530488405ae9fca51d4900d6ce21f0 \
     --local-dir ~/models/flint-int4                                               # 22.6 GB
 ```
@@ -45,6 +45,14 @@ Anthropic Messages API (`/v1/messages`, `/v1/messages/count_tokens`) and OpenAI'
 (`/v1/responses`) on the same chat, its reasoning as a thinking block and a reasoning item, so
 Claude Code, Codex, OpenCode and Pi run on it ([`launch/`](../../launch) has the setup, and
 `jit-launch`), with the context limit `/v1/models` reports as `max_model_len`.
+
+An agent's next request repeats the conversation so far. The engine keeps the last prompt's state
+at its last 2,048-token boundary before the end; a prompt that starts with those positions restores
+it and prefills only the rest, in the chunks a full prefill runs there, so the reply is bit-identical
+([`test_prefix_resume.py`](../flint/tests/metal/engine/test_prefix_resume.py), greedy and sampled). On the
+48 GB M4 Pro, a 4,962-token prompt that repeats a 4,662-token one prefilled in 1.30 s instead of
+6.24 s in memory, 1.31 s instead of 6.27 s with `--profile kv8`, and 2.2 s instead of 9.5 s at an
+18 GiB budget (the checkpoint on a network disk).
 
 Before it reads a weight, it checks the GPU, the checkpoint's small files against its
 `flint-int4.json` manifest, and the safetensors headers against `config.json`, and it sizes the
@@ -88,7 +96,7 @@ theirs. The subcommands are `serve`, `doctor` and `inspect`.
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path DIR` | required | the checkpoint directory |
+| `--model-path DIR\|ID` | `RecursiveSI/flint-int4` | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache (`doctor` and `inspect` need one) |
 | `--host`, `--port` | `127.0.0.1`, `8080` | where `serve` listens |
 | `--allowed-host NAME` | none | a host name clients may use besides `localhost`, IP literals and `--host` (repeatable); a request naming any other host, or sent by a browser page of another origin, gets 403 |
 | `--context-limit auto\|N` | `auto` | history positions |
@@ -106,9 +114,9 @@ theirs. The subcommands are `serve`, `doctor` and `inspect`.
 
 Environment variables: `FLINT_GRID_CACHE` (the `doctor --tune` cache file). The tests and
 benchmarks read `JITENGINE_FLINT_M4PRO_E2E_CHECKPOINT`, `JITENGINE_FLINT_M4PRO_E2E_SHA`,
-`JITENGINE_FLINT_M4PRO_E2E_MIN_TOKS` and `JITENGINE_FLINT_M4PRO_TEST_CHECKPOINT`
-([tests/README.md](tests/README.md)), and `FLINT_BENCH_DIR`, `FLINT_IMPL_DIR`, `FLINT_MODEL` and
-`FLINT_PYTHON` ([benchmarks/README.md](benchmarks/README.md)).
+`JITENGINE_FLINT_M4PRO_E2E_MIN_TOKS` and `JITENGINE_FLINT_TEST_CHECKPOINT`
+([tests/README.md](../flint/tests/README.md)), and `FLINT_BENCH_DIR`, `FLINT_IMPL_DIR`, `FLINT_MODEL` and
+`FLINT_PYTHON` ([benchmarks/README.md](../flint/benchmarks/README.md)).
 
 ### Less memory
 
@@ -120,7 +128,7 @@ or a Mac whose GPU wired limit cannot hold the weights, runs Flint with its expe
 - The non-expert weights (1.3 GB) stay in memory, with as many of the 12,032 routed experts (47
   layers of 256, 1.77 MB each) as the budget has room for.
 - An expert that is not in memory is read from the checkpoint when the router picks it, in place of
-  the one used least lately.
+  one the pool evicts ([the M2 build's DETAILS](../flint-m2/DETAILS.md#why-its-fast-in-more-detail) has how).
 - Decode runs on stock MLX ops: no megakernel and no speculation.
 - The context limit defaults to 32,768 tokens; `--context-limit N` sets more, which leaves fewer
   experts in memory.
@@ -128,7 +136,7 @@ or a Mac whose GPU wired limit cannot hold the weights, runs Flint with its expe
   are read once per prompt rather than once per chunk.
 
 Without a budget, offload takes the GPU wired limit, at most physical memory less 6 GiB: 18 GiB on
-a 24 GB Mac. A budget too small for one layer's experts and 4,096 tokens of history, about 3.7 GiB,
+a 24 GB Mac. A budget too small for one layer's experts and 4,096 tokens of history, about 3.2 GiB,
 is refused with the smallest that fits. Profile kv8, `--decode-backend mk` and `--mk-grid` need the
 whole model in memory. `--mode offload` keeps the experts on the SSD even when the whole model
 fits, and `--mode resident` refuses rather than offload. The text does not depend on the budget: an expert in the pool is the same
@@ -137,10 +145,10 @@ check the MoE layer's output bit for bit against it.
 
 On a 24 GB M2 (an AWS EC2 Mac) we raised the GPU wired limit to 22 GiB with
 `sudo sysctl iogpu.wired_limit_mb=22528`, which makes the default budget 18 GiB. With the default
-limit, the default budget is that limit, which `doctor` reports. At 18 GiB the pool keeps 70% of the experts
-(8,455 of 12,032). This build's offload mode decodes code at a 1K-token prompt at 8.5 tok/s in 18 GiB and 5.0 tok/s in
-12 GiB (median of 3, greedy), measured as the starting point of the [M2 build](../flint-m2/README.md#results); its
-README table has the 8K and raw rates.
+limit, the default budget is that limit, which `doctor` reports. On our 48 GB M4 Pro, the budget sweep of 2026-11-03 (one client for every engine: a ~1K-token code prompt, 256 tokens
+at temperature 0, median of three runs) measured this offload path, run as the M2 build, at 47.6 tok/s in 18 GiB and
+23.6 tok/s in 10 GiB, and 61.1 tok/s in 24 GiB with every expert in the pool; on the 24 GB M2, the
+[M2 build's README](../flint-m2/README.md#results) has the rates.
 
 ## Results
 
@@ -196,7 +204,7 @@ Two sets of measurements give the 251 to 255 GB/s:
 The re-run's command:
 
 ```bash
-python benchmarks/kernels/megakernel.py --model ~/models/flint-int4 --L 1536 131584 --quick --T 16 --reps 5 --out mk.json
+python ../flint/benchmarks/kernels/megakernel.py --model ~/models/flint-int4 --L 1536 131584 --quick --T 16 --reps 5 --out mk.json
 ```
 
 What the run measured along the way:
@@ -215,7 +223,7 @@ What the run measured along the way:
 
 ## Measure it yourself
 
-[`benchmarks/`](benchmarks) has the benchmark harness, and its README has the commands:
+[`../flint/benchmarks`](../flint/benchmarks) has the benchmark harness, and its README has the commands:
 it builds the prompts from llama.cpp's source, then times each mode and context.
 `benchmarks/kernels/megakernel.py` times the megakernel alone, phase by phase.
 
@@ -233,8 +241,8 @@ and multi-token decoding against one token per pass.
 |:--|:--|:--|:--|--:|
 | M4 Pro, the measured Mac | 48 GB | teacher-forced log-probabilities, greedy fidelity, kv8 fidelity and peak memory without swap at all nine contexts; admission by capability over simulated Macs, the fallback through 15 engines on the GPU, and every resident grid from 16 to 60 against grid 40's tokens and top-20 ids | | the table above |
 | M4 Pro, wired limit lowered | 24.1 to 31.0 GiB | the engine at five wired limits (six runs) with `--context-limit auto`: context 4,096 to 262,144 as predicted, 1,024 tokens each, and three refusals | same tokens as at 45 GiB | ×0.9985 to ×1.0025 of 45 GiB |
-| M4 Pro, the measured Mac | 48 GB | this package's `tests/unit` and `tests/metal` with the checkpoint (435 passed, 2 skipped) and the end-to-end test, run on 2026-11-03 on the release tree; the end-to-end test gave the same hash on 3 of 3 repeats, with the tuned grid 40, context 262,144 and multi-token decoding on | `22f2f2ab929aa000` | 140.0 tok/s (median of 3), greedy-512 chat |
-| M2 (AWS EC2 Mac) | 24 GB | offload at 18 and 12 GiB ([less memory](#less-memory)), measured as the starting point of the [M2 build](../flint-m2/DETAILS.md#tested-on), whose logits (11,019 rows) and greedy tokens match this offload mode at both budgets | | 8.5 and 5.0 tok/s, code at 1K |
+| M4 Pro, the measured Mac | 48 GB | the engine's `tests/unit` and `tests/metal` ([`../flint/tests`](../flint/tests)) with the checkpoint (435 passed, 2 skipped) and the end-to-end test, run on 2026-11-03 on the release tree; the end-to-end test gave the same hash on 3 of 3 repeats, with the tuned grid 40, context 262,144 and multi-token decoding on | `22f2f2ab929aa000` | 140.0 tok/s (median of 3), greedy-512 chat |
+| M2 (AWS EC2 Mac) | 24 GB | the offload path both builds run, as the [M2 build](../flint-m2/DETAILS.md#tested-on) (its tested-on row) | `46cc7a346d0ee2fb`, 3 of 3 repeats | 22.8 tok/s (median of 3), greedy-512 chat |
 | Other Apple silicon Macs | | on the M4 Pro only: their device facts and wired limits simulated (M1 Pro, M3 Pro, M4, M2 Max, M2 Ultra, a binned M4 Pro, an unknown generation), forced compile and probe failures, load-check defects, and every grid from 16 to 60 | not run | unmeasured |
 
 The M4 Pro rows ran with nothing else on the Mac; the memory checks need the Mac to themselves.

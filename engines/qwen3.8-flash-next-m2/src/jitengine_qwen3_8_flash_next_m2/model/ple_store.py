@@ -16,17 +16,17 @@ from concurrent.futures import ThreadPoolExecutor
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_reader import CheckpointScan
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     DTYPE_BYTES,
     PAGE,
     PLE_MAGIC,
     PackError,
     PLEScan,
-    default_ple_pack_path,
     read_header_block,
     validate_ple,
 )
+from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_reader import CheckpointScan
+from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_paths import default_ple_pack_path
 from jitengine_qwen3_8_flash_next_m2.moe.expert_store import F_NOCACHE
 
 WORKERS = 16

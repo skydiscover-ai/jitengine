@@ -5,8 +5,8 @@ from __future__ import annotations
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.engine.errors import InvariantError
-from jitengine_qwen3_6_35b_a3b_m2.model.config import Qwen3_5MoeConfig
+from jitengine_qwen3_6_35b_a3b.engine.errors import InvariantError
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 
 KV_STEP = 256
 

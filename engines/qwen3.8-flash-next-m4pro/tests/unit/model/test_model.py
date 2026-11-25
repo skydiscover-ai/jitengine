@@ -78,8 +78,8 @@ def no_kernels(monkeypatch):
 @pytest.fixture
 def tiny(tiny_flashnext):
     """(config, weights) of the tiny checkpoint."""
+    from jitengine_qwen3_8_flash_next.model.config import load_config
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint.loader import load_language_weights
-    from jitengine_qwen3_8_flash_next_m4pro.model.config import load_config
 
     path = tiny_flashnext()[0]
     return load_config(path), load_language_weights(path)
@@ -141,7 +141,7 @@ def test_a_restored_snapshot_survives_the_next_build():
     cache in place, and the MTP verify pass restores the same snapshot twice (a p+1-only rebuild,
     then `rollback1` after a rejected draft). Restoring the snapshot itself would let the rebuild's
     block (built on the draft's key) survive the rollback."""
-    from jitengine_qwen3_8_flash_next_m4pro.kvcache.kv_cache import KVSlot
+    from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KVSlot
     from jitengine_qwen3_8_flash_next_m4pro.model.model import Qwen4ExpForCausalLM as M
 
     slot = KVSlot(SimpleNamespace(num_key_value_heads=1, head_dim=4, indexer_head_dim=4), 16)

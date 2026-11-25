@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import Capacity, Limits, make_plan
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.resize import (
+from jitengine_qwen3_6_35b_a3b.memory.budget import Capacity, Limits, make_plan
+from jitengine_qwen3_6_35b_a3b.memory.resize import (
     FAILED,
     SERVING,
     ResizeRequest,
@@ -174,6 +174,6 @@ def test_resident_resize_trims_or_requires_restart():
 
 
 def _gen(engine, ids, n=8):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     return engine.generate(GenRequest(prompt_ids=ids, max_tokens=n)).token_ids

@@ -10,16 +10,16 @@ from functools import partial
 import mlx.core as mx
 import mlx.nn as nn
 
+from jitengine_qwen3_8_flash_next.kvcache.linear_state import LinearStateSlot
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kernels import gdn_decode as _gf
 from jitengine_qwen3_8_flash_next_m2.kernels.gdn_recurrence import (
     gdn_recurrence,
     gdn_recurrence_ops,
     gdn_recurrence_staged,
 )
-from jitengine_qwen3_8_flash_next_m2.kvcache.linear_state import LinearStateSlot
 from jitengine_qwen3_8_flash_next_m2.linear import qlinear_from
 from jitengine_qwen3_8_flash_next_m2.model.common import GDN_FUSED_MULTI
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
 # GDN recurrence: "kernel" (`kernels.gdn_recurrence`) or "ops" (the plain-ops definition).
 GDN_IMPL = "kernel"

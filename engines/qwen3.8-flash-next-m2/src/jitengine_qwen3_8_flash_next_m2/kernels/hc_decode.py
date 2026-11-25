@@ -15,8 +15,8 @@ import mlx.core as mx
 import mlx.nn as nn
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.kernels.constants import f32, placeholder
 from jitengine_qwen3_8_flash_next_m2.kernels import selfcheck as sc
-from jitengine_qwen3_8_flash_next_m2.kernels.constants import f32, placeholder
 
 HEADER = """
 #include <metal_simdgroup>

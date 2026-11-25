@@ -117,8 +117,8 @@ def test_greedy_512_hash_paths_and_decode(flashnext, gate, tmp_path, record_test
 
 
 def _measured_paths(stats: dict, log: str, model: str) -> list[str]:
+    from jitengine_qwen3_8_flash_next.model.config import load_config
     from jitengine_qwen3_8_flash_next_m4pro.kernels.qmv_row_blocked import CONFIGS
-    from jitengine_qwen3_8_flash_next_m4pro.model.config import load_config
     from jitengine_qwen3_8_flash_next_m4pro.model.kernel_checks import NAMES
 
     problems = []

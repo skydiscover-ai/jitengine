@@ -37,9 +37,9 @@ def _run(monkeypatch, bits: int, group_size: int, offload: bool = False):
     arguments and passes."""
     import importlib
 
+    from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
     from jitengine_qwen3_6_35b_a3b_m4pro.engine.engine import run_load_checks
     from jitengine_qwen3_6_35b_a3b_m4pro.kernels.expert_solo import expert_checks
-    from jitengine_qwen3_6_35b_a3b_m4pro.model.config import Qwen3_5MoeConfig
 
     calls = {}
 

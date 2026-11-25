@@ -15,7 +15,7 @@ import urllib.request
 
 import pytest
 
-from jitengine_qwen3_6_35b_a3b_m2 import cli
+from jitengine_qwen3_6_35b_a3b_m2 import cli, pinned
 
 GIB = 1 << 30
 PROG = "jitengine-qwen3.6-35b-a3b-m2"
@@ -102,7 +102,8 @@ def test_print_config_with_no_options_is_the_builtin_defaults(capsys):
     assert (cfg["host"], cfg["port"]) == ("127.0.0.1", 8080)
     assert cfg["mode"] == "auto" and cfg["memory_policy"] == "static"
     assert set(origin.values()) == {"default"}
-    assert "model_path" not in cfg
+    # serve with no --model-path fetches the pinned checkpoint
+    assert cfg["model_path"] == pinned.CHECKPOINT
 
 
 def test_print_config_with_a_profile_names_the_profile_as_origin(capsys):
@@ -307,10 +308,16 @@ def test_inspect_text_prints_the_plan_error_for_a_too_small_budget(checkpoint, c
     assert rc == 1 and "  plan: " in out
 
 
-def test_inspect_without_a_model_path_in_the_config_is_not_reachable_from_argparse(capsys):
-    # --model-path is required by the parser, so the `cfg["model_path"]` check only guards a
-    # namespace built by hand; here it must still refuse cleanly.
+def test_inspect_without_a_model_path_in_the_namespace_inspects_the_pinned_checkpoint(
+    tmp_path, monkeypatch, capsys
+):
+    # --model-path is required by the parser; a namespace built by hand without one gets the pinned checkpoint,
+    # as serve does (here the download is replaced by an empty folder, which is no checkpoint).
     import argparse
+
+    from jitengine_runtime import hub
+
+    monkeypatch.setattr(hub, "_snapshot_download", lambda repo, rev, allow: str(tmp_path))
 
     ns = argparse.Namespace(
         profile=None, config=None, model_path=None, json=False, no_metal=True,
@@ -319,12 +326,12 @@ def test_inspect_without_a_model_path_in_the_config_is_not_reachable_from_argpar
         prefill_chunk=None, prefix_cache_mib=None, expert_pack_path=None,
         build_expert_pack=False, host="127.0.0.1", port=8080,
     )  # fmt: skip
-    assert cli.cmd_inspect(ns) == 2
-    assert "--model-path is required" in capsys.readouterr().err
+    assert cli.cmd_inspect(ns) == 1
+    assert "unsupported or unreadable checkpoint" in capsys.readouterr().err
 
 
 def test_inspect_an_unreadable_checkpoint_exits_1(tmp_path, capsys):
-    rc, _, err = _run(["inspect", "--model-path", str(tmp_path / "absent"), "--no-metal"], capsys)
+    rc, _, err = _run(["inspect", "--model-path", str(tmp_path), "--no-metal"], capsys)
     assert rc == 1
     assert "unsupported or unreadable checkpoint" in err
 
@@ -339,7 +346,7 @@ def test_inspect_a_malformed_checkpoint_exits_1(tmp_path, fake_checkpoint, capsy
 
 
 def test_inspect_with_metal_reads_the_device_limits(checkpoint, monkeypatch, capsys):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import budget
+    from jitengine_qwen3_6_35b_a3b.memory import budget
 
     info = {"device_name": "Fake GPU", "architecture": "applegpu_g14g",
             "max_recommended_working_set_size": 10 * GIB}  # fmt: skip
@@ -374,16 +381,16 @@ def test_pack_rejects_and_replaces_a_file_that_is_not_a_pack(checkpoint, tmp_pat
 def test_pack_default_output_is_beside_the_checkpoint_pack_path_function(
     checkpoint, monkeypatch, tmp_path, capsys
 ):
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint import pack
+    from jitengine_qwen3_6_35b_a3b_m2.checkpoint import pack_paths
 
     target = str(tmp_path / "default.experts")
-    monkeypatch.setattr(pack, "default_pack_path", lambda scan: target)
+    monkeypatch.setattr(pack_paths, "default_pack_path", lambda scan: target)
     rc, out, _ = _run(["pack", "--model-path", checkpoint], capsys)
     assert rc == 0 and f"{target}: valid" in out
 
 
 def test_pack_of_a_missing_checkpoint_exits_1(tmp_path, capsys):
-    rc, _, err = _run(["pack", "--model-path", str(tmp_path / "absent")], capsys)
+    rc, _, err = _run(["pack", "--model-path", str(tmp_path)], capsys)
     assert rc == 1 and "cannot scan" in err
 
 
@@ -394,7 +401,7 @@ def test_pack_refuses_when_the_disk_is_too_full(checkpoint, tmp_path, monkeypatc
 
 
 def test_pack_reports_a_build_failure(checkpoint, tmp_path, monkeypatch, capsys):
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint import pack
+    from jitengine_qwen3_6_35b_a3b.checkpoint import pack
 
     def boom(scan, out, log=None):
         raise pack.PackError("disk on fire")
@@ -407,7 +414,7 @@ def test_pack_reports_a_build_failure(checkpoint, tmp_path, monkeypatch, capsys)
 def test_pack_exits_1_when_the_built_file_does_not_validate(
     checkpoint, tmp_path, monkeypatch, capsys
 ):
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint import pack
+    from jitengine_qwen3_6_35b_a3b.checkpoint import pack
 
     monkeypatch.setattr(pack, "build_pack", lambda scan, out, log=None: None)
     monkeypatch.setattr(pack, "validate", lambda path, scan: (False, "stale"))
@@ -430,7 +437,7 @@ class _Done:
 
 @pytest.fixture
 def no_metal(monkeypatch):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import budget
+    from jitengine_qwen3_6_35b_a3b.memory import budget
 
     monkeypatch.setattr(budget, "device_info_or_none", lambda: (None, "no Metal here"))
 
@@ -462,7 +469,7 @@ def test_doctor_text_without_metal_says_unavailable_and_unsupported(no_metal, ca
 def test_doctor_on_an_apple_silicon_mac_is_supported(monkeypatch, capsys):
     import platform
 
-    from jitengine_qwen3_6_35b_a3b_m2.memory import budget
+    from jitengine_qwen3_6_35b_a3b.memory import budget
 
     info = {"device_name": "Apple M2", "architecture": "applegpu_g14g",
             "max_recommended_working_set_size": 16 * GIB, "max_buffer_length": 8 * GIB}  # fmt: skip
@@ -609,11 +616,6 @@ def test_status_records_an_http_error_body_and_exits_1(monkeypatch, capsys):
 
 
 # ---------------------------------------------------------------- serve (everything before the engine)
-def test_serve_without_a_model_path_is_refused(capsys):
-    rc, _, err = _run(["serve"], capsys)
-    assert rc == 2 and "--model-path is required" in err
-
-
 def test_serve_of_a_directory_without_config_json_is_refused(tmp_path, capsys):
     rc, _, err = _run(["serve", "--model-path", str(tmp_path)], capsys)
     assert rc == 2 and "not a checkpoint directory" in err
@@ -625,7 +627,7 @@ def test_serve_refuses_without_metal(checkpoint, no_metal, capsys):
 
 
 def test_serve_reports_a_budget_that_cannot_hold_the_model(checkpoint, monkeypatch, capsys):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import budget
+    from jitengine_qwen3_6_35b_a3b.memory import budget
 
     monkeypatch.setattr(budget, "device_info_or_none", lambda: ({"device_name": "x"}, None))
     rc, _, err = _run(["serve", "--model-path", checkpoint, "--memory-budget-gib", "0.01"], capsys)
@@ -640,7 +642,7 @@ def test_serve_reports_a_checkpoint_without_shards(tmp_path, fake_device, capsys
 
 @pytest.fixture
 def fake_device(monkeypatch):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import budget
+    from jitengine_qwen3_6_35b_a3b.memory import budget
 
     info = {"device_name": "Fake", "architecture": "applegpu_g14g"}
     monkeypatch.setattr(budget, "device_info_or_none", lambda: (info, None))
@@ -765,7 +767,7 @@ def test_serve_with_build_expert_pack_skips_the_pack_check(
 
 # ---------------------------------------------------------------- preflight
 def test_preflight_waits_then_gives_up_and_passes_when_telemetry_is_missing(monkeypatch):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import monitor
+    from jitengine_qwen3_6_35b_a3b.memory import monitor
 
     sleeps = []
     monkeypatch.setattr(cli.time, "sleep", sleeps.append)
@@ -795,7 +797,7 @@ def test_preflight_waits_then_gives_up_and_passes_when_telemetry_is_missing(monk
 
 
 def test_preflight_counts_cached_files_as_available(monkeypatch):
-    from jitengine_qwen3_6_35b_a3b_m2.memory import monitor
+    from jitengine_qwen3_6_35b_a3b.memory import monitor
 
     # after reading a large file most memory is cached files, which the inactive-queue estimate misses
     monkeypatch.setattr(

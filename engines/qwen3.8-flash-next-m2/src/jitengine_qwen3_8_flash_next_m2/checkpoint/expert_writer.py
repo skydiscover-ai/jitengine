@@ -15,7 +15,7 @@ import time
 
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     FIELDS,
     HEADER_BYTES,
     MAGIC,

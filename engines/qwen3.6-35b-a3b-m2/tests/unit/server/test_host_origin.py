@@ -8,8 +8,8 @@ import threading
 
 import pytest
 
-from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenResult
-from jitengine_qwen3_6_35b_a3b_m2.server import api_server as srvmod
+from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenResult
+from jitengine_qwen3_6_35b_a3b.server import api_server as srvmod
 
 
 class Tok:

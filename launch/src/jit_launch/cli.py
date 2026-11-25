@@ -1,6 +1,7 @@
 """jit-launch: start a coding agent against a running JITEngine engine.
 
     jit-launch {pi,claude,opencode,codex} [--server URL] [--dry-run] [-- AGENT ARGS ...]
+    jit-launch bench [--server URL] [--report] [--json]      (bench.py: time the engine)
 
 It reads the served model and the tokens one request may hold from the engine's /v1/models (the
 `max_model_len` each engine reports), points the agent at the engine for this session (agents.py)
@@ -190,7 +191,7 @@ def _parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         prog="jit-launch",
         description="Start a coding agent against a running JITEngine engine.",
-        epilog="Arguments after -- go to the agent.",
+        epilog="Arguments after -- go to the agent. `jit-launch bench` times the engine instead.",
     )
     ap.add_argument("agent", choices=sorted(PLANS))
     ap.add_argument(
@@ -203,6 +204,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else list(argv)
+    if argv[:1] == ["bench"]:
+        from jit_launch import bench
+
+        return bench.main(argv[1:], discover)
     agent_args: list[str] = []
     if "--" in argv:
         cut = argv.index("--")

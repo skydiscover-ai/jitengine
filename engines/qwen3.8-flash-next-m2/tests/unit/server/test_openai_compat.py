@@ -21,9 +21,9 @@ import time
 
 import pytest
 
+from jitengine_qwen3_8_flash_next.server.openai_api import ChunkWriter
 from jitengine_qwen3_8_flash_next_m2.engine.io_struct import GenResult
 from jitengine_qwen3_8_flash_next_m2.server import api_server as srvmod
-from jitengine_qwen3_8_flash_next_m2.server.openai_api import ChunkWriter
 from jitengine_qwen3_8_flash_next_m2.server.protocol import (
     COMPLETIONS_DEFAULT_MAX_TOKENS,
     MAX_PROMPT_TOKENS,

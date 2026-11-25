@@ -6,8 +6,9 @@ mixture-of-experts model (22.6 GB), tuned on a 24 GB M2, where the model does no
 - **2.1× llama.cpp** at its fastest GPU-layer setting, on raw decoding at a 1K-token prompt: 28.2 vs. 13.6 tok/s (3.4× at 8K).
   [rec](https://github.com/recursive-oss/rec), Recursive's own inference engine for Flint, needs 27.8 GB at 1K of context and does
   not run on a 24 GB Mac.
-- **2.3× Flint's [M4 Pro build](../flint-m4pro)** in the same 18 GiB on this Mac, averaged over code and raw at 1K and
-  8K, with the same output bit for bit.
+- **2.3× the offload path it was tuned from**, the [M4 Pro build](../flint-m4pro)'s (which now streams this way too:
+  both builds run one engine, [`../flint`](../flint)), in the same 18 GiB on this Mac, averaged over code and raw at 1K
+  and 8K, with the same output bit for bit.
 - Serves one user at a time. On a 32 GB Mac, [`install.sh`](../../install.sh) sets a 26 GiB budget, which plans the whole model and 73,728 tokens
   of history in memory. We ran that plan on our 48 GB M4 Pro with its GPU limit set to a 32 GB Mac's, not on a 32 GB Mac.
 
@@ -25,12 +26,14 @@ You need Python 3.14 or newer and 22.6 GB of disk for the model. From this direc
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../flint '.[download]'
 hf download RecursiveSI/flint-int4 --revision 3b93f9053b530488405ae9fca51d4900d6ce21f0 \
     --local-dir ~/models/flint-int4
 sudo sysctl iogpu.wired_limit_mb=22528     # on a 24 GB Mac: raise the GPU wired limit until the next restart
 jitengine-flint-m2 serve --model-path ~/models/flint-int4
 ```
+
+`serve` with no `--model-path` fetches that checkpoint, at that revision, into the Hugging Face cache on its first run, so the `hf download` line is optional. `--model-path` takes a model id (`org/name` or `org/name@revision`) as well as a directory; a directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`.
 
 Put the checkpoint on the internal SSD, because every expert missing from memory is read from it during decode. The default 18 GiB budget needs the raised GPU wired limit. Without it, the budget is the smaller limit macOS recommends, which would keep fewer experts in memory and decode more slowly, as the 12 GiB rows do ([memory budget](DETAILS.md#memory-budget)). Then point any OpenAI client at `http://127.0.0.1:8080/v1`:
 
@@ -67,7 +70,7 @@ the CPU. We did not vary its 4 threads. [DETAILS.md](DETAILS.md#results) has its
 ## Why it's fast
 
 At 22.6 GB, Flint overflows the M2's 18 GiB, so the engine reads the experts that do not fit from the SSD when the
-router picks them. This build is the [M4 Pro build](../flint-m4pro)'s offload mode, tuned for the M2.
+router picks them. Both Flint builds run one engine, [`../flint`](../flint); this is its offload path, tuned on the M2.
 Run unchanged on this Mac (18 GiB, code at 1K), a token took 116 ms. A profile of the same setting, at 124 ms per token, put 45 ms in blocking reads of the experts
 missing from memory, 16 ms in choosing which expert to evict, and 18.5 ms in extra GPU time that followed the reads.
 The run kept nine changes; four of them:
@@ -93,7 +96,7 @@ The run kept nine changes; four of them:
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path DIR` | required | the checkpoint directory |
+| `--model-path DIR\|ID` | `RecursiveSI/flint-int4` | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache (`doctor` and `inspect` need one) |
 | `--memory-budget-gib N` | the wired limit, at most memory less 6 GiB | the memory the engine may use |
 | `--mode auto\|resident\|offload` | `auto` | whether experts stream from the SSD |
 | `--context-limit auto\|N` | `auto` (32,768 in offload) | history positions |
@@ -106,11 +109,13 @@ The run kept nine changes; four of them:
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../flint '.[dev]'
+pytest ../flint     # the engine's unit tests; the Metal tests skip without Metal or the checkpoint
+pytest              # this build's end-to-end test, with JITENGINE_FLINT_M2_E2E_CHECKPOINT set
 ```
 
 A pass is every test passing or skipping. On the M2 with the checkpoint, the end-to-end test checks that greedy
-output hashes to `46cc7a346d0ee2fb`. [`tests/README.md`](tests/README.md) says what each suite checks and what it
-needs.
+output hashes to `46cc7a346d0ee2fb`. [`../flint/tests/README.md`](../flint/tests/README.md) says what each suite
+checks and what it needs.
 
 Built with [SkyDiscover](https://skydiscover-ai.github.io/).

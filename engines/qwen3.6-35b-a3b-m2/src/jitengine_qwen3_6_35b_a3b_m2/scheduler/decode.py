@@ -8,8 +8,8 @@ import time
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.scheduler.batch import Req
-from jitengine_qwen3_6_35b_a3b_m2.server.stats import MOE_SAMPLE_EVERY, StepTelemetry
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Req
+from jitengine_qwen3_6_35b_a3b.server.stats import MOE_SAMPLE_EVERY, StepTelemetry
 
 
 class DecodingMixin:

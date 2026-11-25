@@ -7,8 +7,8 @@ from __future__ import annotations
 
 import uuid
 
+from jitengine_qwen.tokenizer import ChatTemplateError
 from jitengine_qwen3_8_flash_next_m2.engine.io_struct import GenRequest
-from jitengine_qwen3_8_flash_next_m2.tokenizer import ChatTemplateError
 
 MAX_CONTEXT = 262144  # the model's context length
 

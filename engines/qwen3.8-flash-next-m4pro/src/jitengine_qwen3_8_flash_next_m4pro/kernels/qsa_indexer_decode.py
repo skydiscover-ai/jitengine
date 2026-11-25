@@ -13,8 +13,8 @@ import functools
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.kernels.constants import f32
 from jitengine_qwen3_8_flash_next_m4pro.kernels import selfcheck as sc
-from jitengine_qwen3_8_flash_next_m4pro.kernels.constants import f32
 from jitengine_qwen3_8_flash_next_m4pro.kernels.qsa_decode_mask import RANK_MASK_BODY
 
 HEADER = """

@@ -120,7 +120,6 @@ def test_serve_help_lists_every_option_that_becomes_an_engine_option(capsys):
         (["serve", "--model-path", "m", "--kv-budget-mb", "lots"], "invalid float value"),
         (["serve", "--model-path", "m", "--memory-budget-gb", "-3"], "non-negative"),
         (["inspect", "--model-path", "m", "--memory-budget-gib", "abc"], "not a number"),
-        (["serve"], "--model-path"),
         (["inspect"], "--model-path"),
         (["pack"], "--model-path"),
         (["bogus"], "invalid choice"),
@@ -371,30 +370,30 @@ def test_status_records_an_http_error_body_and_exits_1(monkeypatch, capsys):
 
 
 # ---------------------------------------------------------------- pack
-def test_pack_builds_the_expert_pack_then_the_ple_pack_with_the_verify_count(monkeypatch):
+def test_pack_builds_the_expert_pack_then_the_ple_pack_with_the_verify_count(monkeypatch, tmp_path):
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import build_experts, build_ple
 
     calls = []
     monkeypatch.setattr(build_experts, "main", lambda argv: calls.append(("experts", argv)) or 0)
     monkeypatch.setattr(build_ple, "main", lambda argv: calls.append(("ple", argv)) or 0)
-    assert cli.main(["pack", "--model-path", "/m", "--verify", "128"]) == 0
-    flags = ["--model", "/m", "--verify", "128"]
+    assert cli.main(["pack", "--model-path", str(tmp_path), "--verify", "128"]) == 0
+    flags = ["--model", str(tmp_path), "--verify", "128"]
     assert calls == [("experts", flags), ("ple", flags)]
     calls.clear()
-    cli.main(["pack", "--model-path", "/m"])
+    cli.main(["pack", "--model-path", str(tmp_path)])
     assert calls[0][1][-1] == "64"
 
 
-def test_pack_stops_at_the_first_builder_that_fails(monkeypatch):
+def test_pack_stops_at_the_first_builder_that_fails(monkeypatch, tmp_path):
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import build_experts, build_ple
 
     monkeypatch.setattr(build_experts, "main", lambda argv: 3)
     monkeypatch.setattr(build_ple, "main", lambda argv: pytest.fail("the PLE pack was built"))
-    assert cli.main(["pack", "--model-path", "/m"]) == 3
+    assert cli.main(["pack", "--model-path", str(tmp_path)]) == 3
 
 
 def test_pack_refuses_a_checkpoint_that_is_not_the_real_geometry(checkpoint):
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import PackError
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PackError
 
     with pytest.raises(PackError, match="expected 48"):
         cli.main(["pack", "--model-path", checkpoint])

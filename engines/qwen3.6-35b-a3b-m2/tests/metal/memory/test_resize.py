@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 def _gen(engine, ids, n=8):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     return engine.generate(GenRequest(prompt_ids=ids, max_tokens=n)).token_ids
 
@@ -54,7 +54,7 @@ def test_real_pool_shrink_grow_keeps_outputs_and_frees_memory(tiny_engine, requi
 def test_real_resize_is_busy_while_generating(tiny_engine, requires_mlx):
     import threading
 
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(mode="offload")
     try:

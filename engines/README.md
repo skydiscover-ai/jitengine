@@ -1,7 +1,8 @@
 # Engines
 
-Each folder is one standalone package: one model, tuned on one Mac. Its README has the results, why
-the engine is fast, the install steps and how to measure it.
+Each build's folder is one package: one model, tuned on one Mac. Its README has the results, why
+the engine is fast, the install steps and how to measure it. Flint's two builds run one engine,
+[`flint`](flint), and their folders carry each build's command, results and end-to-end test.
 
 | Engine | Tuned on | Memory it needs | Requests at once |
 |:--|:--|:--|:--|
@@ -11,20 +12,26 @@ the engine is fast, the install steps and how to measure it.
 | [qwen3.8-flash-next-m2](qwen3.8-flash-next-m2) | 24 GB M2 | 24 GB, and 220 GB free on the SSD | 8 by default (`--max-slots`) |
 | [flint-m4pro](flint-m4pro) | 48 GB M4 Pro | the whole model: a GPU wired limit of 24.1 GiB (4K context) to 31.02 GiB (262K context); with less memory, experts stream from the SSD, slower (offload mode tested on a 24 GB M2) | 1; up to 8 more wait (`--max-queued`) |
 | [flint-m2](flint-m2) | 24 GB M2 | 24 GB; below the whole model, experts stream from the SSD | 1; up to 8 more wait (`--max-queued`) |
+| [qwen3-1.7b-m4pro](qwen3-1.7b-m4pro) (alpha) | 24 GB M4 Pro | 24 GB; MLX peaked at 9.0 to 12.7 GiB in its long-prompt and Claude Code tests | 16, as many as fit 32,768 padded tokens (`--max-inflight-tokens`); the rest wait |
 
-We ran every build on both of our Macs; [`install.sh`](../install.sh) picks one by memory and chip from those runs.
+We ran every Qwen3.6, Flash-Next and Flint build on both of our Macs; [`install.sh`](../install.sh) picks one by memory and
+chip from those runs, by the rows of [`builds.tsv`](builds.tsv).
 It gives a Mac the M4 Pro build of Qwen3.6 from 32 GB of memory and of Flint from 40 GB, the M2 builds below, and
-Flash-Next's M2 build on a base M1 or M2 and its M4 Pro build on other chips.
+Flash-Next's M2 build on a base M1 or M2 and its M4 Pro build on other chips. Qwen3-1.7B has one build, tuned for 16
+requests at once on a 24 GB M4 Pro, which it gives any Mac with 24 GB or more. That build pins MLX 0.32.4 and an
+mlx-lm commit, where the others pin MLX 0.32.2, so `install.sh` installs each build in a Python environment of its own.
 Most baselines were measured on the same Mac in separate sessions. For Flint on the M4 Pro, llama.cpp's figures, and
 rec's from 32K tokens of context up, are the ones rec published in its chart; llama.cpp on the M2 was measured on our
 M2.
 
-Each engine plans its memory within `--memory-budget-gib` and prints the plan before loading. The default budgets:
+Each Qwen3.6, Flash-Next and Flint engine plans its memory within `--memory-budget-gib` and prints the plan before loading. The
+default budgets, and Qwen3-1.7B's caps:
 
 | Engine | Default budget |
 |:--|:--|
 | Qwen3.6 | 18 GiB; 34 GiB for the M4 Pro build with 40 GB or more |
 | Flash-Next | 16.8 GiB on the M2, 62% of memory on the M4 Pro |
+| Qwen3-1.7B | no budget option: a prompt cache of 6 GiB (`--prompt-cache-gib`) and 2 GiB of freed buffers MLX may keep (`--mlx-cache-gib`) |
 | Flint | the whole model if the GPU holds it, else the GPU's wired limit, at most memory less 6 GiB (18 GiB on a 24 GB Mac once the limit is raised, see the Flint M2 README) |
 
 On a smaller budget, an engine streams experts from the SSD (Qwen3.6 from an expert pack, which its `pack` command
@@ -49,10 +56,11 @@ experts whose layer comes up last. With eight agents, the M4 Pro decodes all eig
 the M2 decodes one row at a time, in turns. On the M2, guessing ahead raised SSD misses per generated token by 14 to
 33%, and batching eight requests read 243.5 experts per token from the SSD against 140.9 in turns.
 
-Flint, at 22.6 GB, fits in the M4 Pro's memory and overflows the M2's 18 GiB budget. The M4 Pro build keeps the
-whole model in memory and runs one persistent kernel per pass. The M2 build reads experts from the SSD on stock MLX operations: it reads each expert's
-pieces in parallel, runs a helper process that keeps the GPU clock up, and starts each layer's experts on the GPU
-before the CPU confirms they are in memory.
+Flint, at 22.6 GB, fits in the M4 Pro's memory and overflows the M2's 18 GiB budget, and its two builds run one engine
+([`flint`](flint)). With the whole model in memory it runs one persistent kernel per pass, tuned on the M4 Pro. When
+the model does not fit, it reads experts from the SSD on stock MLX operations, as tuned on the M2: it reads each
+expert's pieces in parallel, runs a helper process that keeps the GPU clock up, and starts each layer's experts on the
+GPU before the CPU confirms they are in memory.
 
 ## Custom kernels and how they are checked
 

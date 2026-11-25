@@ -11,17 +11,17 @@ from __future__ import annotations
 import json
 import os
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     MAGIC,
     PLE_SUBMODULE,
     SUBMODULE,
     ExpertScan,
     PackError,
-    default_pack_path,
     detect_prefix,
     read_header_block,
     validate,
 )
+from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_paths import default_pack_path
 
 
 def prefix_of(model_path: str) -> str:

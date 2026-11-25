@@ -36,7 +36,7 @@ from concurrent.futures import ThreadPoolExecutor
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import PAGE, PackError
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PAGE, PackError
 from jitengine_qwen3_8_flash_next_m4pro.moe.expert_store import F_NOCACHE
 
 EMBED = "model.embed_tokens"

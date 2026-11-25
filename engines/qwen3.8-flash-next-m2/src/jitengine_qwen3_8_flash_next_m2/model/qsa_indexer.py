@@ -7,12 +7,12 @@ from __future__ import annotations
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m2.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kernels import indexer_prefill as _ixp
 from jitengine_qwen3_8_flash_next_m2.kernels import qsa_decode_mask as _af
 from jitengine_qwen3_8_flash_next_m2.kernels import qsa_indexer_decode as _ixf
 from jitengine_qwen3_8_flash_next_m2.linear import qlinear_from
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
 
 # ----------------------------------------------------------------------------- rotary tables

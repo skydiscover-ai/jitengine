@@ -23,7 +23,7 @@ def _engines(tiny_engine, frac):
 
 
 def test_layer_major_bit_identical(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     for frac in (1.0, 0.25):
         ref, lm = _engines(tiny_engine, frac)
@@ -59,7 +59,7 @@ def test_layer_major_bit_identical(tiny_engine, requires_mlx):
 
 def test_layer_major_snapshot_restores_exactly(tiny_engine, requires_mlx):
     """A shared-prefix entry written by the layer-major pass restores to the cold-run output."""
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(mode="offload", experts=64, prefill_chunk=16, prefix_cache_bytes=64 << 20)
     cold = tiny_engine(mode="offload", experts=64, prefill_chunk=16, prefix_cache_bytes=0)

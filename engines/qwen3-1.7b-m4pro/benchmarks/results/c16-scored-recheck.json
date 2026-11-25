@@ -1,0 +1,242 @@
+{
+ "machine": {
+  "chip": "Apple M4 Pro",
+  "memory_gib": 24.0,
+  "macos": "15.1",
+  "python": "3.13.5",
+  "power_source": "AC Power",
+  "power_mode": 0,
+  "uptime": "20:12  up  2:01, 2 users, load averages: 2.99 1.68 1.43",
+  "mlx": "0.32.4",
+  "mlx-lm": "0.32.3.dev2+gc39139d70",
+  "transformers": "5.20.2",
+  "engine": "0.1.0a1"
+ },
+ "settings": {
+  "model_path": "~/.cache/huggingface/hub/models--mlx-community--Qwen3-1.7B-4bit/snapshots/3b1b1768f8f8cf8351c712464f906e86c2b8269e",
+  "arms": [
+   "engine",
+   "stock"
+  ],
+  "concurrency": 16,
+  "repeats": 3,
+  "prompts": "scored",
+  "settle": 5
+ },
+ "benchmark_sha256": "5b6b3f679e54a4483f2adea0171330ffd0f2003dc5b680d7cb62f73b2175784c",
+ "runs": [
+  {
+   "arm": "engine",
+   "index": 0,
+   "ok": true,
+   "tokens_per_sec": 770.97277648805,
+   "rolling_tokens_per_sec": 800.5,
+   "total_tokens": 8092,
+   "total_time": 10.495831041999736,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.36102590882822483,
+   "ttft_p95": 0.6573907231494562,
+   "latency_mean": 2.5648671568281856,
+   "latency_max": 2.9869473750004545,
+   "within_bounds": true,
+   "ready_seconds": 1.1,
+   "busy_before": [
+    {
+     "pid": 1138,
+     "command": "iTerm2",
+     "cpu": 16.5
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 1,
+   "ok": true,
+   "tokens_per_sec": 475.5488719600472,
+   "rolling_tokens_per_sec": 510.5,
+   "total_tokens": 8085,
+   "total_time": 17.001407166999343,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.43579371290624636,
+   "ttft_p95": 0.8042395607001709,
+   "latency_mean": 4.155567113968786,
+   "latency_max": 4.693713624999873,
+   "within_bounds": true,
+   "ready_seconds": 1.0,
+   "busy_before": [],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 2,
+   "ok": true,
+   "tokens_per_sec": 474.21490879666464,
+   "rolling_tokens_per_sec": 502.5,
+   "total_tokens": 8088,
+   "total_time": 17.055558250000104,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.4121392512500677,
+   "ttft_p95": 0.8066399187000116,
+   "latency_mean": 4.172129260359398,
+   "latency_max": 4.698790874999759,
+   "within_bounds": true,
+   "ready_seconds": 1.0,
+   "busy_before": [],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "engine",
+   "index": 3,
+   "ok": true,
+   "tokens_per_sec": 762.0992806128387,
+   "rolling_tokens_per_sec": 751.0,
+   "total_tokens": 8084,
+   "total_time": 10.607541833000141,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.46091996868750584,
+   "ttft_p95": 0.79508818300028,
+   "latency_mean": 2.5937909381406286,
+   "latency_max": 2.967504208000719,
+   "within_bounds": true,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 702,
+     "command": "photolibraryd",
+     "cpu": 16.9
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "engine",
+   "index": 4,
+   "ok": true,
+   "tokens_per_sec": 761.6175851327812,
+   "rolling_tokens_per_sec": 750.0,
+   "total_tokens": 8086,
+   "total_time": 10.616876708000746,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.46282913020311867,
+   "ttft_p95": 0.7931020580503627,
+   "latency_mean": 2.593777614593705,
+   "latency_max": 2.9672363749996293,
+   "within_bounds": true,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 511,
+     "command": "softwareupdated",
+     "cpu": 86.4
+    },
+    {
+     "pid": 17772,
+     "command": "mdwrite",
+     "cpu": 76.0
+    },
+    {
+     "pid": 17770,
+     "command": "com.apple.photos",
+     "cpu": 46.6
+    },
+    {
+     "pid": 17771,
+     "command": "MessagesBlastDoo",
+     "cpu": 21.8
+    },
+    {
+     "pid": 702,
+     "command": "photolibraryd",
+     "cpu": 20.8
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 5,
+   "ok": true,
+   "tokens_per_sec": 480.19816336776853,
+   "rolling_tokens_per_sec": 519.0,
+   "total_tokens": 8090,
+   "total_time": 16.847211457999947,
+   "successful": 64,
+   "tokens_min": 122,
+   "tokens_max": 128,
+   "ttft_avg": 0.4562344940781742,
+   "ttft_p95": 0.8026572936502817,
+   "latency_mean": 4.137879804625001,
+   "latency_max": 4.534005458000138,
+   "within_bounds": true,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 17772,
+     "command": "mdwrite",
+     "cpu": 93.2
+    },
+    {
+     "pid": 17770,
+     "command": "com.apple.photos",
+     "cpu": 50.7
+    },
+    {
+     "pid": 702,
+     "command": "photolibraryd",
+     "cpu": 30.5
+    },
+    {
+     "pid": 17771,
+     "command": "MessagesBlastDoo",
+     "cpu": 27.1
+    },
+    {
+     "pid": 414,
+     "command": "storagekitd",
+     "cpu": 15.6
+    }
+   ],
+   "power_before": "AC Power"
+  }
+ ],
+ "summary": {
+  "engine": {
+   "runs": 3,
+   "failed_runs": 0,
+   "tokens_per_sec_median": 762.0992806128387,
+   "tokens_per_sec_min": 761.6175851327812,
+   "tokens_per_sec_max": 770.97277648805,
+   "total_tokens_min": 8084,
+   "total_tokens_max": 8092,
+   "all_within_bounds": true,
+   "ttft_avg_median": 0.46091996868750584,
+   "latency_mean_median": 2.593777614593705
+  },
+  "stock": {
+   "runs": 3,
+   "failed_runs": 0,
+   "tokens_per_sec_median": 475.5488719600472,
+   "tokens_per_sec_min": 474.21490879666464,
+   "tokens_per_sec_max": 480.19816336776853,
+   "total_tokens_min": 8085,
+   "total_tokens_max": 8090,
+   "all_within_bounds": true,
+   "ttft_avg_median": 0.43579371290624636,
+   "latency_mean_median": 4.155567113968786
+  },
+  "ratio_of_medians": {
+   "engine/stock": 1.6025677391930933
+  }
+ }
+}

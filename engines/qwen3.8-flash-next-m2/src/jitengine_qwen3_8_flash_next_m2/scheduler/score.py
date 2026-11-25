@@ -14,7 +14,7 @@ from collections.abc import Sequence
 
 import mlx.core as mx
 
-from jitengine_qwen3_8_flash_next_m2.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m2.kvcache.state import RequestState
 
 # Rows read out at once (row-exact head + fp32 log-softmax + top-k): a memory knob that never

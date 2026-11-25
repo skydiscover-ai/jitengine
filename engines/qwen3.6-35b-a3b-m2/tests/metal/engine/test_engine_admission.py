@@ -6,7 +6,7 @@ import threading
 
 
 def test_context_limit_enforced_in_process(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(max_context_tokens=64)
     try:
@@ -26,7 +26,7 @@ def test_context_limit_enforced_in_process(tiny_engine, requires_mlx):
 
 
 def test_queue_bound_rejects_excess_with_retryable_error(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(max_queued_requests=2, max_slots=1)
     try:
@@ -58,7 +58,7 @@ def test_queue_bound_rejects_excess_with_retryable_error(tiny_engine, requires_m
 
 
 def test_single_slot_serializes_but_completes_eight(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(max_slots=1)
     try:
@@ -71,7 +71,7 @@ def test_single_slot_serializes_but_completes_eight(tiny_engine, requires_mlx):
 
 
 def test_admission_pause_is_retryable_and_reopens(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine()
     try:
@@ -86,7 +86,7 @@ def test_admission_pause_is_retryable_and_reopens(tiny_engine, requires_mlx):
 
 
 def test_abort_drains_and_fails_running_rows(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine()
     try:
@@ -116,7 +116,7 @@ def test_abort_drains_and_fails_running_rows(tiny_engine, requires_mlx):
 def test_decode_build_fault_fails_the_request_instead_of_hanging(tiny_engine, requires_mlx):
     import threading
 
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine()
     try:
@@ -152,7 +152,7 @@ def test_decode_build_fault_fails_the_request_instead_of_hanging(tiny_engine, re
 
 
 def test_default_slots_batch_eight_clients_row_exactly(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine()
     try:

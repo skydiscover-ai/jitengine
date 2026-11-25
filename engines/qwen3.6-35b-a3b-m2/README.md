@@ -23,11 +23,13 @@ You need Python 3.14 or newer and 15.2 GB of disk for the model. From this direc
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[download]'
 hf download andrevp/Qwen3.6-35B-A3B-3bit-MLX --revision 794408c4b69a90c9a7b96d3fce6949cccf08df85 \
     --local-dir ~/models/Qwen3.6-35B-A3B-3bit
 jitengine-qwen3.6-35b-a3b-m2 serve --model-path ~/models/Qwen3.6-35B-A3B-3bit --profile 24gb-static
 ```
+
+`serve` with no `--model-path` fetches the checkpoint above, at that revision, into the Hugging Face cache on its first run, so the `hf download` line is optional. `--model-path` takes a model id (`org/name` or `org/name@revision`) as well as a directory, in `serve`, `inspect` and `pack`; a directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`.
 
 The model stays in memory within 18 GiB, leaving 6 GiB for macOS, so close most apps first. Then
 point any OpenAI client at `http://127.0.0.1:8080/v1`:
@@ -106,7 +108,7 @@ off. Checking one guess costs 65 to 73% of a step here, so a right guess at best
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # the Metal and end-to-end tests skip without Metal or the checkpoint
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[dev]' && pytest     # the Metal and end-to-end tests skip without Metal or the checkpoint
 ```
 
 A pass is every test passing or skipping. On the M2 with the checkpoint, the end-to-end test also checks that greedy

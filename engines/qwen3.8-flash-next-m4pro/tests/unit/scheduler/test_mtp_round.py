@@ -12,8 +12,8 @@ mx = pytest.importorskip("mlx.core")
 
 import numpy as np  # noqa: E402
 
+from jitengine_qwen3_8_flash_next.sampler import Sampler  # noqa: E402
 from jitengine_qwen3_8_flash_next_m4pro.model.mtp import MTP_MIN_SLOTS  # noqa: E402
-from jitengine_qwen3_8_flash_next_m4pro.sampler import Sampler  # noqa: E402
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.decode import DecodingMixin  # noqa: E402
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.scheduler import SchedulingMixin  # noqa: E402
 

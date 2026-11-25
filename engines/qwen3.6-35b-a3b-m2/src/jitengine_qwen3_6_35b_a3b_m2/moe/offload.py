@@ -17,14 +17,17 @@ class OffloadingMixin:
 
         A missing or stale pack stops startup unless `build_expert_pack=True`.
         """
-        from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack import open_pack
-        from jitengine_qwen3_6_35b_a3b_m2.moe.expert_store import WORKERS, ExpertStore
+        from jitengine_qwen3_6_35b_a3b.checkpoint.pack import open_pack
+        from jitengine_qwen3_6_35b_a3b.moe.expert_store import WORKERS, ExpertStore
+        from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack_paths import default_pack_path
 
         path, meta, scan = open_pack(
             model_path,
             build=bool(self.options.get("build_expert_pack", False)),
             path=self.options.get("expert_pack_path"),
             log=logger.info,
+            default_path=default_pack_path,
+            command="jitengine-qwen3.6-35b-a3b-m2",
         )
         self.expert_pack_path = path
         store = ExpertStore(
@@ -44,7 +47,8 @@ class OffloadingMixin:
         self.expert_pool = self._new_pool(self.plan.pool_slots)
 
     def _new_pool(self, slots: int):
-        from jitengine_qwen3_6_35b_a3b_m2.moe.offload_cache import OffloadMoeCache
+        from jitengine_qwen3_6_35b_a3b.moe.offload_cache import OffloadMoeCache
+        from jitengine_qwen3_6_35b_a3b_m2.linear import QLinear
 
         pool = OffloadMoeCache(
             self.expert_store,
@@ -54,6 +58,7 @@ class OffloadingMixin:
             self.expert_meta["fields"],
             self.cfg.q_group_size,
             max_buffer_bytes=self.max_buffer_bytes or None,
+            linear=QLinear,
         )
         seed = self.options.get("expert_pool_seed_per_layer")
         per_layer = int(slots) // self.scan.num_layers if seed is None else int(seed)

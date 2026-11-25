@@ -11,16 +11,26 @@ import logging
 import os
 import sys
 
-from jitengine_qwen3_8_flash_next_m4pro import __version__, logs
+from jitengine_qwen3_8_flash_next import pinned
+from jitengine_qwen3_8_flash_next_m4pro import __version__
+from jitengine_runtime import hub, logs
 
 logger = logging.getLogger(__name__)
 
 GIB = 1 << 30
+MODEL_PATH_HELP = (
+    "checkpoint directory, or a Hugging Face model id (org/name or org/name@revision) fetched into the "
+    "Hugging Face cache"
+)
 # a budget over this fraction of unified memory is refused without --force: macOS needs the rest
 MAX_BUDGET_FRACTION = 0.80
 DEFAULT_BUDGET_FRACTION = 0.62
 # below this the expert pool holds too few records for a good hit rate
 LOW_BUDGET_BYTES = 14 * 10**9
+
+
+# the packages whose records `--log-level` sends to stderr: this engine's and the shared ones it imports
+LOG_PACKAGES = (__package__, "jitengine_qwen3_8_flash_next", "jitengine_qwen")
 
 
 def _die(msg: str, code: int = 2) -> int:
@@ -30,6 +40,15 @@ def _die(msg: str, code: int = 2) -> int:
 
 def _unified_memory_bytes() -> int:
     return os.sysconf("SC_PHYS_PAGES") * os.sysconf("SC_PAGE_SIZE")
+
+
+def _checkpoint(value: str, log) -> str:
+    """The checkpoint directory for a --model-path value: the directory itself, or the Hugging Face cache's
+    snapshot of that model id (fetched now, at the revision both Flash-Next builds pin)."""
+    try:
+        return os.path.expanduser(hub.resolve_model_path(value, pinned=pinned.PINNED, log=log))
+    except hub.ModelPathError as exc:
+        raise SystemExit(_die(str(exc))) from None
 
 
 def _gib(n) -> str:
@@ -194,16 +213,16 @@ def _print_doctor(a, rep: dict, info: dict | None, err: str | None) -> None:
 
 def cmd_inspect(a) -> int:
     """The memory plan a budget gives on this checkpoint, from its headers alone (read-only)."""
+    from jitengine_qwen3_8_flash_next.model.config import load_config
     from jitengine_qwen3_8_flash_next_m4pro.budget import (
         WAVE_TOKENS_SERVED,
         BudgetError,
         plan_budget,
     )
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint.expert_reader import CheckpointScan
-    from jitengine_qwen3_8_flash_next_m4pro.model.config import load_config
     from jitengine_qwen3_8_flash_next_m4pro.model.moe import MOE_KERNEL_DEFAULT
 
-    model_path = os.path.expanduser(a.model_path)
+    model_path = _checkpoint(a.model_path, hub.log_to_stderr)
     cfg, scan = load_config(model_path), CheckpointScan(model_path)
     budget = _requested_budget(a)
     if budget is None:
@@ -275,31 +294,30 @@ def cmd_pack(a) -> int:
     (or `--pack16-out`), then the compact-record pack16 file (every record verified)."""
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import build_experts, build_ple
 
+    model_path = _checkpoint(a.model_path, hub.log_to_stderr)
     for build in (build_experts, build_ple):
-        rc = build.main(["--model", a.model_path, "--verify", str(a.verify)])
+        rc = build.main(["--model", model_path, "--verify", str(a.verify)])
         if rc:
             return rc
     if a.mtp:
         from jitengine_qwen3_8_flash_next_m4pro.checkpoint import build_mtp
 
-        rc = build_mtp.main(["--model", a.model_path])
+        rc = build_mtp.main(["--model", model_path])
         if rc:
             return rc
     out = a.pack16_out
     if a.pack16 and not out:
+        from jitengine_qwen3_8_flash_next.checkpoint.pack_format import ExpertScan
         from jitengine_qwen3_8_flash_next_m4pro.checkpoint.p16_format import pack16_path_for
-        from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
-            ExpertScan,
-            default_pack_path,
-        )
+        from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_paths import default_pack_path
 
-        scan = ExpertScan(a.model_path)
+        scan = ExpertScan(model_path)
         out = pack16_path_for(default_pack_path(scan), scan)
         os.makedirs(os.path.dirname(out), exist_ok=True)
     if out:
         from jitengine_qwen3_8_flash_next_m4pro.checkpoint import build_p16
 
-        return build_p16.main(["--model", a.model_path, "--out", out, "--all"])
+        return build_p16.main(["--model", model_path, "--out", out, "--all"])
     return 0
 
 
@@ -333,8 +351,8 @@ SERVE_SWITCHES = ("transient_prefill", "moe_sync_each_layer")  # on when given
 
 def cmd_serve(a) -> int:
     """Check the checkpoint and the budget, build the engine and serve the OpenAI-compatible API."""
-    logs.configure(a.log_level)
-    model_path = os.path.expanduser(a.model_path)
+    logs.configure(a.log_level, *LOG_PACKAGES)
+    model_path = _checkpoint(a.model_path, logger.info)
     if not os.path.isfile(os.path.join(model_path, "config.json")):
         return _die(
             f"no checkpoint at {model_path} (need config.json, the tokenizer and the shards)"
@@ -348,6 +366,10 @@ def cmd_serve(a) -> int:
     opts.update({k: True for k in SERVE_SWITCHES if getattr(a, k)})
     from jitengine_qwen3_8_flash_next_m4pro.engine.engine import create_engine
 
+    if not opts.get("model_name") and hub.served_name(
+        a.model_path
+    ):  # a model id is served by its name, not the cache path
+        opts["model_name"] = hub.served_name(a.model_path)
     engine = create_engine(model_path, **opts)
     engine.serve(a.host, a.port, allowed_hosts=tuple(a.allowed_host or ()))
     return 0
@@ -382,11 +404,11 @@ def build_parser() -> argparse.ArgumentParser:  # noqa: PLR0915
     i = sub.add_parser(
         "inspect", help="the memory plan a budget gives, from the checkpoint headers"
     )
-    i.add_argument("--model-path", required=True, help="checkpoint directory")
+    i.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     _budget_flags(i)
     i.add_argument("--json", action="store_true")
     p = sub.add_parser("pack", help="build the expert and PLE packs the engine reads (once)")
-    p.add_argument("--model-path", required=True, help="checkpoint directory")
+    p.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     p.add_argument(
         "--verify",
         type=int,
@@ -411,7 +433,11 @@ def build_parser() -> argparse.ArgumentParser:  # noqa: PLR0915
         help="also write the pack16 file, at this path (point the engine at it by placing it as above)",
     )
     s = sub.add_parser("serve", help="run the OpenAI-compatible server")
-    s.add_argument("--model-path", required=True, help="checkpoint directory")
+    s.add_argument(
+        "--model-path",
+        default=pinned.CHECKPOINT,
+        help=f"{MODEL_PATH_HELP} (default: {pinned.CHECKPOINT})",
+    )
     s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--port", type=int, default=8080)
     s.add_argument(

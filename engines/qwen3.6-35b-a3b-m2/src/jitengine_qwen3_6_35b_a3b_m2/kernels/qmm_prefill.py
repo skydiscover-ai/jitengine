@@ -11,7 +11,7 @@ import functools
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.kernels import constants
+from jitengine_qwen3_6_35b_a3b.kernels import constants
 from jitengine_qwen3_6_35b_a3b_m2.kernels.gather_qmm_prefill import header
 
 BODY = """

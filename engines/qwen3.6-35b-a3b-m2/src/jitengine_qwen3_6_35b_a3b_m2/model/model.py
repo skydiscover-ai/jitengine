@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import mlx.core as mx
 
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m2.kvcache.state import RequestState
 from jitengine_qwen3_6_35b_a3b_m2.linear import (
     FusedLinear,
@@ -17,7 +18,6 @@ from jitengine_qwen3_6_35b_a3b_m2.linear import (
     calibrate_row_limits,
 )
 from jitengine_qwen3_6_35b_a3b_m2.model.attention import Qwen3_5MoeAttention
-from jitengine_qwen3_6_35b_a3b_m2.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m2.model.gdn import Qwen3_5MoeGatedDeltaNet
 from jitengine_qwen3_6_35b_a3b_m2.model.kernel_choice import KernelChoice, Strategies
 from jitengine_qwen3_6_35b_a3b_m2.model.moe import Qwen3_5MoeSparseMoeBlock
@@ -252,8 +252,8 @@ class Qwen3_5MoeForCausalLM:
         `forward` chunk by chunk, since each layer state sees the same calls in the same order;
         offloaded experts are streamed once per prompt instead of once per chunk.
         """
+        from jitengine_qwen3_6_35b_a3b.kvcache.linear_state import _materialize
         from jitengine_qwen3_6_35b_a3b_m2.kvcache.kv_cache import _copy_prefix
-        from jitengine_qwen3_6_35b_a3b_m2.kvcache.linear_state import _materialize
 
         capture, parts, hs = self._embed_chunks(head, bounds, state, capture)
         self._run_layers(bounds, state, capture, parts, hs, _materialize)
@@ -358,8 +358,8 @@ class Qwen3_5MoeForCausalLM:
         Eligible chunks of every prompt share one merged expert gather per layer, with the same
         values as `forward`. Returns one {p: per-layer snapshot parts} per job.
         """
+        from jitengine_qwen3_6_35b_a3b.kvcache.linear_state import _materialize
         from jitengine_qwen3_6_35b_a3b_m2.kvcache.kv_cache import _copy_prefix
-        from jitengine_qwen3_6_35b_a3b_m2.kvcache.linear_state import _materialize
 
         caps, parts_all, hs_all = [], [], []
         self._embed_jobs(jobs, caps, parts_all, hs_all)

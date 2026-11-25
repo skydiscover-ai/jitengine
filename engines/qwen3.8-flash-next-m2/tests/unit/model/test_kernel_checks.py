@@ -44,7 +44,7 @@ def _recorders(monkeypatch, verdicts=None) -> dict:
 
 @pytest.fixture
 def tiny_cfg(tiny_flashnext):
-    from jitengine_qwen3_8_flash_next_m2.model.config import load_config
+    from jitengine_qwen3_8_flash_next.model.config import load_config
 
     return load_config(tiny_flashnext()[0])
 
@@ -54,7 +54,7 @@ def test_every_kernel_has_a_check():
 
 
 def test_the_real_geometry_checks_every_kernel(monkeypatch):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     calls = _recorders(monkeypatch)
     checks = kc.run_kernel_checks(
@@ -75,7 +75,7 @@ def test_the_tiny_geometry_has_no_dense_shape_to_check(monkeypatch, tiny_cfg):
 
 
 def test_a_kernel_the_options_turn_off_is_not_checked(monkeypatch):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     calls = _recorders(monkeypatch)
     kc.run_kernel_checks(Qwen4ExpTextConfig(), mx.float32, "stock", "stock", "split")
@@ -83,7 +83,7 @@ def test_a_kernel_the_options_turn_off_is_not_checked(monkeypatch):
 
 
 def test_the_verify_kernels_are_checked_only_with_an_mtp_head(monkeypatch):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     calls = _recorders(monkeypatch)
     checks = kc.run_kernel_checks(Qwen4ExpTextConfig(), mx.float32, "rb", "grouped", "split")
@@ -93,7 +93,7 @@ def test_the_verify_kernels_are_checked_only_with_an_mtp_head(monkeypatch):
 def test_the_verify_kernels_are_checked_whatever_the_solo_kernels_and_options_are(monkeypatch):
     """The verify pass launches both either way, so a failed `gdn_fused` or `moe_kernel`, or the
     option `moe_kernel="stock"`, does not skip them."""
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     cfg = Qwen4ExpTextConfig()
     for failed in ("gdn_fused", "moe_kernel"):
@@ -106,7 +106,7 @@ def test_the_verify_kernels_are_checked_whatever_the_solo_kernels_and_options_ar
 
 
 def test_failed_and_raising_verify_checks_are_recorded(monkeypatch):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     _recorders(monkeypatch, {"qmv_multi_v": False, "grouped_qmv_u2": RuntimeError("no library")})
     checks = kc.run_kernel_checks(
@@ -117,7 +117,7 @@ def test_failed_and_raising_verify_checks_are_recorded(monkeypatch):
 
 
 def test_failed_and_raising_checks_are_recorded(monkeypatch):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     _recorders(monkeypatch, {"attn_fused": False, "gdn_kernel": RuntimeError("no library")})
     checks = kc.run_kernel_checks(Qwen4ExpTextConfig(), mx.float32, "rb", "grouped", "split")
@@ -135,7 +135,7 @@ def _glue_metadata(calls) -> dict:
 def test_a_failed_dense_check_leaves_every_linear_with_float32_metadata(monkeypatch):
     """As `apply_dense_policy` does: a served shape keeps the checkpoint's bfloat16 metadata, so
     the glue and hyper-connection checks read the dtypes the model will hold."""
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     calls = _recorders(monkeypatch)
     kc.run_kernel_checks(Qwen4ExpTextConfig(), mx.float32, "rb", "grouped", "split")

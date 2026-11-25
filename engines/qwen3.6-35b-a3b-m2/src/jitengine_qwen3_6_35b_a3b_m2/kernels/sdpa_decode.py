@@ -11,8 +11,8 @@ import functools
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.kernels import constants
-from jitengine_qwen3_6_35b_a3b_m2.kernels.source import substitute
+from jitengine_qwen3_6_35b_a3b.kernels import constants
+from jitengine_runtime.kernel_source import substitute
 
 _SRC = """
   constexpr int BN = 32;

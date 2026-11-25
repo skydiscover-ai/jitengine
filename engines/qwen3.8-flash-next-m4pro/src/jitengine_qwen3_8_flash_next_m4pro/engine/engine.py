@@ -50,6 +50,9 @@ from collections.abc import Iterator, Sequence
 
 import mlx.core as mx
 
+from jitengine_qwen.tokenizer import Tokenizer
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig, load_config
+from jitengine_qwen3_8_flash_next.scheduler.faults import FaultSeam
 from jitengine_qwen3_8_flash_next_m4pro import envs
 from jitengine_qwen3_8_flash_next_m4pro.budget import (
     GIB,
@@ -76,7 +79,6 @@ from jitengine_qwen3_8_flash_next_m4pro.kvcache.prefix_cache import (
 )
 from jitengine_qwen3_8_flash_next_m4pro.kvcache.store_spill import open_store_spill
 from jitengine_qwen3_8_flash_next_m4pro.model import embed_store as _embed_store
-from jitengine_qwen3_8_flash_next_m4pro.model.config import Qwen4ExpTextConfig, load_config
 from jitengine_qwen3_8_flash_next_m4pro.model.hyper_connections import HC_PATH_DEFAULT, HC_PATHS
 from jitengine_qwen3_8_flash_next_m4pro.model.model import WAVE_EVAL, Qwen4ExpForCausalLM
 from jitengine_qwen3_8_flash_next_m4pro.model.moe import (
@@ -88,13 +90,12 @@ from jitengine_qwen3_8_flash_next_m4pro.moe.offload import OffloadingMixin
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.admission import AdmissionMixin
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.batch import Job, Req, SlotPool, kv_bytes_for
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.decode import DecodingMixin
-from jitengine_qwen3_8_flash_next_m4pro.scheduler.faults import FaultSeam
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.prefill import PromptProcessingMixin
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.retire import RetirementMixin
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.scheduler import SchedulingMixin
 from jitengine_qwen3_8_flash_next_m4pro.scheduler.score import SCORE_READOUT_ROWS, ScoringMixin
 from jitengine_qwen3_8_flash_next_m4pro.server.stats import PhaseMeter, Stats, StepTelemetry
-from jitengine_qwen3_8_flash_next_m4pro.tokenizer import Tokenizer
+from jitengine_runtime.envs import ON_OFF
 
 logger = logging.getLogger(__name__)
 
@@ -869,8 +870,8 @@ def _on_off(options: dict, name: str, env: envs.EnvSwitch) -> bool:
         return True if value is None else value
     if isinstance(value, bool):
         return value
-    if value in envs.ON_OFF:
-        return envs.ON_OFF[value]
+    if value in ON_OFF:
+        return ON_OFF[value]
     raise ValueError(f"{name} {value!r}: expected on or off")
 
 

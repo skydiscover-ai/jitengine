@@ -7,12 +7,12 @@ from __future__ import annotations
 
 import uuid
 
-from jitengine_qwen3_8_flash_next_m4pro.engine.io_struct import GenRequest
-from jitengine_qwen3_8_flash_next_m4pro.tokenizer import (
+from jitengine_qwen.tokenizer import (
     MAX_PROMPT_TOKENS,  # per-request prompt bound (defined beside the chat backstop that reads it)
     MAX_RENDERED_CHARS,
     ChatTemplateError,
 )
+from jitengine_qwen3_8_flash_next_m4pro.engine.io_struct import GenRequest
 
 MAX_CONTEXT = 262144  # the model's context length
 

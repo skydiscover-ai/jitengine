@@ -41,41 +41,42 @@ from collections.abc import Iterator, Sequence
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.checkpoint.loader import load_language_weights
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.args import (  # noqa: F401  (re-exported)
-    DEFAULTS,
-    resolve_options,
-)
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.errors import (
+from jitengine_qwen.tokenizer import Tokenizer
+from jitengine_qwen3_6_35b_a3b.checkpoint.loader import load_language_weights
+from jitengine_qwen3_6_35b_a3b.engine.errors import (
     AdmissionPausedError,
     MemoryPressureError,
     QueueFullError,
 )
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest, GenResult
-from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.prefix_cache import PrefixCache
-from jitengine_qwen3_6_35b_a3b_m4pro.linear import dense_kernel_report
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import BudgetError, make_plan
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.control import MemoryControlMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.model.config import Qwen3_5MoeConfig, load_config
-from jitengine_qwen3_6_35b_a3b_m4pro.model.kernel_choice import KernelChoice, Strategies
-from jitengine_qwen3_6_35b_a3b_m4pro.model.model import Qwen3_5MoeForCausalLM
-from jitengine_qwen3_6_35b_a3b_m4pro.model.weight import FUSIONS
-from jitengine_qwen3_6_35b_a3b_m4pro.moe.offload import OffloadingMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.admission import AdmissionMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.batch import (
+from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest, GenResult
+from jitengine_qwen3_6_35b_a3b.memory.budget import BudgetError, make_plan
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig, load_config
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import (
     Job,
     Req,
     SlotPool,
     delta_bytes_for,
     kv_bytes_for,
 )
+from jitengine_qwen3_6_35b_a3b.scheduler.retire import RetirementMixin
+from jitengine_qwen3_6_35b_a3b.scheduler.scheduler import SchedulingMixin
+from jitengine_qwen3_6_35b_a3b.server.stats import Stats, StepTelemetry
+from jitengine_qwen3_6_35b_a3b_m4pro.checkpoint import mtp_head
+from jitengine_qwen3_6_35b_a3b_m4pro.engine.args import (  # noqa: F401  (re-exported)
+    DEFAULTS,
+    resolve_options,
+)
+from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.prefix_cache import PrefixCache
+from jitengine_qwen3_6_35b_a3b_m4pro.linear import dense_kernel_report
+from jitengine_qwen3_6_35b_a3b_m4pro.memory.control import MemoryControlMixin
+from jitengine_qwen3_6_35b_a3b_m4pro.model.kernel_choice import KernelChoice, Strategies
+from jitengine_qwen3_6_35b_a3b_m4pro.model.model import Qwen3_5MoeForCausalLM
+from jitengine_qwen3_6_35b_a3b_m4pro.model.weight import FUSIONS
+from jitengine_qwen3_6_35b_a3b_m4pro.moe.offload import OffloadingMixin
+from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.admission import AdmissionMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.decode import DecodingMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.prefill import PromptProcessingMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.retire import RetirementMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.scheduler import SchedulingMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.score import ScoringMixin
-from jitengine_qwen3_6_35b_a3b_m4pro.server.stats import Stats, StepTelemetry
-from jitengine_qwen3_6_35b_a3b_m4pro.tokenizer import Tokenizer
 
 
 def run_load_checks(cfg, offload: bool) -> tuple:
@@ -192,7 +193,7 @@ class Engine(
         """The model config, a header-only inventory of the checkpoint, and the tokenizer."""
         self.cfg: Qwen3_5MoeConfig = load_config(model_path)
         # header-only validation before any tensor is read; an unsupported checkpoint stops here
-        from jitengine_qwen3_6_35b_a3b_m4pro.checkpoint.inventory import inventory
+        from jitengine_qwen3_6_35b_a3b.checkpoint.inventory import inventory
 
         self.inventory = inventory(model_path, self.cfg)
         self.tokenizer = Tokenizer(model_path)
@@ -201,7 +202,7 @@ class Engine(
 
     def init_memory_plan(self, model_path: str, opt: dict) -> dict:
         """Plan memory in integer bytes before anything is allocated; returns the device info."""
-        from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import capacity_for, limits_for
+        from jitengine_qwen3_6_35b_a3b.memory.budget import capacity_for, limits_for
 
         (self.capacity, _, _, self.scan, self.kv_budget_bytes, _) = capacity_for(
             model_path, opt, cfg=self.cfg, inv=self.inventory
@@ -389,18 +390,10 @@ class Engine(
         if mtp_path is None:
             # find the checkpoint's own MTP head beside it (mlx-community's split `-MTP-4bit` repo) or
             # inside it (`mtp.safetensors`); an explicit mtp_path (or "" to disable) always wins
-            import re as _re
-
-            base = model_path.rstrip("/")
-            for cand in (
-                _re.sub(r"(-\d+bit)$", r"-MTP\1", base)
-                + "/model.safetensors",  # X-4bit -> X-MTP-4bit
-                base + "-MTP-4bit/model.safetensors",
-                os.path.join(base, "mtp.safetensors"),
-            ):
-                if os.path.isfile(cand):
-                    mtp_path = cand
-                    break
+            mtp_path = mtp_head.local_head(model_path)
+        if mtp_path is None and self.spec_k > 0 and not self.offload:
+            # a checkpoint of the Hugging Face cache has no neighbour: the pinned head is fetched like it
+            mtp_path = mtp_head.hub_head(model_path, logger.info, logger.warning)
         if mtp_path and self.spec_k > 0 and not self.offload:
             from jitengine_qwen3_6_35b_a3b_m4pro.model.mtp import MTPHead
 
@@ -680,9 +673,11 @@ class Engine(
     def serve(self, host: str = "127.0.0.1", port: int = 8080, allowed_hosts=()) -> None:
         """Serve the OpenAI-compatible HTTP API on `host:port`; blocks until the server stops
         (`server.api_server.serve`)."""
-        from jitengine_qwen3_6_35b_a3b_m4pro.server.api_server import serve
+        from jitengine_qwen3_6_35b_a3b.server.api_server import serve
 
-        serve(self, host, port, allowed_hosts=allowed_hosts)
+        serve(
+            self, host, port, allowed_hosts=allowed_hosts, command="jitengine-qwen3.6-35b-a3b-m4pro"
+        )
 
 
 def create_engine(model_path: str, **options) -> Engine:

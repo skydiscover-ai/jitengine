@@ -13,15 +13,19 @@ import math
 import os
 from importlib import resources
 
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import (
+from jitengine_qwen3_6_35b_a3b.memory.budget import (
     DEFAULT_ALLOCATOR_CACHE_BYTES,
     DEFAULT_HOST_BYTES,
     DEFAULT_SAFETY_BYTES,
-    DEFAULT_SCRATCH_BYTES,
     GIB,
+)
+from jitengine_qwen3_6_35b_a3b_m4pro import pinned
+from jitengine_qwen3_6_35b_a3b_m4pro.memory.defaults import (
+    DEFAULT_SCRATCH_BYTES,
     host_default_budget_bytes,
     host_default_prefix_bytes,
 )
+from jitengine_runtime import hub
 
 # Used when `create_engine` is called with no options (the MTP head is found beside the checkpoint,
 # see Engine.__init__).
@@ -209,7 +213,7 @@ CHOICES = {"mode": ("auto", "resident", "offload"), "memory_policy": ("static", 
 
 BUILTIN = {
     "memory_budget_bytes": __import__(
-        "jitengine_qwen3_6_35b_a3b_m4pro.memory.budget", fromlist=["x"]
+        "jitengine_qwen3_6_35b_a3b_m4pro.memory.defaults", fromlist=["x"]
     ).host_default_budget_bytes(),
     "system_reserve_bytes": 6 << 30,
     "mode": "auto",
@@ -220,7 +224,7 @@ BUILTIN = {
     "max_context_tokens": 8192,
     "prefill_chunk_tokens": 256,
     "prefix_cache_bytes": __import__(
-        "jitengine_qwen3_6_35b_a3b_m4pro.memory.budget", fromlist=["x"]
+        "jitengine_qwen3_6_35b_a3b_m4pro.memory.defaults", fromlist=["x"]
     ).host_default_prefix_bytes(),
     "allocator_cache_bytes": 128 << 20,
     "scratch_bytes": 384 << 20,
@@ -229,6 +233,8 @@ BUILTIN = {
     "build_expert_pack": False,
     "host": "127.0.0.1",
     "port": 8080,
+    # serve with no --model-path (and none in a profile or config file) fetches the pinned checkpoint
+    "model_path": pinned.CHECKPOINT,
 }
 
 
@@ -315,7 +321,10 @@ def _check_value(k: str, v: object, origin: str) -> None:
 
 
 def _absolute_path(k: str, v: object, base_dir: str | None) -> object:
-    """Make a path value absolute against `base_dir` (the cwd when it is None)."""
+    """Make a path value absolute against `base_dir` (the cwd when it is None); a `model_path` that is a Hugging Face
+    model id stays the id."""
+    if k == "model_path":
+        return hub.normalize_model_ref(v, base_dir)
     if k in PATH_KEYS:
         v = os.path.abspath(
             os.path.join(base_dir, os.path.expanduser(v)) if base_dir else os.path.expanduser(v)
@@ -353,7 +362,7 @@ def _config_layers(profile: str | None, config_path: str | None, flags: dict | N
         if k not in KEYS:
             raise ConfigError(f"unknown flag key {k!r}")
     if "model_path" in cli:
-        cli["model_path"] = os.path.abspath(os.path.expanduser(cli["model_path"]))
+        cli["model_path"] = hub.normalize_model_ref(cli["model_path"])
     if "expert_pack_path" in cli:
         cli["expert_pack_path"] = os.path.abspath(os.path.expanduser(cli["expert_pack_path"]))
     layers.append(

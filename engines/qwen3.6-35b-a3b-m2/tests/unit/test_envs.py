@@ -2,7 +2,8 @@
 
 from types import SimpleNamespace
 
-from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack import VERSION, default_pack_path
+from jitengine_qwen3_6_35b_a3b.checkpoint.pack import VERSION
+from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack_paths import default_pack_path
 
 SCAN = SimpleNamespace(model_path="/m/Qwen3.6-35B-A3B-3bit/", index_sha256="0123456789abcdef")
 

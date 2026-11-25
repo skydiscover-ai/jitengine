@@ -9,10 +9,10 @@ from __future__ import annotations
 
 import mlx.core as mx
 
+from jitengine_qwen3_6_35b_a3b.kvcache.linear_state import LinearStateSlot, _materialize
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m2.kvcache.kv_cache import KVSlot, _copy_prefix
-from jitengine_qwen3_6_35b_a3b_m2.kvcache.linear_state import LinearStateSlot, _materialize
 from jitengine_qwen3_6_35b_a3b_m2.kvcache.prefix_cache import Entry
-from jitengine_qwen3_6_35b_a3b_m2.model.config import Qwen3_5MoeConfig
 
 
 class RequestState:

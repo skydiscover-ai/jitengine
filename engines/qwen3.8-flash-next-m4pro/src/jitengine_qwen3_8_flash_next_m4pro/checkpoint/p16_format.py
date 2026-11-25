@@ -20,7 +20,7 @@ from __future__ import annotations
 import hashlib
 import os
 
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     HEADER_BYTES,
     MAGIC,
     PAGE,
@@ -30,6 +30,7 @@ from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
     read_header_block,
 )
 from jitengine_qwen3_8_flash_next_m4pro.kernels import pack16 as _p16
+from jitengine_runtime import hub
 
 MAGIC_P16 = b"SKYP16X1"
 VERSION = 1
@@ -40,7 +41,7 @@ SUBDIR = "pack16"
 
 def tag_of(scan) -> str:
     """`<checkpoint>-<index sha12>`, the expert pack's own default name stem."""
-    return f"{os.path.basename(scan.model_path.rstrip('/'))}-{scan.ckpt.index_sha256[:12]}"
+    return f"{hub.checkpoint_name(scan.model_path)}-{scan.ckpt.index_sha256[:12]}"
 
 
 def pack16_path_for(source: str, scan) -> str:

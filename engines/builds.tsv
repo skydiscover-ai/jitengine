@@ -1,0 +1,25 @@
+# Which build install.sh gives a Mac: the first row for the model whose memory and chip match the Mac wins, and a
+# model with no matching row is refused with the smallest memory its rows take. jitengine.ai/registry reads this table.
+#
+# min_gb: the Mac's memory in GB (as macOS counts it, 2^30 bytes), at least. chips: the chips the row is for, by
+# name after "Apple " (M1, M2 Pro, ...), comma-separated, or * for any.
+#
+# Why each row, from the budget sweep of 2026-11-03 on our 24 GB M2 and 48 GB M4 Pro:
+# - Qwen3.6: the M4 Pro build (4-bit) from 32 GB, where its model stays in memory (from a 26 GiB budget), the M2 build
+#   (3-bit) below. Its agent setting refuses the 2 GiB budget an 8 GB Mac leaves it, and ran from 10 GiB (16 GB).
+# - Flash-Next: the M2 build on a base M1 or M2 (faster on our M2), the M4 Pro build on other chips (faster on our M4
+#   Pro at every budget). Below 24 GB, neither runs.
+# - Flint: the M4 Pro build in memory, from 40 GB; below, the M2 build, which streams faster when memory is short and
+#   stays in memory from a 26 GiB budget (32 GB).
+# - Qwen3-1.7B: one build, tuned on a 24 GB M4 Pro for 16 requests at once, from 24 GB (MLX peaked at 9.0 to 12.7 GiB
+#   in its tests) on any chip: at startup it checks its kernels against stock MLX on the Mac it runs on, and runs stock
+#   for any shape that differs.
+#
+# model      min_gb  chips   engine
+qwen3.6      32      *       qwen3.6-35b-a3b-m4pro
+qwen3.6      16      *       qwen3.6-35b-a3b-m2
+flash-next   24      M1,M2   qwen3.8-flash-next-m2
+flash-next   24      *       qwen3.8-flash-next-m4pro
+flint        40      *       flint-m4pro
+flint        8       *       flint-m2
+qwen3-1.7b   24      *       qwen3-1.7b-m4pro

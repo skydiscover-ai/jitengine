@@ -12,7 +12,7 @@ import time
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.batch import Req
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Req
 
 SHARE_KV = True  # end-of-prompt snapshots store only their own KV past the restored entry
 

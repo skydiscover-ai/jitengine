@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from jitengine_qwen3_6_35b_a3b_m2.memory.budget import (
+from jitengine_qwen3_6_35b_a3b.memory.budget import (
     GIB,
     MIB,
     BudgetError,

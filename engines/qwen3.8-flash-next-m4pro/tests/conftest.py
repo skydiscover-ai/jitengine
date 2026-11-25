@@ -257,8 +257,8 @@ def _tokenizer(path):
 def _expert_pack(model_path, pack_path):
     """The package's expert pack writer over the checkpoint's own geometry, which `ExpertScan`
     takes as it is (`expert_writer.scan_checkpoint`, which pins the real checkpoint's, is skipped)."""
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import ExpertScan
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import expert_writer
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import ExpertScan
 
     expert_writer.build_pack(ExpertScan(model_path), pack_path, log=lambda *_: None)
 
@@ -266,8 +266,8 @@ def _expert_pack(model_path, pack_path):
 def _ple_pack(model_path, pack_path):
     """The package's PLE pack writer over the checkpoint's own table, which `PLEScan` takes as it
     is (`ple_writer.scan_checkpoint`, which pins the real table's geometry, is skipped)."""
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PLEScan, segments_for
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import ple_writer
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import PLEScan, segments_for
 
     scan = PLEScan(model_path)
     shards = list(range(scan.num_shards))

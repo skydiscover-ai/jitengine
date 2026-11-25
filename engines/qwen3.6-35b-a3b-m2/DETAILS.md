@@ -16,7 +16,7 @@ From this directory, with Python 3.14 or newer:
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
 hf download andrevp/Qwen3.6-35B-A3B-3bit-MLX --revision 794408c4b69a90c9a7b96d3fce6949cccf08df85 \
     --local-dir ~/models/Qwen3.6-35B-A3B-3bit                                     # 15.2 GB
 jitengine-qwen3.6-35b-a3b-m2 doctor                    # checks the Mac
@@ -76,7 +76,7 @@ jitengine-qwen3.6-35b-a3b-m2 serve --model-path ~/models/Qwen3.6-35B-A3B-4bit --
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path` | required | the checkpoint directory |
+| `--model-path` | `andrevp/Qwen3.6-35B-A3B-3bit-MLX` (`serve`; `inspect` and `pack` need one) | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache |
 | `--profile` | none | `24gb-static` (18 GiB, static memory policy, and the plan picks resident or offload) or `24gb-adaptive` (expert offload with an adaptive memory policy) |
 | `--config` | none | a JSON configuration file; precedence is defaults, then `--profile`, then `--config`, then flags |
 | `--print-config` | off | print the resolved configuration and exit |

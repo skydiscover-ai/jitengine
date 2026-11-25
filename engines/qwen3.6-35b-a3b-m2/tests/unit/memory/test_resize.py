@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 
-from jitengine_qwen3_6_35b_a3b_m2.memory.budget import Capacity, Limits, make_plan
-from jitengine_qwen3_6_35b_a3b_m2.memory.resize import FAILED, SERVING, ResizeRequest, run_resize
+from jitengine_qwen3_6_35b_a3b.memory.budget import Capacity, Limits, make_plan
+from jitengine_qwen3_6_35b_a3b.memory.resize import FAILED, SERVING, ResizeRequest, run_resize
 
 CAP = Capacity(
     dense_bytes=100,

@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.errors import ContextTooLargeError
+from jitengine_qwen3_6_35b_a3b.engine.errors import ContextTooLargeError
 from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.state import RequestState
 from jitengine_qwen3_6_35b_a3b_m4pro.sampler import logprobs_from_logits
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.prefill import PrefillTask

@@ -11,7 +11,7 @@ def _pair(tiny_engine, **kw):
 
 
 def test_fused_bit_identical_resident_and_batched(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     ref, fz = _pair(tiny_engine, experts=64, max_slots=4, prefill_chunk=16)
     try:
@@ -35,7 +35,7 @@ def test_fused_bit_identical_resident_and_batched(tiny_engine, requires_mlx):
 
 
 def test_fused_bit_identical_offload(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     ref, fz = _pair(tiny_engine, mode="offload", experts=64)
     try:

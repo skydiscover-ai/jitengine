@@ -79,8 +79,8 @@ def no_kernels(monkeypatch):
 @pytest.fixture
 def tiny(tiny_flashnext):
     """(config, weights) of the tiny checkpoint."""
+    from jitengine_qwen3_8_flash_next.model.config import load_config
     from jitengine_qwen3_8_flash_next_m2.checkpoint.loader import load_language_weights
-    from jitengine_qwen3_8_flash_next_m2.model.config import load_config
 
     path = tiny_flashnext()[0]
     return load_config(path), load_language_weights(path)

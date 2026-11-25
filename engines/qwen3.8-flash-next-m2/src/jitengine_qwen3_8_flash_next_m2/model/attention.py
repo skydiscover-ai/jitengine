@@ -6,12 +6,12 @@ from __future__ import annotations
 
 import mlx.core as mx
 
-from jitengine_qwen3_8_flash_next_m2.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KVSlot
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kernels import gdn_decode as _gf
-from jitengine_qwen3_8_flash_next_m2.kvcache.kv_cache import KVSlot
 from jitengine_qwen3_8_flash_next_m2.linear import qlinear_from
 from jitengine_qwen3_8_flash_next_m2.model.common import _IN_SPEC_BUILD
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.model.qsa_indexer import Qwen4ExpTextQSAIndexer
 
 # multi-weight kernel config for the four attention input projections: measured (KL, NSG, RB)

@@ -34,14 +34,14 @@ def _same(got, want, what):
 
 
 def _gen(e, prompt):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     return e.generate(GenRequest(prompt_ids=prompt, max_tokens=N, stop_at_eos=False))
 
 
 @pytest.mark.parametrize("geometry", GEOMETRIES, ids=["128", "512"])
 def test_batched_rows_get_their_solo_tokens(tiny_engine, requires_mlx, geometry):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     e = tiny_engine(**geometry, prefix_cache_bytes=0, prefill_chunk=64)
     prompts = _prompts()

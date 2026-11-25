@@ -10,7 +10,7 @@ import functools
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels.source import substitute
+from jitengine_runtime.kernel_source import substitute
 
 _SOURCE = """
     auto n = thread_position_in_grid.z;          // b * Hv + hv

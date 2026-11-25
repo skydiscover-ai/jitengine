@@ -26,7 +26,8 @@ class _Store:
 
 
 def _pool(slots, experts):
-    from jitengine_qwen3_6_35b_a3b_m4pro.moe.offload_cache import OffloadMoeCache
+    from jitengine_qwen3_6_35b_a3b.moe.offload_cache import OffloadMoeCache
+    from jitengine_qwen3_6_35b_a3b_m4pro.linear import QLinear
 
     fields = [
         {
@@ -42,7 +43,13 @@ def _pool(slots, experts):
     for f in fields:
         f["offset"], off = off, off + f["bytes"]
     return OffloadMoeCache(
-        _Store(), num_layers=1, num_experts=experts, slots=slots, fields=fields, group_size=64
+        _Store(),
+        num_layers=1,
+        num_experts=experts,
+        slots=slots,
+        fields=fields,
+        group_size=64,
+        linear=QLinear,
     )
 
 

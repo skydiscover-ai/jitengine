@@ -14,10 +14,11 @@ import logging
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.kvcache.linear_state import LinearStateSlot
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m4pro.kernels import grouped_expert_qmv as _mk
 from jitengine_qwen3_8_flash_next_m4pro.kernels import qmv_row_blocked as _dk
 from jitengine_qwen3_8_flash_next_m4pro.kernels import router_combine as _mf
-from jitengine_qwen3_8_flash_next_m4pro.kvcache.linear_state import LinearStateSlot
 from jitengine_qwen3_8_flash_next_m4pro.kvcache.state import RequestState
 from jitengine_qwen3_8_flash_next_m4pro.linear import (
     QEmbedding,
@@ -28,7 +29,6 @@ from jitengine_qwen3_8_flash_next_m4pro.linear import (
 from jitengine_qwen3_8_flash_next_m4pro.model import gdn as _gdn
 from jitengine_qwen3_8_flash_next_m4pro.model.attention import Qwen4ExpTextAttention
 from jitengine_qwen3_8_flash_next_m4pro.model.common import _DEFER, _IN_SPEC_BUILD, _dispatch
-from jitengine_qwen3_8_flash_next_m4pro.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m4pro.model.gdn import LazyRow0, Qwen4ExpTextGatedDeltaNet
 from jitengine_qwen3_8_flash_next_m4pro.model.hyper_connections import (
     HC_BASIS,

@@ -400,7 +400,7 @@ class _Stack(NamedTuple):
 def check_experts(hid: int, d: int, bits: int = 3) -> dict:
     """expert_solo vs the stock gather path, prescaled solo and multi-row experts vs expert_solo, and
     seg_gather_qmm vs sorted mx.gather_qmm."""
-    from jitengine_qwen3_6_35b_a3b_m2.kernels.elementwise import swiglu
+    from jitengine_qwen3_6_35b_a3b.kernels.elementwise import swiglu
     from jitengine_qwen3_6_35b_a3b_m2.kernels.expert_qmv_prescaled import (
         expert_gate_up_prescaled,
         expert_gate_up_prescaled_rows,

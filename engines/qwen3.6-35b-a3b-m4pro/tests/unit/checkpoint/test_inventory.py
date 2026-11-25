@@ -6,14 +6,14 @@ import json
 import os
 import sys
 
-from jitengine_qwen3_6_35b_a3b_m4pro.checkpoint.inventory import (
+from jitengine_qwen3_6_35b_a3b.checkpoint.inventory import (
     CheckpointError,
     QuantSpec,
     family,
     inventory,
     parse_quantization,
 )
-from jitengine_qwen3_6_35b_a3b_m4pro.model.config import load_config
+from jitengine_qwen3_6_35b_a3b.model.config import load_config
 
 
 def _raises(fn, needle: str):

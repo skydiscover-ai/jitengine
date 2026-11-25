@@ -3,7 +3,7 @@
 From the engine's directory:
 
 ```bash
-pip install '.[dev]' && pytest
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[dev]' && pytest
 ```
 
 A pass is every test passing or skipping. On the M2 with the checkpoint, the end-to-end test checks that greedy output hashes to `44e24c591fc59187`.
@@ -12,7 +12,7 @@ A pass is every test passing or skipping. On the M2 with the checkpoint, the end
 |:--|:--|:--|
 | `tests/unit` | the planner, CLI, configuration, server, scheduler, expert pool and packs | nothing; the tests that run MLX use its CPU build on a machine without an Apple GPU (`pip install 'mlx[cpu]==0.32.2'`) |
 | `tests/metal` | each custom kernel against stock MLX, and the engine on tiny generated checkpoints, token for token: batched against solo, a prefix hit against a cold prompt, offload against resident | a Mac with Metal |
-| `tests/e2e` | the greedy-512 test: it starts `serve --profile 24gb-static` and `benchmarks/benchmark.py`, and checks every repeat's text hash, every load-time kernel check, and each dense kernel's per-shape checks, from `/stats` | the 3-bit checkpoint, and `pip install '.[dev,benchmark]'` |
+| `tests/e2e` | the greedy-512 test: it starts `serve --profile 24gb-static` and `benchmarks/benchmark.py`, and checks every repeat's text hash, every load-time kernel check, and each dense kernel's per-shape checks, from `/stats` | the 3-bit checkpoint, and `pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[dev,benchmark]'` |
 
 A suite skips what it cannot run here. The tiny checkpoints have the real tensor names, layouts and
 quantization over random weights, and copy their tokenizer from a real checkpoint when one is found.

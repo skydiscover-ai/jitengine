@@ -16,7 +16,7 @@ From this directory, with Python 3.14 or newer:
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
 hf download mlx-community/Qwen3.6-35B-A3B-4bit --revision 38740b847e4cb78f352aba30aa41c76e08e6eb46 \
     --local-dir ~/models/Qwen3.6-35B-A3B-4bit                                     # 20.4 GB
 hf download mlx-community/Qwen3.6-35B-A3B-MTP-4bit --revision 0295b81421bf4d0fccca9a7c0fcfb1418dda3516 \
@@ -70,7 +70,7 @@ lets a request hold up to 32768 prompt plus output tokens. `/v1/models` reports 
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path` | required | the 4-bit checkpoint directory |
+| `--model-path` | `mlx-community/Qwen3.6-35B-A3B-4bit` (`serve`; `inspect` and `pack` need one) | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache |
 | `--host`, `--port` | `127.0.0.1`, `8080` | where the server listens |
 | `--allowed-host NAME` | none | a host name clients may use besides `localhost`, IP literals and `--host` (repeatable); a request naming any other host, or sent by a browser page of another origin, gets 403 |
 | `--mode` | `auto` | `resident` (model in memory), `offload` (experts read from an expert pack on disk), or `auto` |

@@ -12,7 +12,7 @@ import mlx.core as mx
 
 from jitengine_qwen3_6_35b_a3b_m4pro.kernels.expert_solo import DN_SRC, _header
 from jitengine_qwen3_6_35b_a3b_m4pro.kernels.qmv_prescaled import prescale
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels.source import substitute
+from jitengine_runtime.kernel_source import substitute
 
 GU_ROWS_SRC = """
   // xs [M, K] fp32 pre-scaled, xsum [M, K/16]; inds [M*NE]; W [E, 2*HID, K*3/8]; h [M*NE, HID]

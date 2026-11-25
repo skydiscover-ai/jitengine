@@ -6,10 +6,10 @@ from __future__ import annotations
 
 import time
 
+from jitengine_qwen3_8_flash_next.sampler import Sampler
 from jitengine_qwen3_8_flash_next_m2.engine.io_struct import GenResult
 from jitengine_qwen3_8_flash_next_m2.kvcache.prefix_cache import group_prefix_points
 from jitengine_qwen3_8_flash_next_m2.kvcache.state import RequestState
-from jitengine_qwen3_8_flash_next_m2.sampler import Sampler
 from jitengine_qwen3_8_flash_next_m2.scheduler.batch import Job, Req, kv_bytes_for
 
 
@@ -74,7 +74,7 @@ class AdmissionMixin:
 
         Rounds the whole generation up to KV_STEP, as `KVSlot` does.
         """
-        from jitengine_qwen3_8_flash_next_m2.kvcache.kv_cache import KV_STEP
+        from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KV_STEP
 
         raw = prompt_len + max(0, int(max_new))
         return max(KV_STEP, -(-raw // KV_STEP) * KV_STEP)

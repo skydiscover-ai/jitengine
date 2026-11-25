@@ -13,8 +13,8 @@ import time
 
 import mlx.core as mx
 
+from jitengine_qwen3_8_flash_next.scheduler.faults import RowFaultError, StepGuard
 from jitengine_qwen3_8_flash_next_m2.scheduler.batch import Req
-from jitengine_qwen3_8_flash_next_m2.scheduler.faults import RowFaultError, StepGuard
 
 
 class PrefillTask:

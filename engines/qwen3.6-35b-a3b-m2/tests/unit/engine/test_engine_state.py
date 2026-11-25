@@ -2,15 +2,15 @@
 
 import ast
 import importlib.util
-import os
 import re
 
 PKG = "jitengine_qwen3_6_35b_a3b_m2"
 
 
 def _parse(module: str) -> ast.Module:
-    root = os.path.dirname(os.path.dirname(importlib.util.find_spec(PKG).origin))
-    return ast.parse(open(os.path.join(root, *module.split(".")) + ".py").read())
+    """A module's source, wherever it is (this engine's package or a shared one Engine's bases come from)."""
+    with open(importlib.util.find_spec(module).origin, encoding="utf-8") as f:
+        return ast.parse(f.read())
 
 
 def _classes() -> list:

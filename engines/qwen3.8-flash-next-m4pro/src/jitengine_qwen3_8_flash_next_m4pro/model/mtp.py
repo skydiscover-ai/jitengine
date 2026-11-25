@@ -25,8 +25,8 @@ import os
 import mlx.core as mx
 import mlx.nn as nn
 
+from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KVSlot
 from jitengine_qwen3_8_flash_next_m4pro import envs
-from jitengine_qwen3_8_flash_next_m4pro.kvcache.kv_cache import KVSlot
 from jitengine_qwen3_8_flash_next_m4pro.linear import qlinear_from
 from jitengine_qwen3_8_flash_next_m4pro.model import model as L
 from jitengine_qwen3_8_flash_next_m4pro.model.draft_vocab import draft_id

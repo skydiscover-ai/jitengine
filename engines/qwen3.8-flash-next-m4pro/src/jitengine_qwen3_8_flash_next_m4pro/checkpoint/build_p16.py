@@ -17,16 +17,13 @@ import json
 import os
 import sys
 
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import ExpertScan, PackError
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.p16_writer import (
     EXIT_DONE,
     MIN_FREE_BYTES,
     P16Build,
 )
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
-    ExpertScan,
-    PackError,
-    default_pack_path,
-)
+from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_paths import default_pack_path
 
 
 def main(argv: list[str] | None = None) -> int:

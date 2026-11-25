@@ -9,12 +9,12 @@ import pytest
 
 mx = pytest.importorskip("mlx.core")  # the imports below need MLX, so E402 is waived for the file
 
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PAGE
+from jitengine_qwen3_8_flash_next.model.config import load_config
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.expert_reader import CheckpointScan
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.loader import load_language_weights
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import PAGE
 from jitengine_qwen3_8_flash_next_m4pro.linear import QEmbedding
 from jitengine_qwen3_8_flash_next_m4pro.model import embed_store as es
-from jitengine_qwen3_8_flash_next_m4pro.model.config import load_config
 
 BITS, GS = 4, 32  # the tiny checkpoint's quantization of embed_tokens
 

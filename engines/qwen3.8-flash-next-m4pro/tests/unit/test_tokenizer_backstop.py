@@ -35,7 +35,7 @@ def checkpoint(tmp_path):
 
 
 def _fresh(path):
-    from jitengine_qwen3_8_flash_next_m4pro.tokenizer import Tokenizer
+    from jitengine_qwen.tokenizer import Tokenizer
 
     return Tokenizer(path)
 

@@ -10,9 +10,9 @@ from functools import partial
 import mlx.core as mx
 import mlx.nn as nn
 
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m4pro.kernels import hc_decode as _hk
 from jitengine_qwen3_8_flash_next_m4pro.linear import qlinear_from
-from jitengine_qwen3_8_flash_next_m4pro.model.config import Qwen4ExpTextConfig
 
 # Decode-path hyper-connection as three Metal launches; prefill and score keep the stock ops.
 # (KL, NSG, RB) of the down-projection launch. KL fixes each row's k-order; NSG and RB move no bit and

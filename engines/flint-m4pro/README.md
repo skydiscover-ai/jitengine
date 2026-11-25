@@ -12,8 +12,8 @@ mixture-of-experts model, tuned on a 48 GB M4 Pro.
 - Serves one user at a time, at contexts up to 262,144 tokens (252K, the longest measured, is 258,048). With the whole
   model in memory it needs 24.1 to 31.0 GiB of GPU memory, depending on the context limit. We measured it on our 48 GB
   M4 Pro only; on other Macs it checks its kernel when it loads and falls back to stock MLX if the check fails
-  ([other Macs](DETAILS.md#other-macs)). With less memory, the [M2 build](../flint-m2) streams experts from the SSD
-  faster than this one ([less memory](DETAILS.md#less-memory)).
+  ([other Macs](DETAILS.md#other-macs)). With less memory, it streams experts from the SSD by the path
+  tuned for the [M2 build](../flint-m2): both builds run one engine, [`../flint`](../flint) ([less memory](DETAILS.md#less-memory)).
 
 <p align="center">
   <picture>
@@ -29,11 +29,13 @@ You need Python 3.14 or newer and 22.6 GB of disk for the model. From this direc
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../flint '.[download]'
 hf download RecursiveSI/flint-int4 --revision 3b93f9053b530488405ae9fca51d4900d6ce21f0 \
     --local-dir ~/models/flint-int4                                               # 22.6 GB
 jitengine-flint-m4pro serve --model-path ~/models/flint-int4
 ```
+
+`serve` with no `--model-path` fetches that checkpoint, at that revision, into the Hugging Face cache on its first run, so the `hf download` line is optional. `--model-path` takes a model id (`org/name` or `org/name@revision`) as well as a directory; a directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`.
 
 It serves one request at a time and queues up to 8 more. Point any OpenAI client at
 `http://127.0.0.1:8080/v1`:
@@ -86,8 +88,8 @@ the stored keys and values of the 14 full-attention layers. It also reads 1.45 G
    earlier text, it guesses that the next few tokens repeat what followed there, and keeps a guess only if it is
    exactly the token the model picks. rec does not do this.
 
-The [M2 build](../flint-m2), for a Mac that cannot hold the model, reads experts from the SSD on stock MLX operations
-instead of this kernel. [DETAILS.md](DETAILS.md#why-its-fast-in-more-detail) has the rest.
+When the model does not fit, the engine reads experts from the SSD on stock MLX operations instead of this kernel, by
+the path tuned for the [M2 build](../flint-m2); both builds run one engine, [`../flint`](../flint). [DETAILS.md](DETAILS.md#why-its-fast-in-more-detail) has the rest.
 
 ## Options
 
@@ -95,7 +97,7 @@ instead of this kernel. [DETAILS.md](DETAILS.md#why-its-fast-in-more-detail) has
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path DIR` | required | the checkpoint directory |
+| `--model-path DIR\|ID` | `RecursiveSI/flint-int4` | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache (`doctor` and `inspect` need one) |
 | `--context-limit auto\|N` | `auto` | history positions |
 | `--memory-budget-gib N` | the whole model, or the wired limit | the memory the engine may use |
 | `--profile main\|kv8` | `main` | 16-bit or 8-bit history for the full-attention layers |
@@ -109,10 +111,12 @@ running with less memory, other Macs, how to reproduce the numbers, and the Macs
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../flint '.[dev]'
+pytest ../flint     # the engine's unit tests; the Metal tests skip without Metal or the checkpoint
+pytest              # this build's end-to-end test, with JITENGINE_FLINT_M4PRO_E2E_CHECKPOINT set
 ```
 
 A pass is every test passing or skipping. On the M4 Pro with the checkpoint, the end-to-end test checks that greedy
-output hashes to `22f2f2ab929aa000`. [`tests/README.md`](tests/README.md) says what each suite checks.
+output hashes to `22f2f2ab929aa000`. [`../flint/tests/README.md`](../flint/tests/README.md) says what each suite checks.
 
 Built with [SkyDiscover](https://skydiscover-ai.github.io/).

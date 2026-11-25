@@ -1,0 +1,235 @@
+{
+ "machine": {
+  "chip": "Apple M4 Pro",
+  "memory_gib": 48.0,
+  "macos": "26.6.2",
+  "python": "3.14.10",
+  "power_source": "AC Power",
+  "power_mode": 0,
+  "uptime": "22:44  up 2 days, 11:57, 1 user, load averages: 3.61 4.77 5.56",
+  "mlx": "0.32.4",
+  "mlx-lm": "0.32.3.dev2+gc39139d70",
+  "transformers": "5.20.2",
+  "engine": "0.1.0a1"
+ },
+ "settings": {
+  "model_path": "/Volumes/ephemeral0/jit-registry-1118/pr17/models/Qwen3-1.7B-4bit",
+  "arms": [
+   "engine",
+   "stock"
+  ],
+  "concurrency": 16,
+  "repeats": 3,
+  "prompts": "heldout",
+  "settle": 5
+ },
+ "benchmark_sha256": "5b6b3f679e54a4483f2adea0171330ffd0f2003dc5b680d7cb62f73b2175784c",
+ "runs": [
+  {
+   "arm": "engine",
+   "index": 0,
+   "ok": true,
+   "tokens_per_sec": 743.1263928770504,
+   "rolling_tokens_per_sec": 714.5,
+   "total_tokens": 7665,
+   "total_time": 10.314530709001701,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.4277174576091056,
+   "ttft_p95": 0.6352851937379456,
+   "latency_mean": 2.351809685515036,
+   "latency_max": 2.931296499999007,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 135.2
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 1,
+   "ok": true,
+   "tokens_per_sec": 472.07132490184875,
+   "rolling_tokens_per_sec": 486.0,
+   "total_tokens": 7662,
+   "total_time": 16.23059820799972,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.40557235803271396,
+   "ttft_p95": 0.748410416166007,
+   "latency_mean": 3.820442594281758,
+   "latency_max": 4.445252667006571,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 116.4
+    },
+    {
+     "pid": 76671,
+     "command": "bluetoothd",
+     "cpu": 101.6
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 2,
+   "ok": true,
+   "tokens_per_sec": 471.81933187185547,
+   "rolling_tokens_per_sec": 494.5,
+   "total_tokens": 7712,
+   "total_time": 16.345239542017225,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.4354075253904739,
+   "ttft_p95": 0.7451999829514534,
+   "latency_mean": 3.8357815110935007,
+   "latency_max": 4.5652769160224125,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 188.2
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "engine",
+   "index": 3,
+   "ok": true,
+   "tokens_per_sec": 744.9986329432179,
+   "rolling_tokens_per_sec": 777.0,
+   "total_tokens": 7623,
+   "total_time": 10.232233540999005,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.45480284314135133,
+   "ttft_p95": 0.6290661124134205,
+   "latency_mean": 2.331849845142642,
+   "latency_max": 2.7431240000005346,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 114.4
+    },
+    {
+     "pid": 76726,
+     "command": "bluetoothd",
+     "cpu": 86.2
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "engine",
+   "index": 4,
+   "ok": true,
+   "tokens_per_sec": 740.280619153527,
+   "rolling_tokens_per_sec": 683.5,
+   "total_tokens": 7618,
+   "total_time": 10.290692209004192,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.42445912304401645,
+   "ttft_p95": 0.5790527017525164,
+   "latency_mean": 2.340493202437756,
+   "latency_max": 2.861273665999761,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 118.3
+    },
+    {
+     "pid": 76747,
+     "command": "bluetoothd",
+     "cpu": 72.3
+    }
+   ],
+   "power_before": "AC Power"
+  },
+  {
+   "arm": "stock",
+   "index": 5,
+   "ok": true,
+   "tokens_per_sec": 485.80465671113654,
+   "rolling_tokens_per_sec": 504.0,
+   "total_tokens": 7634,
+   "total_time": 15.714135084010195,
+   "successful": 64,
+   "tokens_min": 30,
+   "tokens_max": 128,
+   "ttft_avg": 0.43765425843730554,
+   "ttft_p95": 0.7482724168527056,
+   "latency_mean": 3.710879686250337,
+   "latency_max": 4.545012791000772,
+   "within_bounds": false,
+   "ready_seconds": 1.0,
+   "busy_before": [
+    {
+     "pid": 258,
+     "command": "WirelessRadioMan",
+     "cpu": 152.4
+    },
+    {
+     "pid": 153,
+     "command": "WindowServer",
+     "cpu": 15.1
+    }
+   ],
+   "power_before": "AC Power"
+  }
+ ],
+ "summary": {
+  "engine": {
+   "runs": 3,
+   "failed_runs": 0,
+   "tokens_per_sec_median": 743.1263928770504,
+   "tokens_per_sec_min": 740.280619153527,
+   "tokens_per_sec_max": 744.9986329432179,
+   "total_tokens_min": 7618,
+   "total_tokens_max": 7665,
+   "all_within_bounds": false,
+   "ttft_avg_median": 0.4277174576091056,
+   "latency_mean_median": 2.340493202437756
+  },
+  "stock": {
+   "runs": 3,
+   "failed_runs": 0,
+   "tokens_per_sec_median": 472.07132490184875,
+   "tokens_per_sec_min": 471.81933187185547,
+   "tokens_per_sec_max": 485.80465671113654,
+   "total_tokens_min": 7634,
+   "total_tokens_max": 7712,
+   "all_within_bounds": false,
+   "ttft_avg_median": 0.4354075253904739,
+   "latency_mean_median": 3.820442594281758
+  },
+  "ratio_of_medians": {
+   "engine/stock": 1.5741824459080593
+  }
+ },
+ "logs": "/var/folders/1r/45kfxvfs1jzfkbmvb656yqnw0000gn/T/jit-bench-cxon855l"
+}

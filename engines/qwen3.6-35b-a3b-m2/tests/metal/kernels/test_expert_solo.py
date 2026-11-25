@@ -10,8 +10,8 @@ def _qz(mx, shape, bits, seed):
 def test_expert_exact_bitwise_vs_stock(requires_mlx):
     import mlx.core as mx
 
+    from jitengine_qwen3_6_35b_a3b.kernels.elementwise import swiglu
     from jitengine_qwen3_6_35b_a3b_m2.kernels import expert_solo as ee
-    from jitengine_qwen3_6_35b_a3b_m2.kernels.elementwise import swiglu
     from jitengine_qwen3_6_35b_a3b_m2.linear import QLinear
 
     E, D, H, k = 12, 2048, 512, 8

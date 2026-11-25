@@ -12,7 +12,7 @@ import time
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.scheduler.batch import Req
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Req
 
 
 class PrefillTask:

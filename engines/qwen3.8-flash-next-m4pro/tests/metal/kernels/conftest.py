@@ -103,7 +103,7 @@ class QSA:
     def __init__(self):
         import mlx.core as mx
 
-        from jitengine_qwen3_8_flash_next_m4pro.model.config import Qwen4ExpTextConfig
+        from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
         from jitengine_qwen3_8_flash_next_m4pro.model.qsa_indexer import Qwen4ExpTextQSAIndexer
 
         cfg = Qwen4ExpTextConfig()

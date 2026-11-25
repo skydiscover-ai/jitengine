@@ -144,8 +144,8 @@ class OffloadingMixin:
         """(store, disk16): the SKYP16X1 pack's store when the `pack16_disk` option is "on" (the
         default) and the file at `p16_format.pack16_path_for` validates against the checkpoint, this
         source pack and the resident escape table; else `store` (the source's), unchanged."""
+        from jitengine_qwen3_8_flash_next.checkpoint.pack_format import read_header_block
         from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
-        from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import read_header_block
         from jitengine_qwen3_8_flash_next_m4pro.moe.expert_store import WORKERS, ExpertStore
 
         opt = str(self.options.get("pack16_disk", "on")).strip().lower()

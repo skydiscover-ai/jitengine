@@ -21,6 +21,9 @@ classifiers = [
 # The model runtime is Apple-Silicon-only; on other platforms only help/version/config/policy work.
 # mlx is pinned: the custom kernels are checked bit for bit against this version's stock ops.
 dependencies = [
+    "jitengine-runtime==0.1.0a1",  # ../../runtime: install.sh installs it beside the engine
+    "jitengine-qwen==0.1.0a1",  # ../qwen: what every Qwen engine shares (tool calls, chat rendering)
+    "jitengine-qwen3.6-35b-a3b==0.1.0a1",  # ../qwen3.6-35b-a3b: what both Qwen3.6 builds share
     "mlx==0.32.2; sys_platform == 'darwin' and platform_machine == 'arm64'",
     "numpy>=2.0",
     "transformers>=5.16,<6",

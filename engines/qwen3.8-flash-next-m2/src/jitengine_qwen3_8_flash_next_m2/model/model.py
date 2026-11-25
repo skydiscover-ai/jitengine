@@ -15,11 +15,12 @@ import time
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.kvcache.linear_state import LinearStateSlot
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kernels import gdn_decode as _gf
 from jitengine_qwen3_8_flash_next_m2.kernels import grouped_expert_qmv as _mk
 from jitengine_qwen3_8_flash_next_m2.kernels import qmv_row_blocked as _dk
 from jitengine_qwen3_8_flash_next_m2.kernels import router_combine as _mf
-from jitengine_qwen3_8_flash_next_m2.kvcache.linear_state import LinearStateSlot
 from jitengine_qwen3_8_flash_next_m2.kvcache.state import RequestState
 from jitengine_qwen3_8_flash_next_m2.linear import (
     QEmbedding,
@@ -34,7 +35,6 @@ from jitengine_qwen3_8_flash_next_m2.model.common import (
     GDN_FUSED_MULTI,
     _dispatch,
 )
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.model.gdn import (
     GDN_FUSED_NSG,
     Qwen4ExpTextGatedDeltaNet,

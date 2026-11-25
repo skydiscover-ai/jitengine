@@ -11,16 +11,26 @@ import logging
 import os
 import sys
 
-from jitengine_qwen3_8_flash_next_m2 import __version__, logs
+from jitengine_qwen3_8_flash_next import pinned
+from jitengine_qwen3_8_flash_next_m2 import __version__
 from jitengine_qwen3_8_flash_next_m2.budget import DEFAULT_BUDGET_BYTES
+from jitengine_runtime import hub, logs
 
 logger = logging.getLogger(__name__)
 
 GIB = 1 << 30
+MODEL_PATH_HELP = (
+    "checkpoint directory, or a Hugging Face model id (org/name or org/name@revision) fetched into the "
+    "Hugging Face cache"
+)
 # a budget over this fraction of unified memory is refused without --force: macOS needs the rest
 MAX_BUDGET_FRACTION = 0.80
 # below this the expert pool holds too few records for a good hit rate
 LOW_BUDGET_BYTES = 14 * 10**9
+
+
+# the packages whose records `--log-level` sends to stderr: this engine's and the shared ones it imports
+LOG_PACKAGES = (__package__, "jitengine_qwen3_8_flash_next", "jitengine_qwen")
 
 
 def _die(msg: str, code: int = 2) -> int:
@@ -30,6 +40,15 @@ def _die(msg: str, code: int = 2) -> int:
 
 def _unified_memory_bytes() -> int:
     return os.sysconf("SC_PHYS_PAGES") * os.sysconf("SC_PAGE_SIZE")
+
+
+def _checkpoint(value: str, log) -> str:
+    """The checkpoint directory for a --model-path value: the directory itself, or the Hugging Face cache's
+    snapshot of that model id (fetched now, at the revision both Flash-Next builds pin)."""
+    try:
+        return os.path.expanduser(hub.resolve_model_path(value, pinned=pinned.PINNED, log=log))
+    except hub.ModelPathError as exc:
+        raise SystemExit(_die(str(exc))) from None
 
 
 def _gib(n) -> str:
@@ -185,12 +204,12 @@ def _print_doctor(a, rep: dict, info: dict | None, err: str | None) -> None:
 
 def cmd_inspect(a) -> int:
     """The memory plan a budget gives on this checkpoint, from its headers alone (read-only)."""
+    from jitengine_qwen3_8_flash_next.model.config import load_config
     from jitengine_qwen3_8_flash_next_m2.budget import WAVE_TOKENS_SERVED, BudgetError, plan_budget
     from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_reader import CheckpointScan
-    from jitengine_qwen3_8_flash_next_m2.model.config import load_config
     from jitengine_qwen3_8_flash_next_m2.model.moe import MOE_KERNEL_DEFAULT
 
-    model_path = os.path.expanduser(a.model_path)
+    model_path = _checkpoint(a.model_path, hub.log_to_stderr)
     cfg, scan = load_config(model_path), CheckpointScan(model_path)
     budget = _requested_budget(a)
     if budget is None:
@@ -260,8 +279,9 @@ def cmd_pack(a) -> int:
     """Build the expert and PLE packs the engine reads, once, each verified against the checkpoint."""
     from jitengine_qwen3_8_flash_next_m2.checkpoint import build_experts, build_ple
 
+    model_path = _checkpoint(a.model_path, hub.log_to_stderr)
     for build in (build_experts, build_ple):
-        rc = build.main(["--model", a.model_path, "--verify", str(a.verify)])
+        rc = build.main(["--model", model_path, "--verify", str(a.verify)])
         if rc:
             return rc
     return 0
@@ -288,8 +308,8 @@ SERVE_SWITCHES = ("transient_prefill", "moe_sync_each_layer")  # on when given
 
 def cmd_serve(a) -> int:
     """Check the checkpoint and the budget, build the engine and serve the OpenAI-compatible API."""
-    logs.configure(a.log_level)
-    model_path = os.path.expanduser(a.model_path)
+    logs.configure(a.log_level, *LOG_PACKAGES)
+    model_path = _checkpoint(a.model_path, logger.info)
     if not os.path.isfile(os.path.join(model_path, "config.json")):
         return _die(
             f"no checkpoint at {model_path} (need config.json, the tokenizer and the shards)"
@@ -303,6 +323,10 @@ def cmd_serve(a) -> int:
     opts.update({k: True for k in SERVE_SWITCHES if getattr(a, k)})
     from jitengine_qwen3_8_flash_next_m2.engine.engine import create_engine
 
+    if not opts.get("model_name") and hub.served_name(
+        a.model_path
+    ):  # a model id is served by its name, not the cache path
+        opts["model_name"] = hub.served_name(a.model_path)
     engine = create_engine(model_path, **opts)
     engine.serve(a.host, a.port, allowed_hosts=tuple(a.allowed_host or ()))
     return 0
@@ -337,11 +361,11 @@ def build_parser() -> argparse.ArgumentParser:
     i = sub.add_parser(
         "inspect", help="the memory plan a budget gives, from the checkpoint headers"
     )
-    i.add_argument("--model-path", required=True, help="checkpoint directory")
+    i.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     _budget_flags(i)
     i.add_argument("--json", action="store_true")
     p = sub.add_parser("pack", help="build the expert and PLE packs the engine reads (once)")
-    p.add_argument("--model-path", required=True, help="checkpoint directory")
+    p.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     p.add_argument(
         "--verify",
         type=int,
@@ -349,7 +373,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="records of each pack checked against the checkpoint, byte for byte (default 64)",
     )
     s = sub.add_parser("serve", help="run the OpenAI-compatible server")
-    s.add_argument("--model-path", required=True, help="checkpoint directory")
+    s.add_argument(
+        "--model-path",
+        default=pinned.CHECKPOINT,
+        help=f"{MODEL_PATH_HELP} (default: {pinned.CHECKPOINT})",
+    )
     s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--port", type=int, default=8080)
     s.add_argument(

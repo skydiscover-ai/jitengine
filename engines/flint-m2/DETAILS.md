@@ -16,7 +16,7 @@ From this directory, with Python 3.14 or newer:
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
+pip install ../../runtime ../flint '.[download]'          # mlx 0.32.2, numpy, transformers, jinja2 and the hf CLI
 hf download RecursiveSI/flint-int4 --revision 3b93f9053b530488405ae9fca51d4900d6ce21f0 \
     --local-dir ~/models/flint-int4                                               # 22.6 GB
 ```
@@ -35,6 +35,8 @@ The server listens on `127.0.0.1:8080` (`/v1/chat/completions`, `/v1/completions
 
 With `tools`, the reply is read as Recursive's `flint` parsers for SGLang read it: a `<think>…</think>` that opens it comes back as `reasoning_content` and its calls as OpenAI `tool_calls`; without tools the reply is the text Flint wrote. The same port serves the Anthropic Messages API (`/v1/messages`, `/v1/messages/count_tokens`) and OpenAI's Responses API (`/v1/responses`) on the same chat, its reasoning as a thinking block and a reasoning item, with the context limit `/v1/models` reports as `max_model_len`. These are the APIs Claude Code, Codex, OpenCode and Pi use ([`launch/`](../../launch) has the setup, and `jit-launch`); we ran Pi and Codex on this engine, on the 24 GB M2.
 
+An agent's next request repeats the conversation so far. The engine keeps the last prompt's state at its last 2,048-token boundary before the end; a prompt that starts with those positions restores it and prefills only the rest, in the chunks a full prefill runs there, so the reply is bit-identical ([`test_prefix_resume.py`](tests/metal/engine/test_prefix_resume.py), greedy and sampled). A 4,962-token prompt that repeats a 4,662-token one prefilled in 25.0 s instead of 34.0 s at 18 GiB on our 24 GB M2, which reads the experts it streams from a network disk, and in 1.31 s instead of 6.26 s in memory on our 48 GB M4 Pro.
+
 Within an 18 GiB budget it keeps 73% of the 12,032 routed experts in memory and reads the rest from the SSD as the router picks them. It serves one user at a time.
 
 ### Memory budget
@@ -50,7 +52,7 @@ The table lists the options you would set; `jitengine-flint-m2 serve --help` lis
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path DIR` | required | the checkpoint directory |
+| `--model-path DIR\|ID` | `RecursiveSI/flint-int4` | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache (`doctor` and `inspect` need one) |
 | `--host`, `--port` | `127.0.0.1`, `8080` | where `serve` listens |
 | `--allowed-host NAME` | none | a host name clients may use besides `localhost`, IP literals and `--host` (repeatable); a request naming any other host, or sent by a browser page of another origin, gets 403 |
 | `--memory-budget-gib N`, `--memory-budget-gb N` | the wired limit, at most memory less 6 GiB | the memory the engine may use |
@@ -89,7 +91,7 @@ Decode tokens per second on a 24 GB M2 (an AWS EC2 Mac, checkpoint on its intern
 
 ## Why it's fast, in more detail
 
-The M4 Pro build already offloads; this build changes how its offload path spends time. At 18 GiB, code at 1K, a token took 116 ms. A profile of the same setting, at 124 ms per token, put 45 ms in blocking reads of missing experts, 16 ms in choosing which expert to evict, and 18.5 ms in extra GPU time that followed the reads. Each change's gain below is the run's own measurement at 18 GiB, code at 1K unless noted.
+Flint's engine offloaded before this build was tuned; this build changed how that path spends time, and since both builds run one engine ([`../flint`](../flint)), the M4 Pro build streams this way too. At 18 GiB, code at 1K, a token took 116 ms. A profile of the same setting, at 124 ms per token, put 45 ms in blocking reads of missing experts, 16 ms in choosing which expert to evict, and 18.5 ms in extra GPU time that followed the reads. Each change's gain below is the run's own measurement at 18 GiB, code at 1K unless noted.
 
 - Offload decode reaches the GPU in bursts, one evaluation per MoE layer with reads and bookkeeping between them, and under that pattern the M2's GPU holds about 800 of its 1,398 MHz. While a request runs, a helper process streams tiny kernels on its own Metal queue, and the GPU stays at full clock. It shares no memory with the engine, so it cannot change the output. This is the largest gain: 9.3 to 13.6 tok/s.
 - A missing expert is nine checkpoint slices. They are read on eight workers at once rather than one after another, and the expert to evict comes from a heap rather than a sort over every slot in the pool: 8.6 to 9.3 tok/s.
@@ -103,7 +105,7 @@ The M4 Pro build already offloads; this build changes how its offload path spend
 
 ## Measure it yourself
 
-[`benchmarks/`](benchmarks) has the harness behind the table; its README has the commands.
+[`../flint/benchmarks`](../flint/benchmarks) has the harness behind the table; its README has the commands.
 
 ## Tested on
 
@@ -111,4 +113,4 @@ The M4 Pro build already offloads; this build changes how its offload path spend
 |:--|:--|:--|:--|--:|
 | M2 (AWS EC2 Mac) | 24 GB | the README's table (the run's scored medians), the run's bit-identity check at both budgets, the context curve, the unit and Metal suites (452 passed, 12 skipped, run on 2026-11-03 on the release tree), and the end-to-end test at the default 18 GiB on that run (offload, 8,758 of 12,032 experts in memory, context 32,768) | `46cc7a346d0ee2fb`, 3 of 3 repeats | 22.8 tok/s (median of 3), greedy-512 chat |
 
-The engine is the M4 Pro build with the offload changes above, so everything that build checks at startup ([other Macs](../flint-m4pro/DETAILS.md#other-macs)) applies here too.
+Both builds run the same engine ([`../flint`](../flint)), so everything it checks at startup ([other Macs](../flint-m4pro/DETAILS.md#other-macs)) applies here too.

@@ -12,8 +12,8 @@ import os
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels import constants
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels.source import substitute
+from jitengine_qwen3_6_35b_a3b.kernels import constants
+from jitengine_runtime.kernel_source import substitute
 
 KDIR = os.path.join(os.path.dirname(mx.__file__), "include", "mlx", "backend", "metal", "kernels")
 ORDER = [

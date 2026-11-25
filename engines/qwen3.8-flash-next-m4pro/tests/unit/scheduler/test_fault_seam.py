@@ -9,8 +9,8 @@ import pytest
 
 pytest.importorskip("mlx.core")
 
-from jitengine_qwen3_8_flash_next_m4pro.kvcache.kv_cache import KVSlot
-from jitengine_qwen3_8_flash_next_m4pro.scheduler.faults import FaultSeam, RowFaultError, StepGuard
+from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KVSlot
+from jitengine_qwen3_8_flash_next.scheduler.faults import FaultSeam, RowFaultError, StepGuard
 
 
 def _check(seam, kind="ple_row", keys=(7,), row_of=None, owners=None, key=None):

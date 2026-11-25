@@ -10,9 +10,9 @@ from functools import partial
 import mlx.core as mx
 import mlx.nn as nn
 
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kernels import hc_decode as _hk
 from jitengine_qwen3_8_flash_next_m2.linear import qlinear_from
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
 # Decode-path hyper-connection as three Metal launches; prefill and score keep the stock ops.
 HC_FUSED_DOWN = (32, 4, 1)  # measured (KL, NSG, RB) of the down-projection launch

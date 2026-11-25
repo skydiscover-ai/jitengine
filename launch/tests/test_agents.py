@@ -7,7 +7,7 @@ from __future__ import annotations
 import json
 import tomllib
 
-from jit_launch.agents import CODEX_CATALOG, PI_EXTENSION, PROVIDER, Served, plan
+from jit_launch.agents import CLAUDE_TOOLS, CODEX_CATALOG, PI_EXTENSION, PROVIDER, Served, plan
 
 SERVED = Served("http://127.0.0.1:8080", "/Users/demo/models/Qwen3.6-35B-A3B-3bit", 32768)
 
@@ -57,7 +57,18 @@ def test_opencode_takes_its_config_from_the_environment():
 
 def test_claude_code_talks_to_the_engine_s_messages_api():
     p = plan("claude", SERVED, ["-p", "hi"])
-    assert p.argv == ["claude", "--model", SERVED.model, "-p", "hi"] and not p.files
+    assert p.argv == [
+        "claude",
+        "--model",
+        SERVED.model,
+        "--tools",
+        CLAUDE_TOOLS,
+        "--permission-mode",
+        "default",
+        "-p",
+        "hi",
+    ]
+    assert not p.files
     assert p.env["ANTHROPIC_BASE_URL"] == "http://127.0.0.1:8080"  # the same port as /v1/chat
     assert p.env["ANTHROPIC_API_KEY"] == "" and p.env["ANTHROPIC_AUTH_TOKEN"] == "jitengine"
     for key in ("ANTHROPIC_MODEL", "ANTHROPIC_DEFAULT_HAIKU_MODEL", "CLAUDE_CODE_SUBAGENT_MODEL"):
@@ -67,6 +78,28 @@ def test_claude_code_talks_to_the_engine_s_messages_api():
     assert p.env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] == "4096"
     large = plan("claude", Served("http://h:1", "flint-int4", 262144), [])
     assert large.env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] == "32768"
+
+
+def test_claude_code_sends_the_engine_only_the_requests_and_tools_a_coding_session_needs():
+    p = plan("claude", SERVED, [])
+    # no session-title request before each reply
+    assert p.env["CLAUDE_CODE_DISABLE_TERMINAL_TITLE"] == "1"
+    assert CLAUDE_TOOLS == "Bash,Read,Edit,Write,Glob,Grep"
+    assert p.argv[p.argv.index("--tools") + 1] == CLAUDE_TOOLS
+    # the standard permission mode: auto mode would send the engine its classifier's requests
+    assert p.argv[p.argv.index("--permission-mode") + 1] == "default"
+    # tools and permissions the user names win, in either spelling
+    for args in (["--tools", "default"], ["--tools=default"], ["-p", "hi", "--tools", "Bash"]):
+        argv = plan("claude", SERVED, args).argv
+        assert argv == ["claude", "--model", SERVED.model, "--permission-mode", "default", *args]
+    for args in (
+        ["--permission-mode", "auto"],
+        ["--permission-mode=acceptEdits"],
+        ["--dangerously-skip-permissions"],
+        ["--allow-dangerously-skip-permissions"],
+    ):
+        argv = plan("claude", SERVED, args).argv
+        assert argv == ["claude", "--model", SERVED.model, "--tools", CLAUDE_TOOLS, *args]
 
 
 def test_codex_takes_its_provider_and_the_model_s_metadata_as_overrides():

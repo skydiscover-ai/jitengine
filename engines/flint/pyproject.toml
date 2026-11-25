@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jitengine-flint"
+version = "0.1.0a1"
+description = "Flint (int4) single-stream decode engine synthesized by SkyDiscover: the megakernel in memory, the experts streamed from the SSD below"
+readme = "README.md"
+# Measured on CPython 3.14.7 with mlx 0.32.2, on the 48 GB M4 Pro and the 24 GB M2.
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# The engine both Flint builds run (engines/flint-m2, engines/flint-m4pro carry each Mac's command, results and
+# end-to-end check). The model runtime needs an Apple silicon Mac (the megakernel was tuned on the M4 Pro, any other GPU
+# is admitted by capability and checked at load; the streaming path was tuned on the 24 GB M2); elsewhere only help
+# and the model-free tests run. mlx is pinned: the megakernel was certified against this version.
+dependencies = [
+    "jitengine-runtime==0.1.0a1",  # ../../runtime: install.sh installs it beside the engine
+    "mlx==0.32.2; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "numpy>=2.0",
+    "transformers>=5.16,<6",
+    "jinja2>=3.1",
+]
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+download = ["huggingface_hub>=1.0"]
+dev = ["pytest>=8", "openai>=3.37", "anthropic>=0.40"]  # the SDK tests in tests/unit/test_chat_replies.py
+
+[project.scripts]
+"jitengine-flint" = "jitengine_flint.cli:main"
+
+[tool.setuptools.package-data]
+jitengine_flint = ["kernels/*.metal"]
+
+[tool.pytest.ini_options]
+# Tests import the package from this checkout's src/, whatever is installed; test files mirror the
+# source tree, so a basename can repeat across directories.
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

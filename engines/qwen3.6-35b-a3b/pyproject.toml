@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jitengine-qwen3.6-35b-a3b"
+version = "0.1.0a1"
+description = "What the two JITEngine Qwen3.6-35B-A3B builds share: checkpoint inventory, scheduler, OpenAI protocol and request types"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# mlx is pinned as in the builds: the shared scheduler and loader run their MLX ops.
+dependencies = [
+    "mlx==0.32.2; sys_platform == 'darwin' and platform_machine == 'arm64'",
+]
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

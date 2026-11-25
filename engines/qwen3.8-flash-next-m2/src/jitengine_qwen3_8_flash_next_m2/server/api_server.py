@@ -1,6 +1,6 @@
 """OpenAI-compatible HTTP server over the Engine: completions, chat completions, models, stats, and on
 the same chat the Anthropic Messages API's /v1/messages and /v1/messages/count_tokens
-(server/anthropic_api.py) and OpenAI's Responses API's /v1/responses (server/responses_api.py).
+(jitengine_runtime.anthropic_api) and OpenAI's Responses API's /v1/responses (jitengine_runtime.responses_api).
 
 Handlers run on their own threads and the engine serializes model work. Bad requests are refused
 (415, 413 or 400) before any model work; SIGTERM and SIGINT end open streams with `data: [DONE]`.
@@ -32,8 +32,9 @@ import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote
 
-from jitengine_qwen3_8_flash_next_m2.server import anthropic_api, responses_api
-from jitengine_qwen3_8_flash_next_m2.server.openai_api import (
+from jitengine_qwen.tokenizer import IncrementalDecoder
+from jitengine_qwen.tool_calls import ToolCallText, parse
+from jitengine_qwen3_8_flash_next.server.openai_api import (
     ChunkWriter,
     EventWriter,
     StopText,
@@ -48,8 +49,7 @@ from jitengine_qwen3_8_flash_next_m2.server.protocol import (
     max_model_len,
     parse_request,
 )
-from jitengine_qwen3_8_flash_next_m2.server.tool_calls import ToolCallText, parse
-from jitengine_qwen3_8_flash_next_m2.tokenizer import IncrementalDecoder
+from jitengine_runtime import anthropic_api, responses_api
 
 logger = logging.getLogger(__name__)
 # the APIs served on the same chat as /v1/chat/completions, by path

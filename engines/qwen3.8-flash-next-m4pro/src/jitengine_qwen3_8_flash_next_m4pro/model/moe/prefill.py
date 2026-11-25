@@ -12,7 +12,7 @@ from __future__ import annotations
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m4pro.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m4pro.model.moe.expert_mlp import swiglu
 
 _ROWOF_CACHE: dict = {}

@@ -22,11 +22,11 @@ import functools
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.kernels.constants import placeholder
 from jitengine_qwen3_8_flash_next_m4pro.kernels import pack16 as _p16
 from jitengine_qwen3_8_flash_next_m4pro.kernels import selfcheck as sc
-from jitengine_qwen3_8_flash_next_m4pro.kernels.constants import placeholder
 from jitengine_qwen3_8_flash_next_m4pro.kernels.qmv_row_blocked import HEADER, row_blocked_template
-from jitengine_qwen3_8_flash_next_m4pro.kernels.source import substitute
+from jitengine_runtime.kernel_source import substitute
 
 
 def _source(dual: bool) -> str:

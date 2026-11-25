@@ -9,7 +9,7 @@ from __future__ import annotations
 import mlx.core as mx
 import mlx.nn as nn
 
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels.elementwise import gated_silu_f32
+from jitengine_qwen3_6_35b_a3b.kernels.elementwise import gated_silu_f32
 from jitengine_qwen3_6_35b_a3b_m4pro.kernels.gdn_recurrence import gdn_recurrence_steps
 from jitengine_qwen3_6_35b_a3b_m4pro.model.attention import Qwen3_5MoeAttention
 from jitengine_qwen3_6_35b_a3b_m4pro.model.gdn import Qwen3_5MoeGatedDeltaNet, compute_g

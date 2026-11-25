@@ -51,6 +51,9 @@ from collections.abc import Iterator, Sequence
 
 import mlx.core as mx
 
+from jitengine_qwen.tokenizer import Tokenizer
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig, load_config
+from jitengine_qwen3_8_flash_next.scheduler.faults import FaultSeam
 from jitengine_qwen3_8_flash_next_m2.budget import (
     GIB,
     WAVE_TOKENS_SERVED,
@@ -67,7 +70,6 @@ from jitengine_qwen3_8_flash_next_m2.kernels.qmv_row_blocked import (
     DENSE_KERNELS,
 )
 from jitengine_qwen3_8_flash_next_m2.kvcache.prefix_cache import MIN_DIVERGENCE_TOKENS, PrefixCache
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig, load_config
 from jitengine_qwen3_8_flash_next_m2.model.hyper_connections import HC_PATH_DEFAULT, HC_PATHS
 from jitengine_qwen3_8_flash_next_m2.model.model import WAVE_EVAL, Qwen4ExpForCausalLM
 from jitengine_qwen3_8_flash_next_m2.model.moe import MOE_KERNEL_DEFAULT, MOE_KERNELS, MOE_VARIANTS
@@ -75,13 +77,11 @@ from jitengine_qwen3_8_flash_next_m2.moe.offload import OffloadingMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.admission import AdmissionMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.batch import Job, Req, SlotPool, kv_bytes_for
 from jitengine_qwen3_8_flash_next_m2.scheduler.decode import DecodingMixin
-from jitengine_qwen3_8_flash_next_m2.scheduler.faults import FaultSeam
 from jitengine_qwen3_8_flash_next_m2.scheduler.prefill import PromptProcessingMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.retire import RetirementMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.scheduler import SchedulingMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.score import SCORE_READOUT_ROWS, ScoringMixin
 from jitengine_qwen3_8_flash_next_m2.server.stats import PhaseMeter, Stats, StepTelemetry
-from jitengine_qwen3_8_flash_next_m2.tokenizer import Tokenizer
 
 logger = logging.getLogger(__name__)
 

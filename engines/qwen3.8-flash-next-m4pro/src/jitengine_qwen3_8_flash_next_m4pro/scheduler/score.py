@@ -14,7 +14,7 @@ from collections.abc import Sequence
 
 import mlx.core as mx
 
-from jitengine_qwen3_8_flash_next_m4pro.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m4pro.engine.io_struct import ClientDisconnected
 from jitengine_qwen3_8_flash_next_m4pro.kvcache.state import RequestState
 

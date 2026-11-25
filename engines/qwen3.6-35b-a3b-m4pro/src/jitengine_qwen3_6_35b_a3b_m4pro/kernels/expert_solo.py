@@ -455,7 +455,7 @@ def check_experts(hid: int, d: int, bits: int, group_size: int) -> dict:
     """expert_solo vs the stock gather path, prescaled solo and multi-row experts vs expert_solo, and
     seg_gather_qmm vs sorted mx.gather_qmm, on stacks `bits` wide in groups of `group_size`; only the
     kernels `expert_checks(bits)` names."""
-    from jitengine_qwen3_6_35b_a3b_m4pro.kernels.elementwise import swiglu
+    from jitengine_qwen3_6_35b_a3b.kernels.elementwise import swiglu
     from jitengine_qwen3_6_35b_a3b_m4pro.kernels.expert_qmv_prescaled import (
         expert_gate_up_prescaled,
         expert_gate_up_prescaled_rows,

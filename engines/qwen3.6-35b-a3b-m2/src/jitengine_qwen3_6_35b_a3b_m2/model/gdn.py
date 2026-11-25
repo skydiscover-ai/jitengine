@@ -7,10 +7,10 @@ from functools import partial
 import mlx.core as mx
 import mlx.nn as nn
 
-from jitengine_qwen3_6_35b_a3b_m2.kernels.elementwise import gated_silu_f32
+from jitengine_qwen3_6_35b_a3b.kernels.elementwise import gated_silu_f32
+from jitengine_qwen3_6_35b_a3b.kvcache.linear_state import LinearStateSlot
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m2.kernels.gdn_recurrence import gdn_recurrence, recurrence_rows
-from jitengine_qwen3_6_35b_a3b_m2.kvcache.linear_state import LinearStateSlot
-from jitengine_qwen3_6_35b_a3b_m2.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m2.model.kernel_choice import KernelChoice
 from jitengine_qwen3_6_35b_a3b_m2.model.weight import FUSIONS, _fuse, _qlin
 

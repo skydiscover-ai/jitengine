@@ -42,9 +42,9 @@ def _stock_rows(mx, x, lin):
 
 def _callers():
     """(name, weight shapes, launch config, swiglu) of each qmv_multi call site in the model."""
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
     from jitengine_qwen3_8_flash_next_m2.model.attention import INPUT_PROJS_CFG
     from jitengine_qwen3_8_flash_next_m2.model.common import GDN_FUSED_MULTI
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
     c = Qwen4ExpTextConfig()
     h = c.hidden_size
@@ -109,7 +109,7 @@ def test_qmv_multi_as_accurate_as_the_stock_projections(requires_mlx, q4, accura
 
 
 def _gdn_inputs(mx, seed):
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
     c = Qwen4ExpTextConfig()
     C, KC, HV = c.conv_dim, c.linear_conv_kernel_dim, c.linear_num_value_heads
@@ -227,8 +227,8 @@ def _verify_calls(dtype, served=True):
     `kernel_checks._glue_calls` builds them: the GDN projections, the attention projections with
     the indexer's, the shared expert's gate/up and its SwiGLU down. `served` False gives the
     float32 metadata the dense policy leaves on every shape when the row-blocked kernel is off."""
+    from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
     from jitengine_qwen3_8_flash_next_m2.model import kernel_checks as kc
-    from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
     cfg = Qwen4ExpTextConfig()
     calls, _glue = kc._glue_calls(cfg, kc._Linears(cfg, dtype, served))

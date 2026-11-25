@@ -6,7 +6,7 @@ from __future__ import annotations
 def test_option_validation_without_model():
     # engine re-exports resolve_options from engine_options, which is MLX-free
     from jitengine_qwen3_6_35b_a3b_m4pro.engine.args import resolve_options
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import host_default_budget_bytes
+    from jitengine_qwen3_6_35b_a3b_m4pro.memory.defaults import host_default_budget_bytes
 
     o = resolve_options({})
     assert o["process_budget_bytes"] == host_default_budget_bytes()

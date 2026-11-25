@@ -14,11 +14,10 @@ import os
 import random
 import time
 
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     PLE_FIELDS,
     PLE_MAGIC,
     PLEScan,
-    default_ple_pack_path,
     ple_pack_bytes,
     read_header_block,
     row_offset,
@@ -27,6 +26,7 @@ from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
     validate_ple,
 )
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_io import Reader, ShardReader
+from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_paths import default_ple_pack_path
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.ple_writer import (
     build_pack,
     parse_rows,

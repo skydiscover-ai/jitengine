@@ -13,7 +13,7 @@ import pytest
 
 mx = pytest.importorskip("mlx.core")
 
-from jitengine_qwen3_8_flash_next_m4pro.engine.errors import InvariantError  # noqa: E402
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError  # noqa: E402
 from jitengine_qwen3_8_flash_next_m4pro.moe.offload_cache import OffloadMoeCache  # noqa: E402
 
 NAMES = [

@@ -79,8 +79,8 @@ class ScriptedHead:
 
 def _layout(tmp_path, model, source):
     """tmp/pack/<name>.experts (a copy of `source`) and where the engine looks for its pack16 file."""
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import ExpertScan
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import ExpertScan
 
     os.makedirs(tmp_path / "pack", exist_ok=True)
     pack = str(tmp_path / "pack" / os.path.basename(source))
@@ -166,9 +166,9 @@ PROMPTS = [
 
 
 def test_the_writer_leaves_a_verified_file_the_engine_accepts(p16_tiny, requires_mlx):
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import read_header_block
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint.expert_reader import CheckpointScan
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import read_header_block
     from jitengine_qwen3_8_flash_next_m4pro.kernels import pack16 as p16
     from jitengine_qwen3_8_flash_next_m4pro.moe.expert_store import ExpertStore
     from jitengine_qwen3_8_flash_next_m4pro.moe.offload_cache.codec import census
@@ -277,8 +277,8 @@ def test_reading_pack16_from_disk_changes_no_token_and_no_row(
 
 
 def _rewrite_header(path, change):
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import read_header_block
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import read_header_block
 
     meta = change(read_header_block(path, pf.MAGIC_P16))
     with open(path, "r+b") as f:
@@ -343,9 +343,9 @@ def _patched_checkpoint(tmp_path, model):
 def test_a_pair_outside_the_escape_table_fails_the_build(
     tiny_flashnext, requires_mlx, tmp_path, monkeypatch
 ):
+    from jitengine_qwen3_8_flash_next.checkpoint.pack_format import ExpertScan, PackError
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint import expert_writer
     from jitengine_qwen3_8_flash_next_m4pro.checkpoint.p16_writer import P16Build
-    from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import ExpertScan, PackError
 
     model, _ = tiny_flashnext()
     esc_model = _patched_checkpoint(tmp_path, model)

@@ -5,20 +5,7 @@ Settings are CLI flags or configuration; these variables only say where files ar
 
 from __future__ import annotations
 
-import os
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class EnvPath:
-    """A path from the environment, with `~` expanded; None when unset or empty."""
-
-    name: str
-
-    def get(self) -> str | None:
-        value = os.environ.get(self.name)
-        return os.path.expanduser(value) if value else None
-
+from jitengine_runtime.envs import EnvPath
 
 # the directory holding the expert and PLE packs, each named after its checkpoint; no default, since
 # the packs take 108 GB

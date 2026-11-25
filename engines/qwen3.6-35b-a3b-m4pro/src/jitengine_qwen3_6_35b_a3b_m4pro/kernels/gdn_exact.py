@@ -16,7 +16,7 @@ import functools
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels import constants
+from jitengine_qwen3_6_35b_a3b.kernels import constants
 
 PRE_SRC = """
     // grid: (32 * NH, M, 1), threadgroup (32, 1, 1): one simdgroup per (row m, head h); lane covers 4 channels
@@ -199,7 +199,7 @@ def check_gdn_exact(cfg) -> bool:
     """Check gdn_pre_rows and gdn_post_rows are bitwise equal to the composed MLX chain at M = 1..8."""
     import mlx.nn as nn
 
-    from jitengine_qwen3_6_35b_a3b_m4pro.kernels.elementwise import gated_silu_f32
+    from jitengine_qwen3_6_35b_a3b.kernels.elementwise import gated_silu_f32
 
     HK, DK = cfg.linear_num_key_heads, cfg.linear_key_head_dim
     HV, DV = cfg.linear_num_value_heads, cfg.linear_value_head_dim

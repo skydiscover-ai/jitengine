@@ -47,7 +47,7 @@ from collections import deque
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m4pro.engine.errors import InvariantError
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m4pro.kernels import pack16 as _p16
 
 logger = logging.getLogger(__name__)

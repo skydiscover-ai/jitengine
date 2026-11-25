@@ -24,13 +24,15 @@ You need Python 3.14 and about 290 GB free on the internal SSD (220 GB without t
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[download]'
 export JITENGINE_QWEN3_8_FLASH_NEXT_M4PRO_PACK_DIR=~/models/flashnext-pack
 hf download mlx-community/Qwen3.8-Flash-Next-4bit --revision 07b5dc6c54600a359b87f1e53e7adf6351c72a2c \
     --local-dir ~/models/Qwen3.8-Flash-Next-4bit                                # 112 GB, once
 jitengine-qwen3.8-flash-next-m4pro pack --model-path ~/models/Qwen3.8-Flash-Next-4bit --mtp --pack16  # 178 GB, once
 jitengine-qwen3.8-flash-next-m4pro serve --model-path ~/models/Qwen3.8-Flash-Next-4bit --memory-budget-gib 29.8
 ```
+
+`--model-path` takes a Hugging Face model id (`org/name` or `org/name@revision`) as well as a directory, in `serve`, `inspect` and `pack`, and `serve` with none fetches `mlx-community/Qwen3.8-Flash-Next-4bit` at the revision above: the 112 GB go into the Hugging Face cache instead of `~/models`. A directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`. The packs of a cached checkpoint are named `mlx-community--Qwen3.8-Flash-Next-4bit-<index sha12>.experts` (`.ple`, `.p16x`) instead of by the revision hash that names the cache's folder; a checkpoint directory keeps the name its directory has. `pack --mtp` writes `mtp.safetensors` into the checkpoint's cache folder, where the engine looks for it.
 
 Pick a budget from the Results table below; its rows were measured on a 48 GB Mac with nothing else running. A 29.8 GiB
 (32 GB) budget decoded 22.3 tok/s, and the 32.9 tok/s row used `--memory-budget-gb 40`. `--pack16`
@@ -110,7 +112,7 @@ whole-layer streaming for prefill, and memory traded between the expert cache an
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
 ```
 
 A pass is every test passing or skipping. On the 48 GB M4 Pro with the checkpoint, the end-to-end test checks that greedy output hashes to `07a676778e3a6720`. [`tests/README.md`](tests/README.md) says what each suite checks.

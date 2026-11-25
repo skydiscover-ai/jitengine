@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jitengine-qwen3-1.7b-m4pro"
+version = "0.1.0a1"
+description = "Qwen3-1.7B 4-bit on a 24 GB Apple M4 Pro, 16 concurrent requests: a serving engine synthesized by SkyDiscover"
+readme = "README.md"
+# The published measurements ran on CPython 3.13.5 with mlx 0.32.4 on a 24 GB M4 Pro. jitengine-runtime
+# needs 3.14; on a 48 GB M4 Pro the engine ran at the same speed on 3.13.15 and 3.14.10 (DETAILS.md, Tested on).
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# The model runtime is Apple-Silicon-only; elsewhere only help/version work. mlx and mlx-lm are
+# pinned: the custom kernels are checked bit for bit against these versions' stock ops.
+dependencies = [
+    "jitengine-runtime==0.1.0a1",  # ../../runtime: the Anthropic and Responses API layers every engine serves through
+    "mlx==0.32.4; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    # a main-branch snapshot, not a PyPI release
+    "mlx-lm @ git+https://github.com/ml-explore/mlx-lm@c39139d70f0798834fc721c28a1aa8e1374ea33c ; sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "numpy>=2.0",
+    "transformers==5.20.2",
+]
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+download = ["huggingface_hub>=1.0"]
+benchmark = ["aiohttp>=3.9", "tqdm"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+"jitengine-qwen3-1.7b-m4pro" = "jitengine_qwen3_1_7b_m4pro.cli:main"
+
+[tool.pytest.ini_options]
+# Tests import the package from this checkout's src/, whatever is installed.
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -37,7 +37,7 @@ def _batch(e, reqs, timeout=300):
 
 
 def test_group_prefill_rows_equal_solo(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     kw = dict(prefill_chunk=16, layer_major_prefill=True)
     ref = tiny_engine(group_prefill=False, **kw)
@@ -59,7 +59,7 @@ def test_group_prefill_rows_equal_solo(tiny_engine, requires_mlx):
 
 def test_group_prefill_declines_without_stalling(tiny_engine, requires_mlx):
     """A declined group must leave its rows to the sequential path instead of stalling them."""
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     kw = dict(prefill_chunk=16, layer_major_prefill=True, prefix_cache_bytes=64 << 20)
     ref = tiny_engine(group_prefill=False, **kw)
@@ -84,7 +84,7 @@ def test_async_prefill_equals_blocking(tiny_engine, requires_mlx):
     """prefill_async_depth (layer-major prefill's per-chunk evals as bounded async_eval) gives the same
     tokens as blocking evals, solo and grouped. Engines run in turn: each sets MLX's process-wide memory limit."""
 
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     prompts = [list(range(50 + 5 * i, 50 + 5 * i + n)) for i, n in enumerate((37, 64, 90, 21))]
     out = {}

@@ -20,16 +20,16 @@ import time
 
 import pytest
 
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.errors import (
+from jitengine_qwen3_6_35b_a3b.engine.errors import (
     AdmissionPausedError,
     ContextTooLargeError,
     MemoryPressureError,
     QueueFullError,
 )
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenResult
-from jitengine_qwen3_6_35b_a3b_m4pro.server import api_server as srvmod
-from jitengine_qwen3_6_35b_a3b_m4pro.server.openai_api import ChunkWriter
-from jitengine_qwen3_6_35b_a3b_m4pro.server.protocol import (
+from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenResult
+from jitengine_qwen3_6_35b_a3b.server import api_server as srvmod
+from jitengine_qwen3_6_35b_a3b.server.openai_api import ChunkWriter
+from jitengine_qwen3_6_35b_a3b.server.protocol import (
     COMPLETIONS_DEFAULT_MAX_TOKENS,
     MAX_PROMPT_TOKENS,
     MAX_STOP_SEQUENCES,

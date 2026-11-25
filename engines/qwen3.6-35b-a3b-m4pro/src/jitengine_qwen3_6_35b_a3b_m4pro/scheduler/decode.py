@@ -8,8 +8,8 @@ import time
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.batch import Req
-from jitengine_qwen3_6_35b_a3b_m4pro.server.stats import MOE_SAMPLE_EVERY, StepTelemetry
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Req
+from jitengine_qwen3_6_35b_a3b.server.stats import MOE_SAMPLE_EVERY, StepTelemetry
 from jitengine_qwen3_6_35b_a3b_m4pro.speculative.copy_draft import ContextCopy
 
 SPEC_PROF = None  # a list to collect per-round speculative timings into, or None

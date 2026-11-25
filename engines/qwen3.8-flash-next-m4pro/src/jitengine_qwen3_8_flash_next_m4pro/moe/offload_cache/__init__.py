@@ -26,8 +26,8 @@ from contextlib import contextmanager
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m4pro.budget import GIB
-from jitengine_qwen3_8_flash_next_m4pro.engine.errors import InvariantError
 from jitengine_qwen3_8_flash_next_m4pro.linear import QLinear
 from jitengine_qwen3_8_flash_next_m4pro.moe.offload_cache.codec import P16Linear, Pack16CodecMixin
 from jitengine_qwen3_8_flash_next_m4pro.moe.offload_cache.reads import (

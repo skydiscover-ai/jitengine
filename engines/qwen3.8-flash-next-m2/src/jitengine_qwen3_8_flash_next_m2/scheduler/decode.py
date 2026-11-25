@@ -11,8 +11,8 @@ import time
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_8_flash_next.scheduler.faults import RowFaultError, StepGuard
 from jitengine_qwen3_8_flash_next_m2.scheduler.batch import Req
-from jitengine_qwen3_8_flash_next_m2.scheduler.faults import RowFaultError, StepGuard
 from jitengine_qwen3_8_flash_next_m2.scheduler.score import decode_entry
 from jitengine_qwen3_8_flash_next_m2.server.stats import MOE_SAMPLE_EVERY, StepTelemetry
 

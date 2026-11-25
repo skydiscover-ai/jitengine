@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jitengine-runtime"
+version = "0.1.0a1"
+description = "The parts every JITEngine engine shares: the Anthropic Messages and OpenAI Responses APIs on top of chat completions, and Hugging Face model ids for --model-path"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "UC Berkeley Sky Computing Lab" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Development Status :: 3 - Alpha",
+]
+# huggingface_hub fetches a model id given as --model-path (jitengine_runtime.hub, which imports it only then); every
+# other module is the standard library only.
+dependencies = ["huggingface_hub>=1.0"]
+
+[project.urls]
+Homepage = "https://jitengine.ai"
+Repository = "https://github.com/skydiscover-ai/jitengine"
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+# Tests import the package from this checkout's src/, whatever is installed.
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src"]
+testpaths = ["tests"]

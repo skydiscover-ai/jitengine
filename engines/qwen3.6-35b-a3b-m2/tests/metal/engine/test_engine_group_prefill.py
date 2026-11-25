@@ -37,7 +37,7 @@ def _batch(e, reqs, timeout=300):
 
 
 def test_group_prefill_rows_equal_solo(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     kw = dict(prefill_chunk=16, layer_major_prefill=True)
     ref = tiny_engine(group_prefill=False, **kw)
@@ -59,7 +59,7 @@ def test_group_prefill_rows_equal_solo(tiny_engine, requires_mlx):
 
 def test_group_prefill_declines_without_stalling(tiny_engine, requires_mlx):
     """A declined group must leave its rows to the sequential path instead of stalling them."""
-    from jitengine_qwen3_6_35b_a3b_m2.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     kw = dict(prefill_chunk=16, layer_major_prefill=True, prefix_cache_bytes=64 << 20)
     ref = tiny_engine(group_prefill=False, **kw)

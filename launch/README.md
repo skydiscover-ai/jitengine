@@ -15,7 +15,7 @@ pip install ./launch          # once
 jit-launch claude        # claude / codex / opencode / pi
 ```
 
-Or `curl -fsSL https://jitengine.ai/install.sh | bash -s -- flint` (or `qwen3.6`, `flash-next`) sets up the engine and
+Or `curl -fsSL https://jitengine.ai/install.sh | bash -s -- flint` (or `qwen3.6`, `flash-next`, `qwen3-1.7b`) sets up the engine and
 the launcher in one go; then `jitengine claude`.
 
 Any engine works; its README has the command. The Qwen3.6 builds hold 8K tokens a request by
@@ -128,7 +128,14 @@ Give it `http://127.0.0.1:8080/v1` as its OpenAI base URL, or `http://127.0.0.1:
 `jit-launch` sets a little more than the setups above:
 
 - For Claude Code, it sets the model for its other roles, turns thinking off, and drops the
-  attribution header, which would defeat the engine's prefix cache.
+  attribution header, which would defeat the engine's prefix cache. It also turns off the session-title request Claude
+  Code sends the model before every reply (`CLAUDE_CODE_DISABLE_TERMINAL_TITLE=1`), and gives it six tools,
+  `--tools Bash,Read,Edit,Write,Glob,Grep`. Claude Code 2.1.312's first request for "hey there" was 11,971 tokens with
+  all its tools and 4,665 with these six, by Flint's tokenizer; the engine reads all of it before the first token.
+  `jit-launch claude -- --tools default` gives Claude Code all of its tools. It starts Claude Code in its standard
+  permission mode (`--permission-mode default`), which asks you before a command runs: auto mode has the model check
+  each tool call it cannot clear itself, and that model is the engine, with two requests of about 29.8K tokens per
+  check (50 s of prefill each on our M4 Pro). A `--permission-mode` of your own after `--` wins.
 - For Codex, it supplies a model catalog, which gives Codex the context window and empty base instructions.
 
 ## Context
@@ -142,6 +149,7 @@ context limit has to cover that prompt and the conversation after it:
 | Qwen3.6 | 8K by default | serve with `--max-context 32768` (the M2 build also `--prefix-cache-mib 1024 --build-expert-pack`) |
 | Flash-Next | up to 32K, as its KV budget holds | raise `--kv-budget-mb` if it is less |
 | Flint | up to 262K when the whole model is in memory, as the GPU wired limit holds; 32,768 in offload, the 24 GB M2 default | the default |
+| Qwen3-1.7B | 32,768 by default (`--max-context`) | the default |
 
 `jit-launch` warns below 32K. It leaves a quarter of the context for output, except for Claude Code below 64K, where
 it leaves 4K. With more output reserved, Claude Code would compact on every turn at 32K and stop, because it also keeps
@@ -151,6 +159,19 @@ about 13K free. At 32K, Pi and Codex fit best. Pi's default compaction suits lar
 ```json
 { "compaction": { "reserveTokens": 8192, "keepRecentTokens": 8000 } }
 ```
+
+## Measure your Mac
+
+```bash
+jitengine bench            # or: jit-launch bench --server http://127.0.0.1:8080
+jitengine bench --report   # also send the numbers to jitengine.ai's registry
+```
+
+It times one user the way our budget sweep of 2026-11-03 timed every engine: a code prompt of about 1K tokens, 256
+tokens at temperature 0, one warmup and three runs, and prints the median decode speed and wait for the first token.
+`--report` prints what it sends (the chip, memory and macOS version, the engine's build and serve arguments, and the
+numbers) and sends it; nothing is sent without it. The registry shows reports by Mac, so chips we do not own get
+measured numbers too.
 
 ## Limits
 

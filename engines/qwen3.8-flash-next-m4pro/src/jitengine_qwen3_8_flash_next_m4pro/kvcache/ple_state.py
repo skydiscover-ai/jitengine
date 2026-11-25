@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import mlx.core as mx
 
-from jitengine_qwen3_8_flash_next_m4pro.model.config import Qwen4ExpTextConfig
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 
 
 class PLESlot:

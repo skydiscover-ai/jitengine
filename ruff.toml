@@ -1,4 +1,4 @@
-# Lint and format settings for every engine in the repository, and for launch/.
+# Lint and format settings for every engine in the repository, and for runtime/ and launch/.
 line-length = 100
 target-version = "py314"
 # The benchmark clients are kept byte-identical to the ones that measured the
@@ -8,8 +8,8 @@ extend-exclude = [
     "engines/qwen3.8-flash-next-m4pro/benchmarks/benchmark.py",
     "engines/qwen3.6-35b-a3b-m4pro/benchmarks/benchmark.py",
     "engines/qwen3.8-flash-next-m2/benchmarks/benchmark.py",
-    "engines/flint-m4pro/benchmarks",
-    "engines/flint-m2/benchmarks",
+    "engines/qwen3-1.7b-m4pro/benchmarks/benchmark.py",
+    "engines/flint/benchmarks",
 ]
 force-exclude = true
 
@@ -23,7 +23,7 @@ ignore = [
 ]
 
 [lint.isort]
-known-first-party = ["jitengine_qwen3_6_35b_a3b_m2", "jitengine_qwen3_8_flash_next_m4pro", "jitengine_qwen3_6_35b_a3b_m4pro", "jitengine_qwen3_8_flash_next_m2", "jitengine_flint_m4pro", "jitengine_flint_m2", "jit_launch"]
+known-first-party = ["jitengine_qwen3_6_35b_a3b_m2", "jitengine_qwen3_8_flash_next_m4pro", "jitengine_qwen3_6_35b_a3b_m4pro", "jitengine_qwen3_8_flash_next_m2", "jitengine_qwen", "jitengine_qwen3_6_35b_a3b", "jitengine_qwen3_8_flash_next", "jitengine_flint", "jitengine_flint_m4pro", "jitengine_flint_m2", "jitengine_qwen3_1_7b_m4pro", "jitengine_runtime", "jit_launch"]
 
 # caps so functions do not grow back; a function marked `noqa: C901` or `noqa: PLR0915` was over
 # them when they came in, and is split when it next changes

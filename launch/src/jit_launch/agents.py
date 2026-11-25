@@ -32,6 +32,23 @@ CODEX_KEY_VAR = "JITENGINE_API_KEY"
 # stops ("Autocompact is thrashing")
 CLAUDE_SMALL_CONTEXT = 65536
 CLAUDE_SMALL_OUTPUT = 4096
+# Claude Code's built-in tools for coding. Its default set (subagents, workflows, scheduled wake-ups
+# and more) was 8,103 of the 11,971 prompt tokens of its first request, by Flint's tokenizer (Claude
+# Code 2.1.312, "hey there" in an empty folder), and the engine reads that prompt before the first
+# token; with these six the request was 4,662 tokens. `jit-launch claude -- --tools default` gives
+# Claude Code all of its tools.
+CLAUDE_TOOLS = "Bash,Read,Edit,Write,Glob,Grep"
+# Claude Code's auto mode (its default permission mode in 2.1.31x) has a model check each tool call
+# it cannot clear itself, and that model is the engine: two requests of about 29.8K tokens per checked
+# call (29,820 and 29,794 on our M4 Pro, 50 s of prefill each, after Flint ran `git status`), more than
+# a 32K context holds with the 10,240 output tokens the second asks for. The standard mode asks you
+# instead; "default" is its name in every version (2.1.31x shows it as manual).
+CLAUDE_PERMISSIONS = ("--permission-mode", "default")
+CLAUDE_OWN_PERMISSIONS = (
+    "--permission-mode",
+    "--dangerously-skip-permissions",
+    "--allow-dangerously-skip-permissions",
+)
 CLAUDE_MODEL_VARS = (
     "ANTHROPIC_MODEL",
     "ANTHROPIC_DEFAULT_OPUS_MODEL",
@@ -156,8 +173,22 @@ def _claude(served: Served, args: list[str]) -> Plan:
         # prompt on every request, which defeats the engines' prefix caches
         "CLAUDE_CODE_DISABLE_THINKING": "1",
         "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+        # for the terminal's title Claude Code asks the model to name the session on every message,
+        # a request the engine runs before the reply (and that replaces the reply's prompt in a
+        # prefix cache that keeps one prompt)
+        "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1",
     }
-    return Plan(argv=["claude", "--model", served.model, *args], env=env)
+    argv = ["claude", "--model", served.model]
+    if not _given(args, ("--tools",)):
+        argv += ["--tools", CLAUDE_TOOLS]
+    if not _given(args, CLAUDE_OWN_PERMISSIONS):
+        argv += CLAUDE_PERMISSIONS
+    return Plan(argv=[*argv, *args], env=env)
+
+
+def _given(args: list[str], flags: tuple[str, ...]) -> bool:
+    """Whether the agent's arguments name one of `flags`, as `--flag value` or `--flag=value`."""
+    return any(a == f or a.startswith(f"{f}=") for a in args for f in flags)
 
 
 def _toml(value: str) -> str:

@@ -13,20 +13,20 @@ import os
 import random
 import time
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_writer import build_pack, scan_checkpoint
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     FIELDS,
     MAGIC,
     ExpertScan,
     PackError,
-    default_pack_path,
     pack_bytes,
     read_header_block,
     record_index,
     record_offset,
     validate,
 )
+from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_writer import build_pack, scan_checkpoint
 from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_io import Reader, ShardReader
+from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_paths import default_pack_path
 
 
 def parse_layers(spec: str | None, num_layers: int) -> list[int]:

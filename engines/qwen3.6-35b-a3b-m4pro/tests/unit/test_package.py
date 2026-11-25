@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -139,17 +140,29 @@ def test_gb_and_gib_flags_are_distinct_and_exclusive():
     assert r.returncode != 0 and "not both" in r.stderr
 
 
-def _copy_project(dst) -> str:
+def _copy_project(dst, root: str = ROOT) -> str:
     """Copy what a build reads, so setuptools' build/ and egg-info stay out of the checkout."""
     proj = os.path.join(str(dst), "project")
     shutil.copytree(
-        os.path.join(ROOT, "src"),
+        os.path.join(root, "src"),
         os.path.join(proj, "src"),
         ignore=shutil.ignore_patterns("__pycache__", "*.egg-info"),
     )
     for name in ("pyproject.toml", "README.md", "LICENSE"):
-        shutil.copy2(os.path.join(ROOT, name), proj)
+        shutil.copy2(os.path.join(root, name), proj)
     return proj
+
+
+def _in_repo_dependencies() -> list[str]:
+    """The project folders of the repository's own packages this engine names in its pyproject.toml
+    (jitengine-runtime is runtime/, jitengine-<name> engines/<name>), which install.sh installs with it."""
+    repo = os.path.dirname(os.path.dirname(ROOT))
+    with open(os.path.join(ROOT, "pyproject.toml"), encoding="utf-8") as f:
+        names = re.findall(r'"jitengine-([a-z0-9.-]+)==', f.read())
+    return [
+        os.path.join(repo, "runtime" if n == "runtime" else os.path.join("engines", n))
+        for n in names
+    ]
 
 
 def _build(kind: str, out: str, root: str) -> str:
@@ -206,10 +219,15 @@ def test_sdist_rebuilds_an_identical_wheel(tmp_path):
 
 @pytest.mark.skipif(sys.version_info < (3, 14), reason="the package requires Python 3.14")
 def test_installed_wheel_runs_outside_the_checkout(tmp_path):
-    """The wheel installs (no deps) into a fresh venv and its script runs outside the checkout."""
+    """The wheel installs (with the repository's own packages it names, no other deps) into a fresh venv and its
+    script runs outside the checkout."""
     if importlib.util.find_spec("pip") is None:
         pytest.skip("no pip here (a uv venv, for example)")
     whl = _build("wheel", str(tmp_path / "dist"), _copy_project(tmp_path))
+    deps = [
+        _build("wheel", str(tmp_path / "dist"), _copy_project(tmp_path / f"dep{i}", root))
+        for i, root in enumerate(_in_repo_dependencies())
+    ]
     venv = tmp_path / "venv"
     r = subprocess.run(
         [sys.executable, "-m", "venv", "--without-pip", str(venv)], capture_output=True, text=True
@@ -217,7 +235,18 @@ def test_installed_wheel_runs_outside_the_checkout(tmp_path):
     assert r.returncode == 0, r.stderr
     py = str(venv / "bin" / "python")
     r = subprocess.run(
-        [sys.executable, "-m", "pip", "--python", py, "install", "--no-deps", "--no-index", whl],
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "--python",
+            py,
+            "install",
+            "--no-deps",
+            "--no-index",
+            whl,
+            *deps,
+        ],
         capture_output=True,
         text=True,
     )
@@ -249,11 +278,11 @@ def test_installed_wheel_runs_outside_the_checkout(tmp_path):
 def test_planner_modules_are_mlx_free():
     """The modules that plan memory without Metal (`inspect`, the policy, resizing) import no MLX:
     the check names what they define, so it follows a definition to whichever module holds it."""
-    from jitengine_qwen3_6_35b_a3b_m4pro.checkpoint.inventory import inventory
+    from jitengine_qwen3_6_35b_a3b.checkpoint.inventory import inventory
+    from jitengine_qwen3_6_35b_a3b.memory.budget import capacity_for, limits_for, make_plan
+    from jitengine_qwen3_6_35b_a3b.memory.pressure import PressurePolicy
+    from jitengine_qwen3_6_35b_a3b.memory.resize import run_resize
     from jitengine_qwen3_6_35b_a3b_m4pro.engine.args import resolve, resolve_options
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import capacity_for, limits_for, make_plan
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory.pressure import PressurePolicy
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory.resize import run_resize
 
     planning = (inventory, resolve, resolve_options, make_plan, capacity_for, limits_for)
     mods = sorted({f.__module__ for f in (*planning, PressurePolicy, run_resize)})
@@ -297,8 +326,8 @@ def test_serve_host_default_is_loopback_and_does_not_override_a_config(tmp_path)
 
 
 def test_preflight_says_how_much_memory_is_missing(monkeypatch):
+    from jitengine_qwen3_6_35b_a3b.memory import monitor as memory_monitor
     from jitengine_qwen3_6_35b_a3b_m4pro import cli
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory import monitor as memory_monitor
 
     gib = 2**30
     monkeypatch.setattr(

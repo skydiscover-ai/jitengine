@@ -5,7 +5,7 @@ from __future__ import annotations
 
 def test_share_kv_outputs_equal_full_snapshots(tiny_engine, requires_mlx):
     import jitengine_qwen3_6_35b_a3b_m4pro.scheduler.prefill as PF
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenRequest
+    from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenRequest
 
     shared = list(range(600, 900))
     prompts = [shared + list(range(1000 + 40 * i, 1000 + 40 * i + 20 + 7 * i)) for i in range(3)]

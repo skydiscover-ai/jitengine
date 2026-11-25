@@ -14,6 +14,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import pytest
 
+from jit_launch.agents import CLAUDE_TOOLS
 from jit_launch.cli import FALLBACK_CONTEXT, discover, main, origin
 
 
@@ -109,7 +110,14 @@ json.dump({{"argv": sys.argv[1:], "env": env}}, open({str(record)!r}, "w"))
     _agent(bin_dir, "claude", body)
     assert main(["claude", "--server", engine.url]) == 0
     got = json.loads(record.read_text())
-    assert got["argv"] == ["--model", engine.model]
+    assert got["argv"] == [
+        "--model",
+        engine.model,
+        "--tools",
+        CLAUDE_TOOLS,
+        "--permission-mode",
+        "default",
+    ]
     assert got["env"] == {
         "ANTHROPIC_BASE_URL": engine.url,
         "ANTHROPIC_API_KEY": "",  # the shell's key would win over the token

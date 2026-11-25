@@ -23,13 +23,15 @@ You need Python 3.14 and about 220 GB free on the internal SSD. From this direct
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[download]'
 export JITENGINE_QWEN3_8_FLASH_NEXT_M2_PACK_DIR=~/models/flashnext-pack
 hf download mlx-community/Qwen3.8-Flash-Next-4bit --revision 07b5dc6c54600a359b87f1e53e7adf6351c72a2c \
     --local-dir ~/models/Qwen3.8-Flash-Next-4bit                                # 112 GB, once
 jitengine-qwen3.8-flash-next-m2 pack --model-path ~/models/Qwen3.8-Flash-Next-4bit   # 108 GB, once
 jitengine-qwen3.8-flash-next-m2 serve --model-path ~/models/Qwen3.8-Flash-Next-4bit
 ```
+
+`--model-path` takes a Hugging Face model id (`org/name` or `org/name@revision`) as well as a directory, in `serve`, `inspect` and `pack`, and `serve` with none fetches `mlx-community/Qwen3.8-Flash-Next-4bit` at the revision above: the 112 GB go into the Hugging Face cache instead of `~/models`. A directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`. The packs of a cached checkpoint are named `mlx-community--Qwen3.8-Flash-Next-4bit-<index sha12>.experts` (`.ple` for the other) instead of by the revision hash that names the cache's folder; a checkpoint directory keeps the name its directory has.
 
 The default budget, 18 GB (16.8 GiB), is the one the M2 was measured at. It stays under the 80% of memory
 above which the engine refuses a budget, because macOS needs the rest. `--memory-budget-gb 16` is the
@@ -91,7 +93,7 @@ whole-layer streaming for prefill, and memory traded between the expert cache an
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path` | required | the checkpoint directory |
+| `--model-path` | `mlx-community/Qwen3.8-Flash-Next-4bit` (`serve`; `inspect` and `pack` need one) | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache |
 | `--memory-budget-gb`, `--memory-budget-gib` | 18 GB (16.8 GiB) | the memory budget, in decimal GB or in GiB |
 | `--force` | off | allow a budget above 80% of memory |
 | `--max-slots` | 8 | concurrent request slots |
@@ -103,7 +105,7 @@ whole-layer streaming for prefill, and memory traded between the expert cache an
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests (on Linux, see tests/README.md for MLX); the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[dev]' && pytest     # unit tests (on Linux, see tests/README.md for MLX); the Metal and e2e tests skip without Metal or the checkpoint
 ```
 
 A pass is every test passing or skipping. On the 24 GB M2 with the checkpoint, the end-to-end test checks that greedy output hashes to `af6575a8e19ef6d5`. [`tests/README.md`](tests/README.md) says what each suite checks.

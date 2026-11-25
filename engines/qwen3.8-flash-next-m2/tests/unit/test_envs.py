@@ -4,8 +4,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
-    PackError,
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PackError
+from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_paths import (
     default_pack_path,
     default_ple_pack_path,
 )

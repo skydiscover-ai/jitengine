@@ -36,7 +36,7 @@ def _req(url, body=None, ctype="application/json", method=None):
 
 class _Server:
     def __init__(self, engine, host="127.0.0.1"):
-        from jitengine_qwen3_6_35b_a3b_m4pro.server.api_server import serve
+        from jitengine_qwen3_6_35b_a3b.server.api_server import serve
 
         self.port = _free_port()
         self.url = f"http://{host}:{self.port}"
@@ -110,7 +110,7 @@ def test_generation_refusals_map_to_http_status(tiny_engine, requires_mlx):
 
 
 def test_memory_endpoint_disabled_off_loopback(tiny_engine, requires_mlx):
-    from jitengine_qwen3_6_35b_a3b_m4pro.server import api_server as srvmod
+    from jitengine_qwen3_6_35b_a3b.server import api_server as srvmod
 
     e = tiny_engine()
     try:

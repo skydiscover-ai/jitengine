@@ -10,7 +10,7 @@ import functools
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m2.kernels import constants
+from jitengine_qwen3_6_35b_a3b.kernels import constants
 from jitengine_qwen3_6_35b_a3b_m2.kernels.qmv_prescaled import PRESCALE_STORES, PRESCALE_SUM
 
 # ---- rms_norm fused with the prologue: MLX's rms_single_row (rms_norm.metal v0.32.2, non-looped

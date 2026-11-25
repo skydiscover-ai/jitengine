@@ -6,10 +6,10 @@ from __future__ import annotations
 import mlx.core as mx
 import numpy as np
 
+from jitengine_qwen3_6_35b_a3b.kernels.elementwise import swiglu
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m4pro.kernels import expert_solo as _ee
-from jitengine_qwen3_6_35b_a3b_m4pro.kernels.elementwise import swiglu
 from jitengine_qwen3_6_35b_a3b_m4pro.kernels.router_topk import router_topk, topk
-from jitengine_qwen3_6_35b_a3b_m4pro.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m4pro.model.kernel_choice import KernelChoice, Strategies
 from jitengine_qwen3_6_35b_a3b_m4pro.model.weight import FUSIONS, _fuse, _qlin
 

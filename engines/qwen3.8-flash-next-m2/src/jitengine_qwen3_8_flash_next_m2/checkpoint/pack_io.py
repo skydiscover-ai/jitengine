@@ -12,7 +12,7 @@ import os
 
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import PAGE, PackError, align_up
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PAGE, PackError, align_up
 from jitengine_qwen3_8_flash_next_m2.moe.expert_store import F_NOCACHE
 
 

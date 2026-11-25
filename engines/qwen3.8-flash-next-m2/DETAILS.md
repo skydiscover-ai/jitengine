@@ -46,7 +46,7 @@ memory of a running server) and `doctor` (the platform, MLX and Metal; `--json` 
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path` | required | the checkpoint directory |
+| `--model-path` | `mlx-community/Qwen3.8-Flash-Next-4bit` (`serve`; `inspect` and `pack` need one) | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache |
 | `--host`, `--port` | `127.0.0.1`, `8080` | where to listen |
 | `--allowed-host NAME` | none | a host name clients may use besides `localhost`, IP literals and `--host` (repeatable); a request naming any other host, or sent by a browser page of another origin, gets 403 |
 | `--memory-budget-gb`, `--memory-budget-gib` | 18 GB (16.8 GiB) | the memory budget |

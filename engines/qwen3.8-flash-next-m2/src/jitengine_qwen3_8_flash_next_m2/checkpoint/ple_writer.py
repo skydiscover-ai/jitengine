@@ -15,8 +15,7 @@ import time
 
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_writer import EXPECT_QUANT, PREFIX
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     PLE_FIELDS,
     PLE_MAGIC,
     PackError,
@@ -25,6 +24,7 @@ from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import (
     ple_pack_bytes,
     ple_pack_header,
 )
+from jitengine_qwen3_8_flash_next_m2.checkpoint.expert_writer import EXPECT_QUANT, PREFIX
 from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_io import write_all
 
 # The n-gram table's geometry, which `scan_checkpoint` insists on: one 100-byte row is the record.

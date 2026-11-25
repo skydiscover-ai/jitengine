@@ -11,11 +11,11 @@ from __future__ import annotations
 
 import mlx.core as mx
 
-from jitengine_qwen3_8_flash_next_m2.kvcache.kv_cache import KVSlot, _copy_prefix
-from jitengine_qwen3_8_flash_next_m2.kvcache.linear_state import LinearStateSlot, _materialize
+from jitengine_qwen3_8_flash_next.kvcache.kv_cache import KVSlot, _copy_prefix
+from jitengine_qwen3_8_flash_next.kvcache.linear_state import LinearStateSlot, _materialize
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.kvcache.ple_state import PLESlot
 from jitengine_qwen3_8_flash_next_m2.kvcache.prefix_cache import Entry
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 
 
 class RequestState:

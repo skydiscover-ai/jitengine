@@ -10,8 +10,8 @@ import queue
 
 import mlx.core as mx
 
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.errors import MemoryPressureError
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.batch import Job
+from jitengine_qwen3_6_35b_a3b.engine.errors import MemoryPressureError
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Job
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,7 @@ class MemoryControlMixin:
 
     # maintenance (worker thread only)
     def _run_maintenance(self, cmd) -> dict:
-        from jitengine_qwen3_6_35b_a3b_m4pro.memory.resize import ResizeRequest, run_resize
+        from jitengine_qwen3_6_35b_a3b.memory.resize import ResizeRequest, run_resize
 
         if isinstance(cmd, ResizeRequest):
             res = run_resize(self, cmd)
@@ -149,7 +149,7 @@ class MemoryControlMixin:
         self, process_bytes: int, reason: str = "manual", timeout_s: float = 900.0
     ) -> dict:
         """Thread-safe idle-only resize to `process_bytes`; returns run_resize's result dict."""
-        from jitengine_qwen3_6_35b_a3b_m4pro.memory.resize import ResizeRequest
+        from jitengine_qwen3_6_35b_a3b.memory.resize import ResizeRequest
 
         if isinstance(process_bytes, bool) or not isinstance(process_bytes, int):
             return {"status": "rejected", "error": "process_bytes must be an integer"}
@@ -205,15 +205,15 @@ class MemoryControlMixin:
 
     def _start_monitor(self) -> None:
         """The 1 Hz monitor; with `memory_policy=adaptive` it drives the pressure controller."""
-        from jitengine_qwen3_6_35b_a3b_m4pro.memory.monitor import MemoryMonitor
-        from jitengine_qwen3_6_35b_a3b_m4pro.memory.pressure import (
+        from jitengine_qwen3_6_35b_a3b.memory.monitor import MemoryMonitor
+        from jitengine_qwen3_6_35b_a3b.memory.pressure import (
             PressureController,
             PressurePolicy,
         )
 
         callback = None
         if self.memory_policy == "adaptive":
-            from jitengine_qwen3_6_35b_a3b_m4pro.memory.resize import minimum_plan
+            from jitengine_qwen3_6_35b_a3b.memory.resize import minimum_plan
 
             floor = minimum_plan(self.capacity, self.configured_limits).planned_process_bytes
             policy = PressurePolicy(
@@ -225,7 +225,9 @@ class MemoryControlMixin:
             self.controller = PressureController(self, policy)
             callback = self.controller
         self.monitor = MemoryMonitor(
-            float(self.options.get("monitor_interval_s") or 1.0), callback
+            float(self.options.get("monitor_interval_s") or 1.0),
+            callback,
+            thread_name="jitengine-qwen3.6-35b-a3b-m4pro-memory-monitor",
         ).start()
 
     def resident_floor_bytes(self) -> int:

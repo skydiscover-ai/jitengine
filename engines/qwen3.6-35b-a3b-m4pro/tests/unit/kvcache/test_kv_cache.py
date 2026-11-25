@@ -7,9 +7,9 @@ def test_a_restore_into_a_used_slot_is_an_invariant_error(requires_mlx_any):
     """`KVSlot.load` restores a prefix into a fresh slot only; anything else is an engine bug."""
     import mlx.core as mx
 
-    from jitengine_qwen3_6_35b_a3b_m4pro.engine.errors import InvariantError
+    from jitengine_qwen3_6_35b_a3b.engine.errors import InvariantError
+    from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
     from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.kv_cache import KVSlot
-    from jitengine_qwen3_6_35b_a3b_m4pro.model.config import Qwen3_5MoeConfig
 
     cfg = Qwen3_5MoeConfig()
     slot = KVSlot(cfg, 512)

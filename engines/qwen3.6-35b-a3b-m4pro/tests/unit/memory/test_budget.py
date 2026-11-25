@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import (
+from jitengine_qwen3_6_35b_a3b.memory.budget import (
     GIB,
     MIB,
     BudgetError,
@@ -123,7 +123,7 @@ def test_default_budget_follows_the_host(monkeypatch):
     """34 GiB on a Mac with 40 GiB or more, so the 4-bit checkpoint plans resident; 18 GiB below."""
     import os
 
-    from jitengine_qwen3_6_35b_a3b_m4pro.memory.budget import host_default_budget_bytes
+    from jitengine_qwen3_6_35b_a3b_m4pro.memory.defaults import host_default_budget_bytes
 
     page = 16384
     for mem_gib, want in ((48, 34), (40, 34), (36, 18), (24, 18)):

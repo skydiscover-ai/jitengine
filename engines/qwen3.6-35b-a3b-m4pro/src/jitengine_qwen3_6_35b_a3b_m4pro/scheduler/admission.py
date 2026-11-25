@@ -6,11 +6,11 @@ from __future__ import annotations
 
 import time
 
-from jitengine_qwen3_6_35b_a3b_m4pro.engine.io_struct import GenResult
+from jitengine_qwen3_6_35b_a3b.engine.io_struct import GenResult
+from jitengine_qwen3_6_35b_a3b.scheduler.batch import Job, Req, kv_bytes_for
 from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.prefix_cache import group_prefix_points
 from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.state import RequestState
 from jitengine_qwen3_6_35b_a3b_m4pro.sampler import Sampler
-from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.batch import Job, Req, kv_bytes_for
 
 
 class AdmissionMixin:

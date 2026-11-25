@@ -26,7 +26,7 @@ directory:
 
 ```bash
 python3.14 -m venv .venv && source .venv/bin/activate
-pip install '.[download]'
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[download]'
 hf download mlx-community/Qwen3.6-35B-A3B-4bit --revision 38740b847e4cb78f352aba30aa41c76e08e6eb46 \
     --local-dir ~/models/Qwen3.6-35B-A3B-4bit                                     # 20.4 GB
 hf download mlx-community/Qwen3.6-35B-A3B-MTP-4bit --revision 0295b81421bf4d0fccca9a7c0fcfb1418dda3516 \
@@ -35,7 +35,9 @@ jitengine-qwen3.6-35b-a3b-m4pro serve --model-path ~/models/Qwen3.6-35B-A3B-4bit
 ```
 
 The 4-bit conversion drops the MTP head, so the second download supplies it. The engine looks for it
-beside the checkpoint (`…-4bit` next to `…-MTP-4bit`). Then point any OpenAI client at
+beside the checkpoint (`…-4bit` next to `…-MTP-4bit`).
+
+`serve` with no `--model-path` fetches the 4-bit checkpoint, at the revision above, into the Hugging Face cache on its first run, so the two `hf download` lines are optional, and `--model-path` takes a model id (`org/name` or `org/name@revision`) as well as a directory, in `serve`, `inspect` and `pack`. A checkpoint that came from the cache has no `…-MTP-4bit` beside it, so the engine fetches the pinned head (0.5 GB, `model.safetensors` only) into the cache too, when it keeps the model in memory; if that fails it says so and decodes without the head. A directory is used as it is, and an id with no revision runs the revision this build pins for it, else `main`. Then point any OpenAI client at
 `http://127.0.0.1:8080/v1`:
 
 ```bash
@@ -109,7 +111,7 @@ variables, how to reproduce the numbers, and the Macs it was tested on.
 ## Test
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../qwen ../qwen3.6-35b-a3b '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
 ```
 
 A pass is every test passing or skipping. On the M4 Pro with the checkpoint, the end-to-end test also checks that

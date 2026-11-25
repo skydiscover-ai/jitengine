@@ -1,0 +1,13 @@
+Qwen3-1.7B on a 24 GB M4 Pro (jitengine-qwen3-1.7b-m4pro)
+
+This engine contains material from other Apache-2.0 works:
+
+* mlx-lm (https://github.com/ml-explore/mlx-lm), Copyright 2023-2026 Apple Inc.
+  - src/jitengine_qwen3_1_7b_m4pro/engine/_step_edits.py and patches.py hold text of mlx-lm's
+    GenerationBatch._step and ResponseGenerator._generate (commit c39139d), which the engine edits
+    in memory at start-up.
+  - benchmarks/benchmark.py is mlx-lm's server benchmark, unchanged.
+  The installed mlx-lm is a runtime dependency and is never modified.
+
+* The Anthropic Messages and OpenAI Responses translators in src/.../server/anthropic_api.py and
+  responses_api.py, and their tests, are from engines/qwen3.6-35b-a3b-m4pro in this repository.

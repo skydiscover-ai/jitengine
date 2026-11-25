@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import mlx.core as mx
 
+from jitengine_qwen3_6_35b_a3b.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m4pro.kvcache.kv_cache import KVSlot
-from jitengine_qwen3_6_35b_a3b_m4pro.model.config import Qwen3_5MoeConfig
 from jitengine_qwen3_6_35b_a3b_m4pro.model.kernel_choice import KernelChoice
 from jitengine_qwen3_6_35b_a3b_m4pro.model.weight import FUSIONS, _fuse, _qlin
 

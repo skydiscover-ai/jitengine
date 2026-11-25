@@ -11,16 +11,16 @@ from __future__ import annotations
 
 import mlx.core as mx
 
+from jitengine_qwen3_8_flash_next.model.config import Qwen4ExpTextConfig
+from jitengine_qwen3_8_flash_next.model.moe.waves import BatchedWavesMixin
 from jitengine_qwen3_8_flash_next_m2.kernels import gdn_decode as _gf
 from jitengine_qwen3_8_flash_next_m2.kernels import grouped_expert_qmv as _mk
 from jitengine_qwen3_8_flash_next_m2.kernels import router_combine as _mf
 from jitengine_qwen3_8_flash_next_m2.linear import qlinear_from
-from jitengine_qwen3_8_flash_next_m2.model.config import Qwen4ExpTextConfig
 from jitengine_qwen3_8_flash_next_m2.model.moe.decode import SoloDecodeMixin
 from jitengine_qwen3_8_flash_next_m2.model.moe.expert_mlp import ExpertMLPMixin, swiglu
 from jitengine_qwen3_8_flash_next_m2.model.moe.prefill import PrefillMixin
 from jitengine_qwen3_8_flash_next_m2.model.moe.speculative import SpeculativeGatherMixin
-from jitengine_qwen3_8_flash_next_m2.model.moe.waves import BatchedWavesMixin
 
 # Routed experts run on the grouped kernel (`kernels/grouped_expert_qmv.py`) or stock `gather_qmm`, the per-shape
 # fallback; variant "fused" reads gate and up in one pass with SwiGLU in fp32, "split" in two calls.

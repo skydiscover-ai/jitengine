@@ -1,0 +1,15 @@
+Explain how a hash map handles collisions.
+Write a short poem about autumn rain.
+What are the main causes of the French Revolution?
+Describe the water cycle in simple terms.
+Give three tips for learning a new language quickly.
+How does a binary search work?
+Summarize the plot of Romeo and Juliet.
+What is the difference between TCP and UDP?
+Write a haiku about the ocean.
+Explain what photosynthesis is.
+Why is the sky blue during the day?
+List some benefits of regular exercise.
+How do vaccines train the immune system?
+Describe how to make a simple tomato sauce.
+What is the role of a compiler?

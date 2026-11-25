@@ -9,13 +9,13 @@ from types import SimpleNamespace
 
 import pytest
 
+from jitengine_qwen.tokenizer import MAX_RENDERED_CHARS
 from jitengine_qwen3_8_flash_next_m4pro.server import protocol
 from jitengine_qwen3_8_flash_next_m4pro.server.protocol import (
     MAX_PROMPT_TOKENS,
     InvalidRequestError,
     parse_request,
 )
-from jitengine_qwen3_8_flash_next_m4pro.tokenizer import MAX_RENDERED_CHARS
 
 
 class RecordingTokenizer:

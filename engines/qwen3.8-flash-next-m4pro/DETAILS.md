@@ -12,7 +12,7 @@ The [README](README.md) has the quick start and the results. This page has the r
 
 ## Install
 
-Python 3.14 and about 290 GB free on the internal SSD, or 220 GB without the optional pack16 file. The README's commands (venv, `pip install '.[download]'`, the download and `pack --mtp --pack16`) are all of it. `pack` checks 64 records of each expert pack byte for byte against the checkpoint (`--verify N` changes the count) and every record of the pack16 file; the engine only reads them.
+Python 3.14 and about 290 GB free on the internal SSD, or 220 GB without the optional pack16 file. The README's commands (venv, `pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[download]'`, the download and `pack --mtp --pack16`) are all of it. `pack` checks 64 records of each expert pack byte for byte against the checkpoint (`--verify N` changes the count) and every record of the pack16 file; the engine only reads them.
 
 `--mtp` also builds the multi-token-prediction head, `mtp.safetensors` beside the checkpoint. The
 4-bit checkpoint leaves the head out, so `pack` reads its 31 tensors from the official bf16 release
@@ -47,7 +47,7 @@ agent's context to.
 
 | Option | Default | What it sets |
 |:--|:--|:--|
-| `--model-path` | required | the checkpoint directory |
+| `--model-path` | `mlx-community/Qwen3.8-Flash-Next-4bit` (`serve`; `inspect` and `pack` need one) | a checkpoint directory, or a Hugging Face model id fetched into the Hugging Face cache |
 | `--host`, `--port` | `127.0.0.1`, `8080` | the listen address |
 | `--allowed-host` | none | a host name clients may use besides `localhost`, IP literals and `--host` (repeatable); requests naming any other host, and browser requests from other origins, get 403 |
 | `--memory-budget-gib`, `--memory-budget-gb` | 62% of memory | the memory budget in GiB or in decimal GB (not both) |
@@ -223,7 +223,7 @@ python benchmarks/benchmark.py --url http://127.0.0.1:8080 --model-path ~/models
 ### Tests
 
 ```bash
-pip install '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
+pip install ../../runtime ../qwen ../qwen3.8-flash-next '.[dev]' && pytest     # unit tests; the Metal and e2e tests skip without Metal or the checkpoint
 ```
 
 A pass is every test passing or skipping. On the 48 GB M4 Pro with the checkpoint, the end-to-end test checks that

@@ -13,17 +13,35 @@ import os
 import sys
 import time
 
-from jitengine_qwen3_6_35b_a3b_m2 import __version__, logs
+from jitengine_qwen3_6_35b_a3b_m2 import __version__, pinned
+from jitengine_runtime import hub, logs
 
 logger = logging.getLogger(__name__)
 
 GIB = 1 << 30
 MIB = 1 << 20
+MODEL_PATH_HELP = (
+    "checkpoint directory, or a Hugging Face model id (org/name or org/name@revision) fetched into the "
+    "Hugging Face cache"
+)
+
+
+# the packages whose records `--log-level` sends to stderr: this engine's and the shared ones it imports
+LOG_PACKAGES = (__package__, "jitengine_qwen3_6_35b_a3b", "jitengine_qwen")
 
 
 def _die(msg: str, code: int = 2) -> int:
     print(f"jitengine-qwen3.6-35b-a3b-m2: error: {msg}", file=sys.stderr)
     return code
+
+
+def _checkpoint(value: str, log) -> str:
+    """The checkpoint directory for a --model-path value: the directory itself, or the Hugging Face cache's
+    snapshot of that model id (fetched now, at the revision this build pins for its own checkpoint)."""
+    try:
+        return hub.resolve_model_path(value, pinned=pinned.PINNED, log=log)
+    except hub.ModelPathError as exc:
+        raise SystemExit(_die(str(exc))) from None
 
 
 def _gib(n) -> str:
@@ -58,7 +76,7 @@ def _tuned_on(info: dict) -> dict:
 def cmd_doctor(a) -> int:
     rep = _base_report()
     rep["physical_bytes"] = int(os.sysconf("SC_PHYS_PAGES") * os.sysconf("SC_PAGE_SIZE"))
-    from jitengine_qwen3_6_35b_a3b_m2.memory.budget import device_info_or_none
+    from jitengine_qwen3_6_35b_a3b.memory.budget import device_info_or_none
 
     info, err = device_info_or_none()
     rep["metal"] = info if info is not None else {"error": err}
@@ -67,7 +85,7 @@ def cmd_doctor(a) -> int:
     _note_packages(rep)
     if info is not None:
         rep["three_bit_ops"] = _probe_three_bit()
-    from jitengine_qwen3_6_35b_a3b_m2.memory.monitor import capability_report
+    from jitengine_qwen3_6_35b_a3b.memory.monitor import capability_report
 
     rep["memory_telemetry"] = capability_report()
     _note_wired_limit(rep)
@@ -303,22 +321,21 @@ def _print_config(cfg: dict, origin: dict) -> None:
 
 # ---------------------------------------------------------------- inspect
 def cmd_inspect(a) -> int:
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint.inventory import CheckpointError
-    from jitengine_qwen3_6_35b_a3b_m2.engine.args import resolve_engine_options
-    from jitengine_qwen3_6_35b_a3b_m2.memory.budget import (
+    from jitengine_qwen3_6_35b_a3b.checkpoint.inventory import CheckpointError
+    from jitengine_qwen3_6_35b_a3b.memory.budget import (
         BudgetError,
         capacity_for,
         device_info_or_none,
         limits_for,
         make_plan,
     )
+    from jitengine_qwen3_6_35b_a3b_m2.engine.args import resolve_engine_options
 
     cfg, _origin = _resolve(a)
-    if not cfg.get("model_path"):
-        return _die("--model-path is required")
+    model_path = _checkpoint(cfg["model_path"], hub.log_to_stderr)
     try:
         opt = resolve_engine_options(cfg)
-        cap, _mcfg, inv, scan, _kv = capacity_for(cfg["model_path"], opt)
+        cap, _mcfg, inv, scan, _kv, _score = capacity_for(model_path, opt)
     except (CheckpointError, OSError, ValueError) as exc:
         return _die(f"unsupported or unreadable checkpoint: {exc}", 1)
     info, err = device_info_or_none() if not a.no_metal else (None, "skipped (--no-metal)")
@@ -360,18 +377,19 @@ def cmd_inspect(a) -> int:
 
 # ---------------------------------------------------------------- pack
 def cmd_pack(a) -> int:
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack import (
+    from jitengine_qwen3_6_35b_a3b.checkpoint.pack import (
         CheckpointScan,
         PackError,
         build_pack,
-        default_pack_path,
         validate,
     )
+    from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack_paths import default_pack_path
 
+    model_path = _checkpoint(a.model_path, hub.log_to_stderr)
     try:
-        scan = CheckpointScan(a.model_path)
+        scan = CheckpointScan(model_path)
     except Exception as exc:  # noqa: BLE001
-        return _die(f"cannot scan {a.model_path}: {exc}", 1)
+        return _die(f"cannot scan {model_path}: {exc}", 1)
     out = os.path.abspath(os.path.expanduser(a.output)) if a.output else default_pack_path(scan)
     if os.path.exists(out):
         ok, why = validate(out, scan)
@@ -408,7 +426,7 @@ def _preflight(planned_process_bytes: int, max_wait_s: float) -> tuple[bool, str
 
     Passes if telemetry is unavailable; never changes a sysctl, purges caches or signals processes.
     """
-    from jitengine_qwen3_6_35b_a3b_m2.memory.monitor import system_memory
+    from jitengine_qwen3_6_35b_a3b.memory.monitor import system_memory
 
     t0 = time.monotonic()
     last = ""
@@ -432,28 +450,27 @@ def _preflight(planned_process_bytes: int, max_wait_s: float) -> tuple[bool, str
 
 
 def cmd_serve(a) -> int:
-    logs.configure(a.log_level)
+    logs.configure(a.log_level, *LOG_PACKAGES)
     cfg, origin = _resolve(a)
     if a.print_config:
         _print_config(cfg, origin)
         return 0
-    if not cfg.get("model_path"):
-        return _die("--model-path is required (downloads are never automatic)")
-    if not os.path.isfile(os.path.join(cfg["model_path"], "config.json")):
-        return _die(f"{cfg['model_path']}: not a checkpoint directory (no config.json)")
-    from jitengine_qwen3_6_35b_a3b_m2.checkpoint.inventory import CheckpointError
-    from jitengine_qwen3_6_35b_a3b_m2.engine.args import resolve_engine_options
-    from jitengine_qwen3_6_35b_a3b_m2.memory.budget import (
+    model_path = _checkpoint(cfg["model_path"], logger.info)
+    if not os.path.isfile(os.path.join(model_path, "config.json")):
+        return _die(f"{model_path}: not a checkpoint directory (no config.json)")
+    from jitengine_qwen3_6_35b_a3b.checkpoint.inventory import CheckpointError
+    from jitengine_qwen3_6_35b_a3b.memory.budget import (
         BudgetError,
         capacity_for,
         device_info_or_none,
         limits_for,
         make_plan,
     )
+    from jitengine_qwen3_6_35b_a3b_m2.engine.args import resolve_engine_options
 
     opt = resolve_engine_options(cfg)
     try:
-        cap, *_ = capacity_for(cfg["model_path"], opt)
+        cap, *_ = capacity_for(model_path, opt)
         info, err = device_info_or_none()
         if info is None:
             return _die(
@@ -463,19 +480,16 @@ def cmd_serve(a) -> int:
     except (CheckpointError, BudgetError) as exc:
         return _die(str(exc), 1)
     if plan.mode == "offload" and not opt.get("build_expert_pack"):
-        from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack import (
-            CheckpointScan,
-            default_pack_path,
-            validate,
-        )
+        from jitengine_qwen3_6_35b_a3b.checkpoint.pack import CheckpointScan, validate
+        from jitengine_qwen3_6_35b_a3b_m2.checkpoint.pack_paths import default_pack_path
 
-        scan = CheckpointScan(cfg["model_path"])
+        scan = CheckpointScan(model_path)
         pack = opt.get("expert_pack_path") or default_pack_path(scan)
         ok, why = validate(pack, scan) if os.path.exists(pack) else (False, "does not exist")
         if not ok:
             return _die(
                 f"offload mode needs an expert pack; {pack}: {why}. Prepare it with\n"
-                f"  jitengine-qwen3.6-35b-a3b-m2 pack --model-path {cfg['model_path']} --output {pack}\n"
+                f"  jitengine-qwen3.6-35b-a3b-m2 pack --model-path {model_path} --output {pack}\n"
                 f"or pass --build-expert-pack.",
                 1,
             )
@@ -490,7 +504,11 @@ def cmd_serve(a) -> int:
         )
     from jitengine_qwen3_6_35b_a3b_m2.engine.engine import create_engine
 
-    engine = create_engine(cfg["model_path"], **opt)
+    if not opt.get("model_name") and hub.served_name(
+        cfg["model_path"]
+    ):  # a model id is served by its name, not the cache path
+        opt["model_name"] = hub.served_name(cfg["model_path"])
+    engine = create_engine(model_path, **opt)
     try:
         engine.serve(cfg["host"], int(cfg["port"]), allowed_hosts=tuple(a.allowed_host or ()))
     finally:
@@ -549,20 +567,24 @@ def build_parser() -> argparse.ArgumentParser:
     i = sub.add_parser(
         "inspect", help="header-only checkpoint inventory and candidate plan (read-only)"
     )
-    i.add_argument("--model-path", required=True)
+    i.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     i.add_argument("--json", action="store_true")
     i.add_argument("--no-metal", action="store_true", help="do not import MLX for Metal limits")
     _add_config_flags(i)
     p = sub.add_parser(
         "pack", help="build the expert pack (writes only the pack and its temp file)"
     )
-    p.add_argument("--model-path", required=True)
+    p.add_argument("--model-path", required=True, help=MODEL_PATH_HELP)
     p.add_argument("--output", default=None)
     p.add_argument("--force", action="store_true")
     s = sub.add_parser(
         "serve", help="validate, plan, preflight and serve the OpenAI-compatible API"
     )
-    s.add_argument("--model-path", default=None)
+    s.add_argument(
+        "--model-path",
+        default=None,
+        help=f"{MODEL_PATH_HELP} (default: {pinned.CHECKPOINT})",
+    )
     s.add_argument(
         "--host",
         default="127.0.0.1",

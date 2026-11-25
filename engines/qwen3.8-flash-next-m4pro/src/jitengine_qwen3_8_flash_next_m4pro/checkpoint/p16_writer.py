@@ -33,13 +33,13 @@ import uuid
 import mlx.core as mx
 import numpy as np
 
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
-from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_format import (
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import (
     MAGIC,
     PackError,
     read_header_block,
     validate,
 )
+from jitengine_qwen3_8_flash_next_m4pro.checkpoint import p16_format as pf
 from jitengine_qwen3_8_flash_next_m4pro.checkpoint.pack_io import (
     aligned_buf,
     open_uncached,

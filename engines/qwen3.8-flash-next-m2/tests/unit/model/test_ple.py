@@ -11,10 +11,10 @@ import pytest
 
 mx = pytest.importorskip("mlx.core")  # the imports below need MLX, so E402 is waived for the file
 
-from jitengine_qwen3_8_flash_next_m2.checkpoint.pack_format import PackError
+from jitengine_qwen3_8_flash_next.checkpoint.pack_format import PackError
+from jitengine_qwen3_8_flash_next.scheduler.faults import FaultSeam, RowFaultError
 from jitengine_qwen3_8_flash_next_m2.model import ple
 from jitengine_qwen3_8_flash_next_m2.model.ple_store import PLEStore, open_ple_pack
-from jitengine_qwen3_8_flash_next_m2.scheduler.faults import FaultSeam, RowFaultError
 
 EOS = 248044
 PLE_LAYER = 1  # the tiny checkpoint's PLE layer (`ple_layer_ids` are 1-based)
@@ -177,7 +177,7 @@ def _checkpoint_tensors(model_path):
 
 
 def test_the_index_is_built_from_a_config_and_the_checkpoints_buffers(tiny_flashnext_ple):
-    from jitengine_qwen3_8_flash_next_m2.model.config import load_config
+    from jitengine_qwen3_8_flash_next.model.config import load_config
 
     model_path, _, _ = tiny_flashnext_ple()
     cfg = load_config(model_path)
