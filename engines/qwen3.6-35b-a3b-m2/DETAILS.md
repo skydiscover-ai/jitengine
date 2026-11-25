@@ -185,7 +185,7 @@ any that differs.
 | M2 Mac | 24 GB | offload, 18 GiB and 12 GiB | `44e24c591fc59187`, all kernel checks passed | 15.8 and 7.7 tok/s |
 | M1 Pro (`applegpu_g13s`) | 32 GB | `24gb-static`, resident | `44e24c591fc59187`, 3 of 3 repeats | 47.6 tok/s |
 | M1 Pro | 32 GB | offload, 8 GiB, an earlier build | `c2f1bffd3e568617`, differs from resident (offload then used other kernels) | 5.99 tok/s |
-| M5 Mac (`applegpu_g17g`) | 16 GB | offload, 8 GiB and 6 GiB | `44e24c591fc59187`, 3 of 3 repeats (the prefill kernels differ from stock here, so stock ran) | 11.9 and 9.5 tok/s |
+| M5 Mac (`applegpu_g17g`) | 16 GB | offload, 8 GiB and 6 GiB | `44e24c591fc59187`, 3 of 3 repeats (the prefill kernels differ from stock here, so stock ran) | 10.2 and 8.2 tok/s |
 
 On 2026-11-03 we reran it from the release tree on the 24 GB M2: its unit and Metal tests passed (543 passed, 7
 skipped), and the end-to-end test gave `44e24c591fc59187` on 3 of 3 repeats at 45.7 tok/s.
