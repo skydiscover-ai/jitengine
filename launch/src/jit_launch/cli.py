@@ -16,7 +16,6 @@ import argparse
 import json
 import os
 import shlex
-import shutil
 import signal
 import subprocess
 import sys
@@ -28,7 +27,7 @@ from urllib.parse import urlsplit
 from urllib.request import urlopen
 
 from jit_launch import __version__
-from jit_launch.agents import INSTALL, PLANS, Plan, Served, plan
+from jit_launch.agents import INSTALL, PLANS, Plan, Served, find_agent, plan
 
 DEFAULT_SERVER = "http://127.0.0.1:8080"
 FALLBACK_CONTEXT = 8192  # for a server that reports no limit: guessing low only compacts sooner
@@ -88,7 +87,7 @@ def _print_plan(agent: str, served: Served, p: Plan) -> None:
         print(f"set {key}={p.env[key]}")
     argv = [a.replace("{dir}", "<a temporary directory>") for a in p.argv]
     print(f"run: {shlex.join(argv)}")
-    if shutil.which(p.argv[0]) is None:
+    if find_agent(p.argv[0]) is None:
         print(f"{p.argv[0]} is not installed: {INSTALL[agent]}")
 
 
@@ -228,7 +227,9 @@ def main(argv: list[str] | None = None) -> int:
     if a.dry_run:
         _print_plan(a.agent, served, p)
         return 0
-    if shutil.which(p.argv[0]) is None:
+    exe = find_agent(p.argv[0])
+    if exe is None:
         print(f"jit-launch: {p.argv[0]} is not installed: {INSTALL[a.agent]}", file=sys.stderr)
         return 1
+    p.argv[0] = exe  # found off PATH too: where its installer put it
     return _run(p)

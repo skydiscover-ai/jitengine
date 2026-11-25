@@ -120,3 +120,23 @@ def test_codex_takes_its_provider_and_the_model_s_metadata_as_overrides():
     (model,) = json.loads(p.files[CODEX_CATALOG])["models"]
     assert model["slug"] == SERVED.model and model["context_window"] == 32768
     assert model["input_modalities"] == ["text"] and not model["supports_search_tool"]
+
+
+def test_an_agent_off_path_is_found_where_its_installer_puts_it(tmp_path):
+    """Claude Code's installer puts it in ~/.local/bin, which a shell that has not read the edited profile lacks."""
+    import os
+
+    from jit_launch.agents import find_agent
+
+    home_bin = tmp_path / ".local" / "bin"
+    home_bin.mkdir(parents=True)
+    exe = home_bin / "claude"
+    exe.write_text("#!/bin/sh\n")
+    exe.chmod(0o755)
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    assert find_agent("claude", path=str(empty), dirs=(str(home_bin),)) == str(exe)
+    assert find_agent("claude", path=str(empty), dirs=(str(empty),)) is None
+    assert find_agent("claude", path=str(home_bin), dirs=()) == str(exe)  # PATH first
+    os.chmod(exe, 0o644)
+    assert find_agent("claude", path=str(empty), dirs=(str(home_bin),)) is None  # not executable

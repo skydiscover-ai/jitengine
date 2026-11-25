@@ -21,6 +21,7 @@ src/<pkg>/__main__.py
 src/<pkg>/engine/io_struct.py
 
 [qwen3.6-35b-a3b-m2 qwen3.6-35b-a3b-m4pro]
+tests/metal/engine/test_served_name.py
 src/<pkg>/checkpoint/pack_paths.py
 tests/unit/test_build_names.py
 tests/unit/test_model_id.py
@@ -51,6 +52,7 @@ tests/unit/server/test_openai_compat.py
 tests/unit/test_linear.py
 
 [qwen3.8-flash-next-m2 qwen3.8-flash-next-m4pro]
+tests/unit/engine/test_served_name.py
 src/<pkg>/checkpoint/pack_paths.py
 src/<pkg>/checkpoint/build_experts.py
 src/<pkg>/checkpoint/build_ple.py

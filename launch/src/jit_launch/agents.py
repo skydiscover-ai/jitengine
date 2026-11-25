@@ -64,6 +64,34 @@ INSTALL = {
     "opencode": "curl -fsSL https://opencode.ai/install | bash",
     "codex": "npm install -g @openai/codex",
 }
+# Where each agent's own installer puts it, for a shell whose PATH lacks that folder (one that has not read the profile
+# the installer edited, or a launcher started from an app): Claude Code's native installer uses ~/.local/bin (older
+# installs ~/.claude/local), opencode's ~/.opencode/bin, and npm's global folders hold pi and codex.
+INSTALL_DIRS = (
+    "~/.local/bin",
+    "~/.claude/local",
+    "~/.opencode/bin",
+    "~/.npm-global/bin",
+    "~/.bun/bin",
+    "/opt/homebrew/bin",
+    "/usr/local/bin",
+)
+
+
+def find_agent(name: str, path: str | None = None, dirs=INSTALL_DIRS) -> str | None:
+    """The agent's executable: on PATH (`path`, or the environment's), else in a folder its installer uses; None when
+    it is in neither."""
+    import os
+    import shutil
+
+    found = shutil.which(name, path=path)
+    if found:
+        return found
+    for d in dirs:
+        candidate = os.path.join(os.path.expanduser(d), name)
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return None
 
 
 @dataclass(frozen=True)

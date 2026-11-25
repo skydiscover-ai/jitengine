@@ -67,6 +67,10 @@ engine then reads more experts from the SSD and runs slower, and in our tests th
 `JITENGINE_BUDGET_GIB` to choose the budget yourself. For Flint on a 24 to 36 GB Mac and Qwen3.6 on a 32 or 36 GB
 Mac, `jitengine` asks for `sudo` to raise the GPU's wired memory limit until the Mac restarts.
 
+The model comes from Hugging Face, at the revision we measured. If your Hugging Face cache (`~/.cache/huggingface`)
+already holds it, `install.sh` uses those files instead of downloading them again. Each engine's `serve --model-path`
+also takes a Hugging Face model id, such as `mlx-community/Qwen3.6-35B-A3B-4bit`, and downloads it into that cache.
+
 Each engine's README has the steps to install it by hand, with Python 3.14.
 
 </details>

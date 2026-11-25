@@ -77,6 +77,7 @@ from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.admission import AdmissionMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.decode import DecodingMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.prefill import PromptProcessingMixin
 from jitengine_qwen3_6_35b_a3b_m4pro.scheduler.score import ScoringMixin
+from jitengine_runtime.hub import checkpoint_name
 
 
 def run_load_checks(cfg, offload: bool) -> tuple:
@@ -179,7 +180,9 @@ class Engine(
         self.model_path = model_path
         self.options = resolve_options(options)
         opt = self.options
-        self.model_name = opt.get("model_name") or model_path
+        # the name /v1/models lists: the checkpoint folder's own name, not its whole path (a model fetched by id
+        # is named by the id: the CLI passes it)
+        self.model_name = opt.get("model_name") or checkpoint_name(model_path)
         self.kv_reserve = int(opt.get("kv_reserve", 512))  # decode tokens pre-sized in the KV
         self.log_requests = bool(opt.get("log_requests", True))
         self.max_context_tokens = int(opt["max_context_tokens"])

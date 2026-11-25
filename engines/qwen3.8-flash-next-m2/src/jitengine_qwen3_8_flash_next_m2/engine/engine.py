@@ -82,6 +82,7 @@ from jitengine_qwen3_8_flash_next_m2.scheduler.retire import RetirementMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.scheduler import SchedulingMixin
 from jitengine_qwen3_8_flash_next_m2.scheduler.score import SCORE_READOUT_ROWS, ScoringMixin
 from jitengine_qwen3_8_flash_next_m2.server.stats import PhaseMeter, Stats, StepTelemetry
+from jitengine_runtime.hub import checkpoint_name
 
 logger = logging.getLogger(__name__)
 
@@ -166,7 +167,9 @@ class Engine(
         self.model_path = model_path
         self.options = dict(options)
         self.memory_budget_bytes = declared_budget_bytes(options)
-        self.model_name = options.get("model_name") or model_path
+        # the name /v1/models lists: the checkpoint folder's own name, not its whole path (a model fetched by id
+        # is named by the id: the CLI passes it)
+        self.model_name = options.get("model_name") or checkpoint_name(model_path)
         self.log_requests = bool(options.get("log_requests", True))
         # Router-lookahead prefetch (0 = off). `prefetch_reserve` is the rotating pool of
         # never-published slots that speculative reads land in.
